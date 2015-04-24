@@ -1,4 +1,3 @@
-
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
