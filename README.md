@@ -30,3 +30,6 @@ N.B. if kpartx used to mount the image the input path may be /media/...<br />
 
 __On Windows:__<br />
 python.exe osxripper.py -i X:\extracted_files_root -o C:\Users\username\Desktop\my_analysis<br />
+
+####Plugin Development Guide
+Check the Wiki page for getting started with plugin development or make use of existing plugins under __plugins/osx__
