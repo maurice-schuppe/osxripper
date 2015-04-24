@@ -22,14 +22,14 @@ N.B. if run on Linux and OSX systems user may have to escalate privileges to roo
 N.B. the output directory must exist
 
 __On OSX:__<br />
-sudo python3 osxripper.py -i /Volumes/my_mounted_volume -o /Users/username/Desktop/my_analysis<br />
+<em>sudo python3 osxripper.py -i /Volumes/my_mounted_volume -o /Users/username/Desktop/my_analysis</em><br />
 
 __On Linux:__<br />
-sudo python3 osxripper.py -i /mnt/hfs_mount -o /home/username/my_analysis<br />
+<em>sudo python3 osxripper.py -i /mnt/hfs_mount -o /home/username/my_analysis</em><br />
 N.B. if kpartx used to mount the image the input path may be /media/...<br />
 
 __On Windows:__<br />
-python.exe osxripper.py -i X:\extracted_files_root -o C:\Users\username\Desktop\my_analysis<br />
+<em>python.exe osxripper.py -i X:\extracted_files_root -o C:\Users\username\Desktop\my_analysis</em><br />
 
 ####Plugin Development Guide
 Check the Wiki page for getting started with plugin development or make use of existing plugins under __plugins/osx__
