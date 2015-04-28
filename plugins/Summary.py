@@ -7,7 +7,7 @@ import codecs
 import logging
 import os
 import plistlib
-import ccl_bplist
+import riplib.ccl_bplist
 
 
 class Summary(Plugin):
@@ -124,7 +124,7 @@ class Summary(Plugin):
                     of.write("=" * 10 + " Local Time Zone " + "=" * 10 + "\r\n")
                     of.write("Source File: {}\r\n\r\n".format(global_plist))
                     bplist = open(global_plist, "rb")
-                    xml = ccl_bplist.load(bplist)
+                    xml = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     if "com.apple.preferences.timezone.selected_city" in xml:
                         of.write("Country      : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["CountryCode"]))
@@ -155,7 +155,7 @@ class Summary(Plugin):
                     of.write("=" * 10 + " Local Time Zone " + "=" * 10 + "\r\n")
                     of.write("Source File: {}\r\n\r\n".format(global_plist))
                     bplist = open(global_plist, "rb")
-                    xml = ccl_bplist.load(bplist)
+                    xml = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     if "com.apple.preferences.timezone.selected_city" in xml:
                         of.write("Country       : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["CountryCode"]))
@@ -195,7 +195,7 @@ class Summary(Plugin):
                         test_plist = os.path.join(working_dir, f)
                         if os.path.isfile(test_plist):
                             bplist = open(test_plist, "rb")
-                            pl = ccl_bplist.load(bplist)
+                            pl = riplib.ccl_bplist.load(bplist)
                             bplist.close()
                             try:
                                 if "home" in pl and "/Users" in pl["home"][0]:  # Only /Users
@@ -288,7 +288,7 @@ class Summary(Plugin):
             of.write("Source File: {}\r\n\r\n".format(file))
             if os.path.isfile(file):
                 bplist = open(file, "rb")
-                plist = ccl_bplist.load(bplist)
+                plist = riplib.ccl_bplist.load(bplist)
                 bplist.close()
                 if "Destinations" in plist:
                     of.write("Time Machine Plist Exists: Yes and Destinations key present.\r\n\r\n")
@@ -309,7 +309,7 @@ class Summary(Plugin):
             if self._os_version == "yosemite":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
                         # BRPairedDevices ARRAY
@@ -370,7 +370,7 @@ class Summary(Plugin):
             elif self._os_version == "mavericks":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
                         # PairedDevices ARRAY
@@ -415,7 +415,7 @@ class Summary(Plugin):
             elif self._os_version == "mountain_lion":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
                         # D2D MAC Address
