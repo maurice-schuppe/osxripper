@@ -47,11 +47,13 @@ class UserAccountsPlist(Plugin):
                     pl = ccl_bplist.load(bplist)
                     bplist.close()
                     try:
+                        name = None
                         if "home" in pl and "/Users" in pl["home"][0]:  # Only /Users
                             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
                             of.write("Source File: {}\r\n\r\n".format(file))
                             if "name" in pl:
                                 of.write("Name          : {}\r\n".format(pl["name"][0]))
+                                name = pl["name"][0]
                             if "realname" in pl:
                                 of.write("Real Name     : {}\r\n".format(pl["realname"][0]))
                             if "home" in pl:
@@ -70,6 +72,12 @@ class UserAccountsPlist(Plugin):
                                 of.write("Shell         : {}\r\n".format(pl["shell"][0]))
                             if "picture" in pl:
                                 of.write("Picture       : {}\r\n".format(pl["picture"][0]))
+                            if "jpegphoto" in pl and name is not None:
+                                jpeg = os.path.join(self._output_dir, "UserAccounts-" + name + "-jpgphoto.jpg")
+                                with open(jpeg, "wb") as jof:
+                                    jof.write(pl["jpegphoto"][0])
+                                    jof.close()
+                                    of.write("Logon Picture: {}".format(jpeg))
                         else:
                             return
                     except KeyError:
