@@ -5,8 +5,9 @@ OSXRipper is a tool to gather system and user information from OSX file systems.
 Here are a couple of alternatives, really wish I had seen iParser before I built OSXRipper...
 
 OSX Auditor - https://github.com/jipegit/OSXAuditor<br />
-iParser - http://az4n6.blogspot.co.uk/2012/08/automated-plist-parser.html<br />
-        - http://www.arizona4n6.com/downloads-2/?did=1
+iParser
+- http://az4n6.blogspot.co.uk/2012/08/automated-plist-parser.html<br />
+- http://www.arizona4n6.com/downloads-2/?did=1
 
 If anyone knows of alternatives I would be more than happy to add them here.
 
