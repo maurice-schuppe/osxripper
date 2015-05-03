@@ -2,7 +2,6 @@
 OSXRipper is a tool to gather system and user information from OSX file systems. Currently it is supporting OSX versions 10.8 - 10.10 (Mountain Lion to Yosemite). Support for may be added as time permits.
 
 ####Alternatives to OSXRipper
-Here are a couple of alternatives, really wish I had seen iParser before I built OSXRipper...
 
 OSX Auditor
 - https://github.com/jipegit/OSXAuditor<br />
