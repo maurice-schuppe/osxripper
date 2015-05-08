@@ -59,7 +59,7 @@ class SystemTime(Plugin):
                 logging.warning("File {} does not exist.".format(ntp_conf))
                 print("[WARNING] File {} does not exist.".format(ntp_conf))
         
-        elif self._os_version == "mountain_lion":
+        elif self._os_version == "mountain_lion" or self._os_version == "lion":
             global_plist = os.path.join(self._input_dir, "Library", "Preferences", ".GlobalPreferences.plist")
             # auto_tz_plist = os.path.join(self._input_dir, "Library", "Caches", "com.apple.AutoTimeZone.plist")
             # tz_auto_plist = os.path.join(self._input_dir, "Library", "Preferences", "com.apple.timezone.auto.plist")
@@ -85,9 +85,9 @@ class SystemTime(Plugin):
             else:
                 logging.warning("File {} does not exist.".format(ntp_conf))
                 print("[WARNING] File {} does not exist.".format(ntp_conf))
-        elif self._os_version == "lion":
-            logging.info("This version of OSX is not supported by this plugin.")
-            print("[INFO] This version of OSX is not supported by this plugin.")
+        # elif self._os_version == "lion":
+            # logging.info("This version of OSX is not supported by this plugin.")
+            # print("[INFO] This version of OSX is not supported by this plugin.")
             # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
         elif self._os_version == "snow_lepoard":
             logging.info("This version of OSX is not supported by this plugin.")
