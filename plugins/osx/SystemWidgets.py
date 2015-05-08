@@ -32,7 +32,8 @@ class SystemWidgets(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             working_dir = os.path.join(self._input_dir, "Library", "Widgets")
             of.write("Source Directory: {}\r\n\r\n".format(working_dir))
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
+                    or self._os_version == "lion":
                 if os.path.isdir(working_dir):
                     file_listing = os.listdir(working_dir)
                     for f in file_listing:
@@ -44,10 +45,10 @@ class SystemWidgets(Plugin):
                     of.write("[WARNING] Directory: {} does not exist or cannot be found.\r\n".format(working_dir))
                     print("[WARNING] Directory: {} does not exist or cannot be found.\r\n".format(working_dir))
             
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "lion":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
