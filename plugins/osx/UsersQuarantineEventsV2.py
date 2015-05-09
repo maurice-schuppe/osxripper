@@ -51,7 +51,8 @@ class UsersQuarantineEventsV2(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Quarantine_Events.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
+                    or self._os_version == "lion":
                 query = "SELECT * FROM LSQuarantineEvent"
                 if os.path.isfile(file):
                     of.write("Source File: {}\r\n\r\n".format(file))
@@ -120,10 +121,10 @@ class UsersQuarantineEventsV2(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
             
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "lion":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
