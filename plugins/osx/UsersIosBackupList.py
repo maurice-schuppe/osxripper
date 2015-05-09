@@ -49,15 +49,16 @@ class UsersIosBackupList(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_ios_backup_list.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
+                    or self._os_version == "lion":
                 dir_listing = os.listdir(file)
                 for file_item in dir_listing:
                     of.write("iOS Backup: {}\r\n".format(file_item))
             
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "lion":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")

@@ -67,11 +67,29 @@ class UsersLoginWindowPlist(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-
             elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                if os.path.isfile(file):
+                    bplist = open(file, "rb")
+                    pl = ccl_bplist.load(bplist)
+                    try:
+                        if "TALLogoutReason" in pl:
+                            of.write("Logout Reason        : {}\r\n".format(pl["TALLogoutReason"]))
+                        if "AutoOpenedWindowDictionary" in pl:
+                            auto_open = pl["AutoOpenedWindowDictionary"]
+                            if "CurrentSpaceID" in auto_open:
+                                of.write("Current Space ID     : {}\r\n".format(auto_open["CurrentSpaceID"]))
+                            if "NumberOfSpaces" in auto_open:
+                                of.write("Number Of Spaces     : {}\r\n".format(auto_open["NumberOfSpaces"]))
+                    except KeyError:
+                        pass
+                    bplist.close()
+                else:
+                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
+                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                # logging.info("This version of OSX is not supported by this plugin.")
+                # print("[INFO] This version of OSX is not supported by this plugin.")
+                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
