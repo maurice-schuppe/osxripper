@@ -51,35 +51,35 @@ class UsersMozillaFirefoxPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
-                if os.path.isfile(file):
-                    bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
-                    try:
-                        # NSTreatUnknownArgumentsAsOpen
-                        if "NSTreatUnknownArgumentsAsOpen" in plist:
-                            of.write("Treat Unknown Arguments As Open: {}\r\n\r\n".format(plist["NSTreatUnknownArgumentsAsOpen"]))
-                        if "NSNavLastRootDirectory" in plist:
-                            of.write("Nav Last Root Directory        : {}\r\n\r\n".format(plist["NSNavLastRootDirectory"]))
-                        of.write("\r\n")
-                    except KeyError:
-                        pass
-                    bplist.close()
-                else:
-                    logging.warning("File: {} does not exist or cannot be found.".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
-            
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if os.path.isfile(file):
+                bplist = open(file, "rb")
+                plist = ccl_bplist.load(bplist)
+                try:
+                    # NSTreatUnknownArgumentsAsOpen
+                    if "NSTreatUnknownArgumentsAsOpen" in plist:
+                        of.write("Treat Unknown Arguments As Open: {}\r\n\r\n".format(plist["NSTreatUnknownArgumentsAsOpen"]))
+                    if "NSNavLastRootDirectory" in plist:
+                        of.write("Nav Last Root Directory        : {}\r\n\r\n".format(plist["NSNavLastRootDirectory"]))
+                    of.write("\r\n")
+                except KeyError:
+                    pass
+                bplist.close()
             else:
-                logging.warning("Not a known OSX version.")
-                print("[WARNING] Not a known OSX version.")
+                logging.warning("File: {} does not exist or cannot be found.".format(file))
+                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+            
+            # elif self._os_version == "lion":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "snow_leopard":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # else:
+            #     logging.warning("Not a known OSX version.")
+            #     print("[WARNING] Not a known OSX version.")
             of.write("="*40 + "\r\n\r\n")
         of.close()
