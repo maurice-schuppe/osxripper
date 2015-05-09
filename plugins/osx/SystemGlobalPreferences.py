@@ -33,7 +33,8 @@ class SystemGlobalPreferences(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             global_plist = os.path.join(self._input_dir, "Library", "Preferences", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(global_plist))
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
+                    or self._os_version == "lion":
                 if os.path.isfile(global_plist):
                     bplist = open(global_plist, "rb")
                     plist = ccl_bplist.load(bplist)
