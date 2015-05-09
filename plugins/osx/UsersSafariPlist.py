@@ -111,9 +111,35 @@ class UsersSafariPlist(Plugin):
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
 
             elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                if os.path.isfile(file):
+                    bplist = open(file, "rb")
+                    plist = ccl_bplist.load(bplist)
+                    try:
+                        # RecentSearchStrings ARRAY of STRING
+                        if "RecentSearchStrings" in plist:
+                            of.write("Recent Search Strings:\r\n")
+                            for search_string in plist["RecentSearchStrings"]:
+                                of.write("\t{}\r\n".format(search_string))
+                            of.write("\r\n")
+                        # DownloadsPath
+                        if "DownloadsPath" in plist:
+                            of.write("Downloads Path                 : {}\r\n".format(plist["DownloadsPath"]))
+                        # LocalFileRestrictionsEnabled
+                        # if "LocalFileRestrictionsEnabled" in plist:
+                        #     of.write("Local File Restrictions Enabled: {}\r\n".format(plist["LocalFileRestrictionsEnabled"]))
+                        # CachedBookmarksFileSize
+                        if "CachedBookmarksFileSize" in plist:
+                            of.write("Cached Bookmarks File Size     : {}\r\n".format(plist["CachedBookmarksFileSize"]))
+                    except KeyError:
+                        pass
+                    bplist.close()
+                else:
+                    logging.warning("File: {} does not exist or cannot be found.".format(file))
+                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                # logging.info("This version of OSX is not supported by this plugin.")
+                # print("[INFO] This version of OSX is not supported by this plugin.")
+                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")

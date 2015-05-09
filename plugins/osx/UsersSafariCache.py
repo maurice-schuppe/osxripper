@@ -88,9 +88,44 @@ class UsersSafariCache(Plugin):
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
             
             elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                query = "SELECT request_key, time_stamp FROM cfurl_cache_response"
+                if os.path.isfile(file):
+                    of.write("Source File: {}\r\n\r\n".format(file))
+                    conn = None
+                    try:
+                        conn = sqlite3.connect(file)
+                        with conn:
+                            cur = conn.cursor()
+                            cur.execute(query)
+                            rows = cur.fetchall()
+                            for row in rows:
+                                if row[0] is None:
+                                    of.write("Request Key:\r\n")
+                                else:
+                                    of.write("Request Key: {}\r\n".format(row[0]))
+                                # if row[1] is None:
+                                #     of.write("Partition  :\r\n")
+                                # else:
+                                #     of.write("Partition  : {}\r\n".format(row[1]))
+                                if row[1] is None:
+                                    of.write("Timestamp  :\r\n")
+                                else:
+                                    of.write("Timestamp  : {}\r\n".format(row[1]))
+                                of.write("\r\n")
+
+                    except sqlite3.Error as e:
+                        logging.error("{}".format(e.args[0]))
+                        print("[ERROR] {}".format(e.args[0]))
+                    finally:
+                        if conn:
+                            conn.close()
+                else:
+                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
+                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                # logging.info("This version of OSX is not supported by this plugin.")
+                # print("[INFO] This version of OSX is not supported by this plugin.")
+                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")

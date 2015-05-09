@@ -50,7 +50,8 @@ class UsersSafariWebBookmarks(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Web_Bookmarks.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
+                    or self._os_version == "lion":
                 plist_dir_list = os.listdir(file)
                 for wb_file in plist_dir_list:
                     wb_plist = os.path.join(file, wb_file)
@@ -74,10 +75,10 @@ class UsersSafariWebBookmarks(Plugin):
                         of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                         print("[WARNING] File: {} does not exist or cannot be found.".format(file))
             
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "lion":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
