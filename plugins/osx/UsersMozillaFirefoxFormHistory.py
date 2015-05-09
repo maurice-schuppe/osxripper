@@ -55,62 +55,62 @@ class UsersMozillaFirefoxFormHistory(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox_Form_History.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
-                if os.path.isfile(file):
-                    of.write("Source File: {}\r\n\r\n".format(file))
-                    conn = None
-                    try:
-                        query = "SELECT fieldname,value,timesUsed,datetime(firstUsed / 1000000, 'unixepoch'),datetime(lastUsed / 1000000, 'unixepoch') FROM moz_formhistory ORDER BY firstUsed"
-                        conn = sqlite3.connect(file)
-                        with conn:    
-                            cur = conn.cursor()
-                            cur.execute(query)
-                            rows = cur.fetchall()
-                            for row in rows:
-                                if row[0] is None:
-                                    of.write("Field Name:\r\n")
-                                else:
-                                    of.write("Field Name: {}\r\n".format(row[0]))
-                                if row[1] is None:
-                                    of.write("Value     :\r\n")
-                                else:
-                                    of.write("Value     : {}\r\n".format(row[1]))
-                                if row[2] is None:
-                                    of.write("Times Used:\r\n")
-                                else:
-                                    of.write("Times Used: {}\r\n".format(row[2]))
-                                if row[3] is None:
-                                    of.write("First Used:\r\n")
-                                else:
-                                    of.write("First Used: {}\r\n".format(row[3]))
-                                if row[4] is None:
-                                    of.write("Last Used :\r\n")
-                                else:
-                                    of.write("Last Used : {}\r\n".format(row[4]))
-                                
-                                of.write("\r\n")
-                                
-                    except sqlite3.Error as e:
-                        logging.error("{}".format(e.args[0]))
-                        print("[ERROR] {}".format(e.args[0]))
-                    finally:
-                        if conn:
-                            conn.close()
-                else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-            
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if os.path.isfile(file):
+                of.write("Source File: {}\r\n\r\n".format(file))
+                conn = None
+                try:
+                    query = "SELECT fieldname,value,timesUsed,datetime(firstUsed / 1000000, 'unixepoch'),datetime(lastUsed / 1000000, 'unixepoch') FROM moz_formhistory ORDER BY firstUsed"
+                    conn = sqlite3.connect(file)
+                    with conn:
+                        cur = conn.cursor()
+                        cur.execute(query)
+                        rows = cur.fetchall()
+                        for row in rows:
+                            if row[0] is None:
+                                of.write("Field Name:\r\n")
+                            else:
+                                of.write("Field Name: {}\r\n".format(row[0]))
+                            if row[1] is None:
+                                of.write("Value     :\r\n")
+                            else:
+                                of.write("Value     : {}\r\n".format(row[1]))
+                            if row[2] is None:
+                                of.write("Times Used:\r\n")
+                            else:
+                                of.write("Times Used: {}\r\n".format(row[2]))
+                            if row[3] is None:
+                                of.write("First Used:\r\n")
+                            else:
+                                of.write("First Used: {}\r\n".format(row[3]))
+                            if row[4] is None:
+                                of.write("Last Used :\r\n")
+                            else:
+                                of.write("Last Used : {}\r\n".format(row[4]))
+
+                            of.write("\r\n")
+
+                except sqlite3.Error as e:
+                    logging.error("{}".format(e.args[0]))
+                    print("[ERROR] {}".format(e.args[0]))
+                finally:
+                    if conn:
+                        conn.close()
             else:
-                logging.warning("Not a known OSX version.")
-                print("[WARNING] Not a known OSX version.")
+                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+            
+            # elif self._os_version == "lion":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "snow_leopard":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # else:
+            #     logging.warning("Not a known OSX version.")
+            #     print("[WARNING] Not a known OSX version.")
             of.write("="*40 + "\r\n\r\n")
         of.close()
