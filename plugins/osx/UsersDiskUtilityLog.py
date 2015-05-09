@@ -48,17 +48,18 @@ class UsersDiskUtilityLog(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
+                    or self._os_version == "lion":
                 with codecs.open(file, "r", encoding="utf-8") as du:
                     for line in du.readlines():
                         if "**" not in line and len(line) != 0:
                             of.write(line.replace("\n", "\r\n"))
                 du.close()
             
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "lion":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
