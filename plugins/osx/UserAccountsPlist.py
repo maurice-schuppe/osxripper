@@ -78,7 +78,7 @@ class UserAccountsPlist(Plugin):
                                 with open(jpeg, "wb") as jof:
                                     jof.write(pl["jpegphoto"][0])
                                     jof.close()
-                                    of.write("Logon Picture: {}".format(jpeg))
+                                    of.write("Logon Picture: {}\r\n".format(jpeg))
                         else:
                             return
                     except KeyError:
