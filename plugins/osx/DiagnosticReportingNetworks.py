@@ -28,7 +28,7 @@ class DiagnosticReportingNetworks(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             file = os.path.join(self._input_dir, "Library", "Caches", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if self._os_version == "mavericks" or self._os_version == "mountain_lion" or self._os_version == "lion":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     pl = ccl_bplist.load(bplist)
@@ -49,10 +49,10 @@ class DiagnosticReportingNetworks(Plugin):
                 logging.info("This version of OSX is not supported this plugin.")
                 print("[INFO] This version of OSX is not supported this plugin.")
                 of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported this plugin.")
-                print("[INFO] This version of OSX is not supported this plugin.")
-                of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
+            # elif self._os_version == "lion":
+            #     logging.info("This version of OSX is not supported this plugin.")
+            #     print("[INFO] This version of OSX is not supported this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported this plugin.")
                 print("[INFO] This version of OSX is not supported this plugin.")
