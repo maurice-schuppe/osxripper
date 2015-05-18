@@ -53,7 +53,7 @@ class UsersApplications(Plugin):
                 for user_dir in dirs:
                     if user_dir.endswith(".app"):
                         # print(root, os.path.sep, user_dir, sep="")
-                        of.write("{0}{1}{2}".format(root, os.path.sep, user_dir, sep=""))
+                        of.write("{0}{1}{2}\r\n".format(root, os.path.sep, user_dir, sep=""))
 
             of.write("="*40 + "\r\n\r\n")
         of.close()
