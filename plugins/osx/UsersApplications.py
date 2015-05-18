@@ -52,7 +52,6 @@ class UsersApplications(Plugin):
             for root, dirs, files in os.walk(file):
                 for user_dir in dirs:
                     if user_dir.endswith(".app"):
-                        # print(root, os.path.sep, user_dir, sep="")
                         of.write("{0}{1}{2}\r\n".format(root, os.path.sep, user_dir, sep=""))
 
             of.write("="*40 + "\r\n\r\n")
