@@ -10,13 +10,16 @@ iParser
 - http://az4n6.blogspot.co.uk/2012/08/automated-plist-parser.html<br />
 - http://www.arizona4n6.com/downloads-2/?did=1
 
-If anyone knows of alternatives I would be more than happy to add them here.
+Mac Plist Ripper
+- https://bitbucket.org/chrishargreaves/mac_plist_ripper
 
-__Prereqs__<br />
-Assumes at least Python 3.4.3 is installed
+If anyone knows of alternatives I would be more than happy to add them here.
 
 ####Uses the CCL Forensics BPlist parser
 https://code.google.com/p/ccl-bplist/
+
+__Prereqs__<br />
+Assumes at least Python 3.4.3 is installed
 
 ####Usage
 
