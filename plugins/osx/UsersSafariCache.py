@@ -51,7 +51,8 @@ class UsersSafariCache(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Cache.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
-                query = "SELECT request_key, partition, time_stamp FROM cfurl_cache_response"
+                # query = "SELECT request_key, partition, time_stamp FROM cfurl_cache_response"
+                query = "SELECT request_key, time_stamp FROM cfurl_cache_response"
                 if os.path.isfile(file):
                     of.write("Source File: {}\r\n\r\n".format(file))
                     conn = None
@@ -66,11 +67,11 @@ class UsersSafariCache(Plugin):
                                     of.write("Request Key:\r\n")
                                 else:
                                     of.write("Request Key: {}\r\n".format(row[0]))
+                                # if row[1] is None:
+                                #     of.write("Partition  :\r\n")
+                                # else:
+                                #     of.write("Partition  : {}\r\n".format(row[1]))
                                 if row[1] is None:
-                                    of.write("Partition  :\r\n")
-                                else:
-                                    of.write("Partition  : {}\r\n".format(row[1]))
-                                if row[2] is None:
                                     of.write("Timestamp  :\r\n")
                                 else:
                                     of.write("Timestamp  : {}\r\n".format(row[2]))
