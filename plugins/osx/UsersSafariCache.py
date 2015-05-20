@@ -104,10 +104,6 @@ class UsersSafariCache(Plugin):
                                     of.write("Request Key:\r\n")
                                 else:
                                     of.write("Request Key: {}\r\n".format(row[0]))
-                                # if row[1] is None:
-                                #     of.write("Partition  :\r\n")
-                                # else:
-                                #     of.write("Partition  : {}\r\n".format(row[1]))
                                 if row[1] is None:
                                     of.write("Timestamp  :\r\n")
                                 else:
