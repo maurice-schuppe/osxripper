@@ -26,7 +26,7 @@ class UsersTunnelBear(Plugin):
     
     def parse(self):
         """
-        Find the xml file
+        Scan for the plist
         """
         users_path = os.path.join(self._input_dir, "Users")
         # username = None
@@ -44,6 +44,9 @@ class UsersTunnelBear(Plugin):
             print("[WARNING] {} does not exist.".format(users_path))
             
     def __parse_plist(self, file, username):
+        """
+        Parse /Users/{username}/Library/Preferences/com.tunnelbear.mac.TunnelBear.plist
+        """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_VPN_TunnelBear.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
