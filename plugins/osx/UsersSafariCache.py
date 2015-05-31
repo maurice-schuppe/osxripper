@@ -74,7 +74,7 @@ class UsersSafariCache(Plugin):
                                 if row[1] is None:
                                     of.write("Timestamp  :\r\n")
                                 else:
-                                    of.write("Timestamp  : {}\r\n".format(row[2]))
+                                    of.write("Timestamp  : {}\r\n".format(row[1]))
                                 of.write("\r\n")
                             
                     except sqlite3.Error as e:
