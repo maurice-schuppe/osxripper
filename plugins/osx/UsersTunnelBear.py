@@ -18,7 +18,7 @@ class UsersTunnelBear(Plugin):
         Initialise the class.
         """
         super().__init__()
-        self._name = "Tunnelbear VPN Configuration"
+        self._name = "User Tunnelbear VPN Configuration"
         self._description = "Parse information from /Users/{username}/Library/Preferences/com.tunnelbear.mac.TunnelBear.plist file"
         self._data_file = "com.tunnelbear.mac.TunnelBear.plist"
         self._output_file = ""  # this will have to be defined per user account
