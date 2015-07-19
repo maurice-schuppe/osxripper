@@ -44,7 +44,7 @@ class Summary(Plugin):
             plist_file = os.path.join(self._input_dir, "Library", "Preferences", "SystemConfiguration", "com.apple.smb.server.plist")
             of.write("Source File: {}\r\n\r\n".format(plist_file))
             if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion":
+                    or self._os_version == "lion" or self._os_version == "snow_leopard":
                 if os.path.isfile(plist_file):
                     try:
                         with open(plist_file, "rb") as pl:
@@ -63,10 +63,10 @@ class Summary(Plugin):
             #     logging.info("This version of OSX is not supported by this plugin.")
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "snow_leopard":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
@@ -81,7 +81,7 @@ class Summary(Plugin):
         if os.path.isdir(working_dir):
             file_listing = os.listdir(working_dir)
             if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion":
+                    or self._os_version == "lion" or self._os_version == "snow_leopard":
                 with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
                     of.write("="*10 + " DHCP Leases " + "="*10 + "\r\n")
                     for f in file_listing:
@@ -100,9 +100,9 @@ class Summary(Plugin):
             # elif self._os_version == "lion":
             #     logging.info("This version of OSX is not supported by this plugin.")
             #     print("[INFO] This version of OSX is not supported by this plugin.")
-            elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
+            # elif self._os_version == "snow_leopard":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
@@ -151,7 +151,7 @@ class Summary(Plugin):
                 logging.warning("File {} does not exist.".format(global_plist))
                 print("[WARNING] File {} does not exist.".format(global_plist))
 
-        elif self._os_version == "mountain_lion" or self._os_version == "lion":
+        elif self._os_version == "mountain_lion" or self._os_version == "lion" or self._os_version == "snow_leopard":
             if os.path.isfile(global_plist):
                 with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
                     of.write("=" * 10 + " Local Time Zone " + "=" * 10 + "\r\n")
@@ -174,9 +174,9 @@ class Summary(Plugin):
         #     logging.info("This version of OSX is not supported by this plugin.")
         #     print("[INFO] This version of OSX is not supported by this plugin.")
             # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-        elif self._os_version == "snow_lepoard":
-            logging.info("This version of OSX is not supported by this plugin.")
-            print("[INFO] This version of OSX is not supported by this plugin.")
+        # elif self._os_version == "snow_lepoard":
+        #     logging.info("This version of OSX is not supported by this plugin.")
+        #     print("[INFO] This version of OSX is not supported by this plugin.")
             # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
         else:
             logging.warning("Not a known OSX version.")
@@ -236,9 +236,52 @@ class Summary(Plugin):
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                for f in file_listing:
+                    stat_info = os.stat(working_dir + os.path.sep + f)
+                    if f.endswith(".plist") and stat_info.st_size > 0:
+                        test_plist = os.path.join(working_dir, f)
+                        if os.path.isfile(test_plist):
+                            try:
+                                name = None
+                                with open(test_plist, "rb") as pl:
+                                    plist = plistlib.load(pl)
+                                    if "home" in plist and "/Users" in plist["home"][0]:  # Only /Users
+                                        of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
+                                        of.write("Source File: {}\r\n\r\n".format(f))
+                                        if "name" in plist:
+                                            of.write("Name          : {}\r\n".format(plist["name"][0]))
+                                            name = plist["name"][0]
+                                        if "realname" in plist:
+                                            of.write("Real Name     : {}\r\n".format(plist["realname"][0]))
+                                        if "home" in plist:
+                                            of.write("Home          : {}\r\n".format(plist["home"][0]))
+                                        if "hint" in plist:
+                                            of.write("Password Hint : {}\r\n".format(plist["hint"][0]))
+                                        if "authentication_authority" in plist:
+                                            of.write("Authentication: {}\r\n".format(plist["authentication_authority"]))
+                                        if "uid" in plist:
+                                            of.write("UID           : {}\r\n".format(plist["uid"][0]))
+                                        if "gid" in plist:
+                                            of.write("GID           : {}\r\n".format(plist["gid"][0]))
+                                        if "generateduid" in plist:
+                                            of.write("Generated UID : {}\r\n".format(plist["generateduid"][0]))
+                                        if "shell" in plist:
+                                            of.write("Shell         : {}\r\n".format(plist["shell"][0]))
+                                        if "picture" in plist:
+                                            of.write("Picture       : {}\r\n".format(plist["picture"][0]))
+                                        if "jpegphoto" in plist and name is not None:
+                                            jpeg = os.path.join(self._output_dir, "UserAccounts-" + name + "-jpgphoto.jpg")
+                                            with open(jpeg, "wb") as jof:
+                                                jof.write(plist["jpegphoto"][0])
+                                                jof.close()
+                                                of.write("Logon Picture: {}\r\n".format(jpeg))
+                                    else:
+                                        return
+                            except KeyError:
+                                pass
+                # logging.info("This version of OSX is not supported by this plugin.")
+                # print("[INFO] This version of OSX is not supported by this plugin.")
+                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
@@ -550,9 +593,95 @@ class Summary(Plugin):
                 # print("[INFO] This version of OSX is not supported by this plugin.")
                 # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                if os.path.isfile(file):
+                    bplist = open(file, "rb")
+                    plist = riplib.ccl_bplist.load(bplist)
+                    bplist.close()
+                    try:
+                        # BluetoothAutoSeekHIDDevices
+                        if "BluetoothAutoSeekHIDDevices" in plist:
+                            of.write("Bluetooth Auto Seek HID Devices: {}\r\n".format(plist["BluetoothAutoSeekHIDDevices"]))
+                        # ControllerPowerState
+                        if "ControllerPowerState" in plist:
+                            of.write("Controller Power State         : {}\r\n".format(plist["ControllerPowerState"]))
+                        # BluetoothVersionNumber
+                        if "BluetoothVersionNumber" in plist:
+                            of.write("Bluetooth Version Number       : {}\r\n".format(plist["BluetoothVersionNumber"]))
+                        # DaemonControllersConfigurationKey
+                        if "DaemonControllersConfigurationKey" in plist:
+                            of.write("Daemon Controllers Configuration Key:\r\n")
+                            for dmcck_key in plist["DaemonControllersConfigurationKey"]:
+                                # INNER DICT
+                                of.write("\t{}\r\n".format(dmcck_key))
+                                for item in plist["DaemonControllersConfigurationKey"][dmcck_key]:
+                                    of.write("\t\t{}: {}\r\n".format(item, plist["DaemonControllersConfigurationKey"][dmcck_key][item]))
+                        # HIDDevices
+                        if "HIDDevices" in plist:
+                            hid_array = plist["PairedDevices"]
+                            of.write("HID Devices: {}\r\n")
+                            for hid_device in hid_array:
+                                of.write("\t{}\r\n".format(hid_device))
+                        # DeviceCache
+                        if "DeviceCache" in plist:
+                            of.write("Device Cache\r\n")
+                            for cached_device in plist["DeviceCache"]:
+                                # MAC ADDRESS
+                                of.write("\tCached Device: {}\r\n".format(cached_device))
+                                for device_data in plist["DeviceCache"][cached_device]:
+                                    # Name
+                                    if "Name" in device_data:
+                                        of.write("\t\tName: {}\r\n".format(plist["DeviceCache"][cached_device]["Name"]))
+                                    # Manufacturer
+                                    if "Manufacturer" in device_data:
+                                        of.write("\t\tManufacturer: {}\r\n".format(plist["DeviceCache"][cached_device]["Manufacturer"]))
+                                    # ClassOfDevice
+                                    if "ClassOfDevice" in device_data:
+                                        of.write("\t\tClass Of Device: {}\r\n".format(plist["DeviceCache"][cached_device]["ClassOfDevice"]))
+                                    # BatteryPercent
+                                    if "BatteryPercent" in device_data:
+                                        of.write("\t\tBattery Percent: {}\r\n".format(plist["DeviceCache"][cached_device]["BatteryPercent"]))
+                                    # ClockOffset
+                                    if "ClockOffset" in device_data:
+                                        of.write("\t\tClock Offset: {}\r\n".format(plist["DeviceCache"][cached_device]["ClockOffset"]))
+                                    # LastNameUpdate
+                                    if "LastNameUpdate" in device_data:
+                                        of.write("\t\tLast Name Update: {}\r\n".format(plist["DeviceCache"][cached_device]["LastNameUpdate"]))
+                                    # LastServicesUpdate
+                                    if "LastServicesUpdate" in device_data:
+                                        of.write("\t\tLast Services Update: {}\r\n".format(plist["DeviceCache"][cached_device]["LastServicesUpdate"]))
+                                    # LastInquiryUpdate
+                                    if "LastInquiryUpdate" in device_data:
+                                        of.write("\t\tLast Inquiry Update: {}\r\n".format(plist["DeviceCache"][cached_device]["LastInquiryUpdate"]))
+                                    # LMPVersion
+                                    if "LMPVersion" in device_data:
+                                        of.write("\t\tLMP Version: {}\r\n".format(plist["DeviceCache"][cached_device]["LMPVersion"]))
+                                    # LMPSubversion
+                                    if "LMPSubversion" in device_data:
+                                        of.write("\t\tLMP Subversion: {}\r\n".format(plist["DeviceCache"][cached_device]["LMPSubversion"]))
+                                    # InquiryRSSI
+                                    if "InquiryRSSI" in device_data:
+                                        of.write("\t\tInquiry RSSI: {}\r\n".format(plist["DeviceCache"][cached_device]["InquiryRSSI"]))
+                                    # PageScanMode
+                                    if "PageScanMode" in device_data:
+                                        of.write("\t\tPage Scan Mode: {}\r\n".format(plist["DeviceCache"][cached_device]["PageScanMode"]))
+                                    # PageScanPeriod
+                                    if "PageScanPeriod" in device_data:
+                                        of.write("\t\tPage Scan Period: {}\r\n".format(plist["DeviceCache"][cached_device]["PageScanPeriod"]))
+                                    # PageScanRepetitionMode
+                                    if "PageScanRepetitionMode" in device_data:
+                                        of.write("\t\tPage Scan Repetition Mode: {}\r\n".format(plist["DeviceCache"][cached_device]["PageScanRepetitionMode"]))
+                        # PairedDevices
+                        if "PairedDevices" in plist:
+                            paired_array = plist["PairedDevices"]
+                            of.write("Paired Devices:\r\n")
+                            for paired_device in paired_array:
+                                of.write("\t{}\r\n".format(paired_device))
+                    except KeyError:
+                        pass
+                    of.write("\r\n")
+                # logging.info("This version of OSX is not supported by this plugin.")
+                # print("[INFO] This version of OSX is not supported by this plugin.")
+                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
@@ -567,7 +696,7 @@ class Summary(Plugin):
             plist_file = os.path.join(self._input_dir, "Library", "Receipts", "InstallHistory.plist")
             of.write("Source File: {}\r\n\r\n".format(plist_file))
             if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion":
+                    or self._os_version == "lion" or self._os_version == "snow_leopard":
                 if os.path.isfile(plist_file):
                     try:
                         with open(plist_file, "rb") as pl:
@@ -599,10 +728,10 @@ class Summary(Plugin):
             #     logging.info("This version of OSX is not supported by this plugin.")
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "snow_leopard":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
