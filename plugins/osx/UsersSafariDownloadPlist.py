@@ -5,6 +5,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import plistlib
 import ccl_bplist
 
 
@@ -117,9 +118,36 @@ class UsersSafariDownloadPlist(Plugin):
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                if os.path.isfile(file):
+                    try:
+                        with open(file, "rb") as pl:
+                            plist = plistlib.load(pl)
+                            pl.close()
+                        if "DownloadHistory" in plist:
+                            downloads = plist["DownloadHistory"]
+                            for download in downloads:
+                                if "DownloadEntryURL" in download:
+                                    of.write("URL                   : {}\r\n".format(download["DownloadEntryURL"]))
+                                if "DownloadEntryIdentifier" in download:
+                                    of.write("Identifier            : {}\r\n".format(download["DownloadEntryIdentifier"]))
+                                if "DownloadEntryPath" in download:
+                                    of.write("Path                  : {}\r\n".format(download["DownloadEntryPath"]))
+                                if "DownloadEntryPostPath" in download:
+                                    of.write("Post Path             : {}\r\n".format(download["DownloadEntryPostPath"]))
+                                if "DownloadEntryProgressBytesSoFar" in download:
+                                    of.write("Progress Bytes So Far : {}\r\n".format(download["DownloadEntryProgressBytesSoFar"]))
+                                if "DownloadEntryProgressTotalToLoad" in download:
+                                    of.write("Progress Total To Load: {}\r\n".format(download["DownloadEntryProgressTotalToLoad"]))
+                                of.write("\r\n")
+                    except KeyError:
+                        pass
+                else:
+                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
+                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                # logging.info("This version of OSX is not supported by this plugin.")
+                # print("[INFO] This version of OSX is not supported by this plugin.")
+                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

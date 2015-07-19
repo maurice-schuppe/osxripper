@@ -84,9 +84,32 @@ class UsersSafariLastSession(Plugin):
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                if os.path.isfile(file):
+                    bplist = open(file, "rb")
+                    plist = ccl_bplist.load(bplist)
+                    try:
+                        if "SessionWindows" in plist:
+                            for session_window in plist["SessionWindows"]:
+                                if "TabStates" in session_window:
+                                    of.write("Tabs:\r\n")
+                                    for tab_state in session_window["TabStates"]:
+                                        if "BackForwardList" in tab_state:
+                                            for back_forward_list in tab_state["BackForwardList"]:
+                                                if "URL" in back_forward_list:
+                                                    of.write("\tTab URL  : {}\r\n".format(back_forward_list["URL"]))
+                                                if "Title" in back_forward_list:
+                                                    of.write("\tTab Title: {}\r\n".format(back_forward_list["Title"]))
+                                        of.write("\r\n")
+                    except KeyError:
+                        pass
+                    bplist.close()
+                else:
+                    logging.warning("File: {} does not exist or cannot be found.".format(file))
+                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                # logging.info("This version of OSX is not supported by this plugin.")
+                # print("[INFO] This version of OSX is not supported by this plugin.")
+                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

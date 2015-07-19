@@ -53,7 +53,9 @@ class UsersChromeLoginData(Plugin):
             history_db = os.path.join(file, self._data_file)
             query = "SELECT username_value,display_name,origin_url,action_url,datetime((date_created / 1000000)-11644473600, 'unixepoch')," \
                     "datetime((date_synced / 1000000)-11644473600, 'unixepoch'),signon_realm,ssl_valid,preferred,times_used,blacklisted_by_user," \
-                    "scheme,password_type,avatar_url,federation_url,is_zero_click FROM logins ORDER BY username_value"
+                    "scheme,password_type,avatar_url,federation_url FROM logins ORDER BY username_value"
+#  "scheme,password_type,avatar_url,federation_url,is_zero_click FROM logins ORDER BY username_value"
+
             if os.path.isfile(history_db):
                 of.write("Source File: {}\r\n\r\n".format(history_db))
                 of.write("N.B. Creds are stored as BLOBS, not retrieved by this plugin\r\n\r\n")
@@ -144,10 +146,10 @@ class UsersChromeLoginData(Plugin):
                                 else:
                                     of.write("Federation URL     : {}\r\n".format(row[14]))
                                 # is_zero_click
-                                if row[15] is None:
-                                    of.write("Is Zero Click      :\r\n")
-                                else:
-                                    of.write("Is Zero Click      : {}\r\n".format(row[15]))
+                                # if row[15] is None:
+                                #     of.write("Is Zero Click      :\r\n")
+                                # else:
+                                #     of.write("Is Zero Click      : {}\r\n".format(row[15]))
                                 of.write("\r\n")
                 except sqlite3.Error as e:
                     logging.error("{}".format(e.args[0]))

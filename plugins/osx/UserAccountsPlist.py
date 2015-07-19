@@ -6,6 +6,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import plistlib
 import ccl_bplist
 
 
@@ -93,9 +94,52 @@ class UserAccountsPlist(Plugin):
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                # Snow Leopard uses plain plists
+                # print(file)
+                with open(file, 'rb') as pl:
+                    try:
+                        name = None
+                        plist = plistlib.load(pl)
+                        pl.close()
+                        # print(plist)
+                        if "home" in plist and "/Users" in plist["home"][0]:  # Only /Users
+                            of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
+                            of.write("Source File: {}\r\n\r\n".format(file))
+                            if "name" in plist:
+                                of.write("Name          : {}\r\n".format(plist["name"][0]))
+                                name = plist["name"][0]
+                            if "realname" in plist:
+                                of.write("Real Name     : {}\r\n".format(plist["realname"][0]))
+                            if "home" in plist:
+                                of.write("Home          : {}\r\n".format(plist["home"][0]))
+                            if "hint" in plist:
+                                of.write("Password Hint : {}\r\n".format(plist["hint"][0]))
+                            if "authentication_authority" in plist:
+                                of.write("Authentication: {}\r\n".format(plist["authentication_authority"]))
+                            if "uid" in plist:
+                                of.write("UID           : {}\r\n".format(plist["uid"][0]))
+                            if "gid" in plist:
+                                of.write("GID           : {}\r\n".format(plist["gid"][0]))
+                            if "generateduid" in plist:
+                                of.write("Generated UID : {}\r\n".format(plist["generateduid"][0]))
+                            if "shell" in plist:
+                                of.write("Shell         : {}\r\n".format(plist["shell"][0]))
+                            if "picture" in plist:
+                                of.write("Picture       : {}\r\n".format(plist["picture"][0]))
+                            if "jpegphoto" in plist and name is not None:
+                                jpeg = os.path.join(self._output_dir, "UserAccounts-" + name + "-jpgphoto.jpg")
+                                with open(jpeg, "wb") as jof:
+                                    jof.write(plist["jpegphoto"][0])
+                                    jof.close()
+                                    of.write("Logon Picture: {}\r\n".format(jpeg))
+                        else:
+                            return
+                    except KeyError:
+                        pass
+
+                # logging.info("This version of OSX is not supported by this plugin.")
+                # print("[INFO] This version of OSX is not supported by this plugin.")
+                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

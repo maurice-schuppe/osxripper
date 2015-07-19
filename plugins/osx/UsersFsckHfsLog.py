@@ -52,7 +52,7 @@ class UsersFsckHfsLog(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion":
+                    or self._os_version == "lion" or self._os_version == "snow_leopard":
                 with codecs.open(file, "r", encoding="utf-8") as fsck:
                     for line in fsck.readlines():
                         # fsck_hfs started
@@ -70,10 +70,10 @@ class UsersFsckHfsLog(Plugin):
             #     logging.info("This version of OSX is not supported by this plugin.")
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "snow_leopard":
+                # logging.info("This version of OSX is not supported by this plugin.")
+                # print("[INFO] This version of OSX is not supported by this plugin.")
+                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

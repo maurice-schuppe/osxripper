@@ -176,9 +176,144 @@ class NetworkPreferences(Plugin):
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                if os.path.isfile(plist_file):
+                    with open(plist_file, "rb") as pl:
+                        plist = plistlib.load(pl)
+                    try:
+                        # CurrentSet
+                        if "CurrentSet" in plist:
+                            of.write("Current Set: {}\r\n".format(plist["CurrentSet"]))
+                        # NetworkServices
+                        of.write("Network Services:\r\n")
+                        network_services = plist["NetworkServices"]
+                        for network_service_name in network_services:
+                            of.write("Network Service Name: {}\r\n".format(network_service_name))
+                            network_service = network_services[network_service_name]  # DICT of DICTS
+                            if "DNS" in network_service:
+                                of.write("\tDNS              : {}\r\n".format(str(network_service["DNS"])))
+                            if "IPv4" in network_service:
+                                of.write("\tIPv4             : {}\r\n".format(network_service["IPv4"]["ConfigMethod"]))
+                            if "IPv6" in network_service:
+                                of.write("\tIPv6             : {}\r\n".format(network_service["IPv6"]["ConfigMethod"]))
+                            if "Interface" in network_service:
+                                of.write("\tInterface:\r\n")
+                                of.write("\t\tDevice Name      : {}\r\n".format(network_service["Interface"]["DeviceName"]))
+                                of.write("\t\tHardware         : {}\r\n".format(network_service["Interface"]["Hardware"]))
+                                of.write("\t\tType             : {}\r\n".format(network_service["Interface"]["Type"]))
+                                of.write("\t\tUser Defined Name: {}\r\n".format(network_service["Interface"]["UserDefinedName"]))
+                            if "Proxies" in network_service:
+                                proxies = network_service["Proxies"]
+                                if "ExceptionsList" in proxies:
+                                    of.write("\tExceptions List:\r\n")
+                                    for proxy_exception in proxies["ExceptionsList"]:
+                                        of.write("\t\t{}\r\n".format(proxy_exception))
+                                if "FTPPassive" in proxies:
+                                    of.write("\tFTP Passive: {}\r\n".format(proxies["FTPPassive"]))
+                            if "SMB" in network_service:
+                                of.write("\tSMB              : {}\r\n".format(str(network_service["SMB"])))
+                            if "AppleTalk" in network_service:
+                                of.write("\tApple Talk       : {}\r\n".format(str(network_service["AppleTalk"])))
+                            if "UserDefinedName" in network_service:
+                                of.write("\tUser Defined Name: {}\r\n".format(network_service["UserDefinedName"]))
+                            if "Modem" in network_service:
+                                modem = network_service["Modem"]
+                                of.write("\tModem\r\n")
+                                if "ConnectionPersonality" in modem:
+                                    of.write("\t\tConnection Personality : {}\r\n".format(modem["ConnectionPersonality"]))
+                                if "ConnectionScript" in modem:
+                                    of.write("\t\tConnection Script      : {}\r\n".format(modem["ConnectionScript"]))
+                                if "DataCompression" in modem:
+                                    of.write("\t\tData Compression       : {}\r\n".format(modem["DataCompression"]))
+                                if "DeviceModel" in modem:
+                                    of.write("\t\tDevice Model           : {}\r\n".format(modem["DeviceModel"]))
+                                if "DeviceVendor" in modem:
+                                    of.write("\t\tDevice Vendor          : {}\r\n".format(modem["DeviceVendor"]))
+                                if "DialMode" in modem:
+                                    of.write("\t\tDial Mode              : {}\r\n".format(modem["DialMode"]))
+                                if "ErrorCorrection" in modem:
+                                    of.write("\t\tError Correction       : {}\r\n".format(modem["ErrorCorrection"]))
+                                if "PulseDial" in modem:
+                                    of.write("\t\tPulse Dial             : {}\r\n".format(modem["PulseDial"]))
+                                if "Speaker" in modem:
+                                    of.write("\t\tSpeaker                : {}\r\n".format(modem["Speaker"]))
+                            if "PPP" in network_service:
+                                ppp = network_service["PPP"]
+                                of.write("\tPPP\r\n")
+                                if "ACSPEnabled" in ppp:
+                                    of.write("\t\tACSP Enabled                  : {}\r\n".format(ppp["ACSPEnabled"]))
+                                if "CommDisplayTerminalWindow" in ppp:
+                                    of.write("\t\tComm Display Terminal Window  : {}\r\n".format(ppp["CommDisplayTerminalWindow"]))
+                                if "CommRedialCount" in ppp:
+                                    of.write("\t\tComm Redial Count             : {}\r\n".format(ppp["CommRedialCount"]))
+                                if "CommRedialEnabled" in ppp:
+                                    of.write("\t\tComm Redial Enabled           : {}\r\n".format(ppp["CommRedialEnabled"]))
+                                if "CommRedialInterval" in ppp:
+                                    of.write("\t\tComm Redial Interval          : {}\r\n".format(ppp["CommRedialInterval"]))
+                                if "CommUseTerminalScript" in ppp:
+                                    of.write("\t\tComm Use Terminal Script      : {}\r\n".format(ppp["CommUseTerminalScript"]))
+                                if "DialOnDemand" in ppp:
+                                    of.write("\t\tDial On Demand                : {}\r\n".format(ppp["DialOnDemand"]))
+                                if "DisconnectOnFastUserSwitch" in ppp:
+                                    of.write("\t\tDisconnect On Fast User Switch: {}\r\n".format(ppp["DisconnectOnFastUserSwitch"]))
+                                if "DisconnectOnIdle" in ppp:
+                                    of.write("\t\tDisconnect On Idle            : {}\r\n".format(ppp["DisconnectOnIdle"]))
+                                if "DisconnectOnIdleTimer" in ppp:
+                                    of.write("\t\tDisconnect On Idle Timer      : {}\r\n".format(ppp["DisconnectOnIdleTimer"]))
+                                if "DisconnectOnLogout" in ppp:
+                                    of.write("\t\tDisconnect On Logout          : {}\r\n".format(ppp["DisconnectOnLogout"]))
+                                if "DisconnectOnSleep" in ppp:
+                                    of.write("\t\tDisconnect On Sleep           : {}\r\n".format(ppp["DisconnectOnSleep"]))
+                                if "IPCPCompressionVJ" in ppp:
+                                    of.write("\t\tIPCP Compression VJ           : {}\r\n".format(ppp["IPCPCompressionVJ"]))
+                                if "IdleReminder" in ppp:
+                                    of.write("\t\tIdle Reminder                 : {}\r\n".format(ppp["IdleReminder"]))
+                                if "IdleReminderTimer" in ppp:
+                                    of.write("\t\tIdle Reminder Timer           : {}\r\n".format(ppp["IdleReminderTimer"]))
+                                if "LCPEchoEnabled" in ppp:
+                                    of.write("\t\tLCP Echo Enabled              : {}\r\n".format(ppp["LCPEchoEnabled"]))
+                                if "LCPEchoFailure" in ppp:
+                                    of.write("\t\tLCP Echo Failure              : {}\r\n".format(ppp["LCPEchoFailure"]))
+                                if "LCPEchoInterval" in ppp:
+                                    of.write("\t\tLCP Echo Interval             : {}\r\n".format(ppp["LCPEchoInterval"]))
+                                if "Logfile" in ppp:
+                                    of.write("\t\tLogfile                       : {}\r\n".format(ppp["Logfile"]))
+                                if "VerboseLogging" in ppp:
+                                    of.write("\t\tVerbose Logging               : {}\r\n".format(ppp["VerboseLogging"]))
+                            of.write("\r\n")
+                        of.write("Sets:\r\n")
+                        for network_set_name in plist["Sets"]:
+                            of.write("\tNetwork Set: {}\r\n".format(network_set_name))
+                            network_set = plist["Sets"][network_set_name]
+                            if "Network" in network_set:
+                                network = network_set["Network"]
+                                if "Global" in network:
+                                    of.write("\t\tGlobal   : {}\r\n".format(network["Global"]))
+                                if "Interface" in network:
+                                    of.write("\t\tInterface: {}\r\n".format(network["Interface"]))
+                                if "Service" in network:
+                                    of.write("\t\tService  : {}\r\n".format(network["Service"]))
+                            if "UserDefinedName" in network_set:
+                                of.write("\t\tUser Defined Name : {}\r\n".format(network_set["UserDefinedName"]))
+                            of.write("\r\n")
+                        of.write("System:\r\n")
+                        if "System" in plist["System"]:
+                            if "ComputerName" in plist["System"]["System"]:
+                                of.write("\tComputer Name          : {}\r\n".format(plist["System"]["System"]["ComputerName"]))
+                            if "ComputerNameEncoding" in plist["System"]["System"]:
+                                of.write("\tComputer Name Encoding : {}\r\n".format(plist["System"]["System"]["ComputerNameEncoding"]))
+                        if "Network" in plist["System"]:
+                            if "HostNames" in plist["System"]["Network"]:
+                                of.write("\tLocalhost Name         : {}\r\n".format(plist["System"]["Network"]["HostNames"]["LocalHostName"]))
+
+                        of.write("\r\n")
+                        pass
+
+                    except KeyError:
+                        pass
+
+                # logging.info("This version of OSX is not supported by this plugin.")
+                # print("[INFO] This version of OSX is not supported by this plugin.")
+                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

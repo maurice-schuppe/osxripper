@@ -221,9 +221,43 @@ class AirportPreferences(Plugin):
                 # print("[INFO] This version of OSX is not supported by this plugin.")
                 # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                if os.path.isfile(plist_file):
+                    with open(plist_file, "rb") as pl:
+                        plist = plistlib.load(pl)
+                    try:
+                        if "KnownNetworks" in plist:
+                            # print(plist["KnownNetworks"])
+                            for known_network in plist["KnownNetworks"]:
+                                of.write("Known Network: {}\r\n".format(known_network))  # str
+                                for channel in plist["KnownNetworks"][known_network]["Remembered channels"]:
+                                    of.write("\tChannel           : {}\r\n".format(channel))  # dict
+                                of.write("\tSSID              : {}\r\n".format(plist["KnownNetworks"][known_network]["SSID_STR"]))
+                                of.write("\tSecurity Type     : {}\r\n".format(plist["KnownNetworks"][known_network]["SecurityType"]))
+                                if "Unique Password ID" in plist["KnownNetworks"][known_network]:
+                                    of.write("\tUnique Password ID: {}\r\n".format(plist["KnownNetworks"][known_network]["Unique Password ID"]))
+                                of.write("\tTimestamp         : {}\r\n".format(plist["KnownNetworks"][known_network]["_timeStamp"]))
+                                of.write("\r\n")
+
+                        if "en1" in plist:
+                            of.write("en1\r\n")
+                            if "RecentNetworks" in plist["en1"]:
+                                recent_networks = plist["en1"]["RecentNetworks"]
+                                of.write("Recent Networks:\r\n\r\n")
+                                for recent_network in recent_networks:
+                                    if "SSID_STR" in recent_network:
+                                        of.write("\tSSID              : {}\r\n".format(recent_network["SSID_STR"]))
+                                    if "SecurityType" in recent_network:
+                                        of.write("\tSecurity Type     : {}\r\n".format(recent_network["SecurityType"]))
+                                    if "Unique Network ID" in recent_network:
+                                        of.write("\tUnique Network ID : {}\r\n".format(recent_network["Unique Network ID"]))
+                                    if "Unique Password ID" in recent_network:
+                                        of.write("\tUnique Password ID: {}\r\n".format(recent_network["Unique Password ID"]))
+                                    of.write("\r\n")
+                            else:
+                                of.write("\tNo Recent Networks\r\n")
+                    except KeyError as e:
+                        # print("[ERROR] {}".format(e))
+                        pass
             else:
                 logging.warning("[WARNING] Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

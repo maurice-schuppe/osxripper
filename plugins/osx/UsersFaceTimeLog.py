@@ -50,7 +50,7 @@ class UsersFaceTimeLog(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion":
+                    or self._os_version == "lion" or self._os_version == "snow_leopard":
                 with codecs.open(file, "r", encoding="utf-8") as ft:
                     for line in ft.readlines():
                         # Received invite push from
@@ -102,10 +102,10 @@ class UsersFaceTimeLog(Plugin):
             #     logging.info("This version of OSX is not supported by this plugin.")
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "snow_leopard":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

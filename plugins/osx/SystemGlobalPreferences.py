@@ -74,9 +74,44 @@ class SystemGlobalPreferences(Plugin):
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+                if os.path.isfile(global_plist):
+                    bplist = open(global_plist, "rb")
+                    plist = ccl_bplist.load(bplist)
+                    bplist.close()
+                    if "com.apple.AppleModemSettingTool.LastCountryCode" in plist:
+                        of.write("Last Country Code: {}\r\n".format(plist["com.apple.AppleModemSettingTool.LastCountryCode"]))
+                    if "com.apple.preferences.timezone.selected_city" in plist:
+                        of.write("Selected City: {}\r\n")
+                        selected_city = plist["com.apple.preferences.timezone.selected_city"]
+                        if "RegionalCode" in selected_city:
+                            of.write("\tRegional Code : {}\r\n".format(selected_city["RegionalCode"]))
+                        if "Version" in selected_city:
+                            of.write("\tVersion       : {}\r\n".format(selected_city["Version"]))
+                        if "TimeZoneName" in selected_city:
+                            of.write("\tTime Zone Name: {}\r\n".format(selected_city["TimeZoneName"]))
+                        if "Latitude" in selected_city:
+                            of.write("\tLatitude      : {}\r\n".format(selected_city["Latitude"]))
+                        if "Longitude" in selected_city:
+                            of.write("\tLongitude     : {}\r\n".format(selected_city["Longitude"]))
+                        if "GeonameID" in selected_city:
+                            of.write("\tGeoname ID    : {}\r\n".format(selected_city["GeonameID"]))
+                        if "CountryCode" in selected_city:
+                            of.write("\tCountry Code  : {}\r\n".format(selected_city["CountryCode"]))
+                        if "Name" in selected_city:
+                            of.write("\tName          : {}\r\n".format(selected_city["Name"]))
+
+                    if "Country" in plist:
+                        of.write("Country: {}\r\n".format(plist["Country"]))
+                    if "AppleLocale" in plist:
+                        of.write("Apple Locale: {}\r\n".format(plist["AppleLocale"]))
+                    if "AppleLanguages" in plist:
+                        of.write("Apple Languages:\r\n")
+                        for apple_language in plist["AppleLanguages"]:
+                            of.write("\t{}\r\n".format(apple_language))
+                    if "com.apple.TimeZonePref.Last_Selected_City" in plist:
+                        of.write("Last Selected City:\r\n")
+                        for item in plist["com.apple.TimeZonePref.Last_Selected_City"]:
+                            of.write("\t{}\r\n".format(item))
             else:
                 logging.warning("Not a known OSX version.")
                 of.write("[WARNING] Not a known OSX version.\r\n")

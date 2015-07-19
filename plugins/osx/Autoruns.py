@@ -29,7 +29,7 @@ class Autoruns(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion":
+                    or self._os_version == "lion" or self._os_version == "snow_leopard":
                 sys_lib_launch_agents = os.path.join(self._input_dir, "System", "Library", "LaunchAgents")
                 sys_lib_launch_daemons = os.path.join(self._input_dir, "System", "Library", "LaunchDaemons")
                 sys_lib_startup_items = os.path.join(self._input_dir, "System", "Library", "StartupItems")
@@ -54,10 +54,10 @@ class Autoruns(Plugin):
             #     logging.info("This version of OSX is not supported by this plugin.")
             #     print("[INFO] This version of OSX is not supported by this plugin.")
             #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
+            # elif self._os_version == "snow_leopard":
+            #     logging.info("This version of OSX is not supported by this plugin.")
+            #     print("[INFO] This version of OSX is not supported by this plugin.")
+            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("[WARNING] Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
