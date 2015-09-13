@@ -80,13 +80,6 @@ class UsersSafariMetadataHistory(Plugin):
                 for wh_file in plist_dir_list:
                     if wh_file.endswith(".webhistory"):
                         of.write("{}\r\n".format(wh_file))
-                # logging.info("This version of OSX is not supported by this plugin.")
-                # print("[INFO] This version of OSX is not supported by this plugin.")
-                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            # elif self._os_version == "snow_leopard":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

@@ -171,10 +171,6 @@ class NetworkPreferences(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
 
-            # elif self._os_version == "lion":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 if os.path.isfile(plist_file):
                     with open(plist_file, "rb") as pl:
@@ -310,10 +306,6 @@ class NetworkPreferences(Plugin):
 
                     except KeyError:
                         pass
-
-                # logging.info("This version of OSX is not supported by this plugin.")
-                # print("[INFO] This version of OSX is not supported by this plugin.")
-                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

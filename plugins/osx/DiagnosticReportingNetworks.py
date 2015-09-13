@@ -50,14 +50,6 @@ class DiagnosticReportingNetworks(Plugin):
                 logging.info("This version of OSX is not supported this plugin.")
                 print("[INFO] This version of OSX is not supported this plugin.")
                 of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
-            # elif self._os_version == "lion":
-            #     logging.info("This version of OSX is not supported this plugin.")
-            #     print("[INFO] This version of OSX is not supported this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
-            # elif self._os_version == "snow_leopard":
-            #     logging.info("This version of OSX is not supported this plugin.")
-            #     print("[INFO] This version of OSX is not supported this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

@@ -60,19 +60,5 @@ class UsersTrueCrypt(Plugin):
                 logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
                 of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                 print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-            # elif self._os_version == "mavericks":
-            #    print("[INFO] This version of OSX is not supported by this plugin.")
-            #    of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            # elif self._os_version == "mountain_lion":
-            #    print("[INFO] This version of OSX is not supported by this plugin.")
-            #    of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            # elif self._os_version == "lion":
-            #    print("[INFO] This version of OSX is not supported by this plugin.")
-            #    of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            # elif self._os_version == "snow_leopard":
-            #    print("[INFO] This version of OSX is not supported by this plugin.")
-            #    of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            # else:
-            #    print("[WARNING] Not a known OSX version.")
             of.write("="*40 + "\r\n\r\n")
         of.close()

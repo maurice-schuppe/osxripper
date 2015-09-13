@@ -54,7 +54,6 @@ class UsersChromeLoginData(Plugin):
             query = "SELECT username_value,display_name,origin_url,action_url,datetime((date_created / 1000000)-11644473600, 'unixepoch')," \
                     "datetime((date_synced / 1000000)-11644473600, 'unixepoch'),signon_realm,ssl_valid,preferred,times_used,blacklisted_by_user," \
                     "scheme,password_type,avatar_url,federation_url FROM logins ORDER BY username_value"
-#  "scheme,password_type,avatar_url,federation_url,is_zero_click FROM logins ORDER BY username_value"
 
             if os.path.isfile(history_db):
                 of.write("Source File: {}\r\n\r\n".format(history_db))

@@ -85,14 +85,6 @@ class SystemTime(Plugin):
             else:
                 logging.warning("File {} does not exist.".format(ntp_conf))
                 print("[WARNING] File {} does not exist.".format(ntp_conf))
-        # elif self._os_version == "lion":
-            # logging.info("This version of OSX is not supported by this plugin.")
-            # print("[INFO] This version of OSX is not supported by this plugin.")
-            # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-        # elif self._os_version == "snow_lepoard":
-            # logging.info("This version of OSX is not supported by this plugin.")
-            # print("[INFO] This version of OSX is not supported by this plugin.")
-            # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
         else:
             logging.warning("Not a known OSX version.")
             print("[WARNING] Not a known OSX version.")

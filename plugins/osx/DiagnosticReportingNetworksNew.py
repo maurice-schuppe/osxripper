@@ -44,7 +44,6 @@ class DiagnosticReportingNetworksNew(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-
             elif self._os_version == "mavericks":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")

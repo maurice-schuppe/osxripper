@@ -70,9 +70,6 @@ class NetworkInterfaces(Plugin):
 ################################
                     except KeyError:
                         pass
-                    # except Error as e:
-                    #     logging.error("{}".format(e.args[0]))
-                    #     print("[ERROR] {}".format(e.args[0]))
                 else:
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
@@ -118,14 +115,6 @@ class NetworkInterfaces(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
-            # elif self._os_version == "lion":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            # elif self._os_version == "snow_leopard":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

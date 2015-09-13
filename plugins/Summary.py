@@ -59,14 +59,6 @@ class Summary(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
-            # elif self._os_version == "lion":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            # elif self._os_version == "snow_leopard":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
@@ -97,12 +89,6 @@ class Summary(Plugin):
                             pass
                         of.write("\r\n")
                 of.close()
-            # elif self._os_version == "lion":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            # elif self._os_version == "snow_leopard":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
@@ -170,14 +156,6 @@ class Summary(Plugin):
             else:
                 logging.warning("File {} does not exist.".format(global_plist))
                 print("[WARNING] File {} does not exist.".format(global_plist))
-        # elif self._os_version == "lion":
-        #     logging.info("This version of OSX is not supported by this plugin.")
-        #     print("[INFO] This version of OSX is not supported by this plugin.")
-            # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-        # elif self._os_version == "snow_lepoard":
-        #     logging.info("This version of OSX is not supported by this plugin.")
-        #     print("[INFO] This version of OSX is not supported by this plugin.")
-            # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
         else:
             logging.warning("Not a known OSX version.")
             print("[WARNING] Not a known OSX version.")
@@ -231,10 +209,6 @@ class Summary(Plugin):
                             logging.warning("File: {} does not exist or cannot be found.".format(test_plist))
                             of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(test_plist))
                             print("[WARNING] File: {} does not exist or cannot be found.".format(test_plist))
-            # elif self._os_version == "lion":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 for f in file_listing:
                     stat_info = os.stat(working_dir + os.path.sep + f)
@@ -279,9 +253,6 @@ class Summary(Plugin):
                                         return
                             except KeyError:
                                 pass
-                # logging.info("This version of OSX is not supported by this plugin.")
-                # print("[INFO] This version of OSX is not supported by this plugin.")
-                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
@@ -312,10 +283,6 @@ class Summary(Plugin):
                     logging.warning("Directory: {} does not exist or cannot be found.\r\n".format(working_dir))
                     of.write("[WARNING] Directory: {} does not exist or cannot be found.\r\n".format(working_dir))
                     print("[WARNING] Directory: {} does not exist or cannot be found.\r\n".format(working_dir))
-            # elif self._os_version == "lion":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
@@ -589,9 +556,6 @@ class Summary(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.".format(file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
-                # logging.info("This version of OSX is not supported by this plugin.")
-                # print("[INFO] This version of OSX is not supported by this plugin.")
-                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             elif self._os_version == "snow_leopard":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
@@ -679,9 +643,6 @@ class Summary(Plugin):
                     except KeyError:
                         pass
                     of.write("\r\n")
-                # logging.info("This version of OSX is not supported by this plugin.")
-                # print("[INFO] This version of OSX is not supported by this plugin.")
-                # of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
@@ -723,15 +684,6 @@ class Summary(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
-
-            # elif self._os_version == "lion":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            # elif self._os_version == "snow_leopard":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

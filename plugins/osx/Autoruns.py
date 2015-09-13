@@ -49,15 +49,6 @@ class Autoruns(Plugin):
                         logging.warning("Directory {} does not exist.".format(doi))
                         of.write("[WARNING] Directory {} does not exist or cannot be found.\r\n".format(doi))
                         print("[WARNING] Directory {} does not exist.".format(doi))
-
-            # elif self._os_version == "lion":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            # elif self._os_version == "snow_leopard":
-            #     logging.info("This version of OSX is not supported by this plugin.")
-            #     print("[INFO] This version of OSX is not supported by this plugin.")
-            #     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
             else:
                 logging.warning("[WARNING] Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
