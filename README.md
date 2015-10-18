@@ -1,5 +1,5 @@
 # OSXRipper
-OSXRipper is a tool to gather system and user information from OSX file systems. Currently it is supporting OSX versions 10.6 - 10.10 (Snow Leopard to Yosemite). Support for El Capitan may be added as time permits.
+OSXRipper is a tool to gather system and user information from OSX file systems. Currently it is supporting OSX versions 10.6 - 10.11 (Snow Leopard to El Capitan).
 
 ####Alternatives to OSXRipper
 
@@ -16,7 +16,7 @@ Mac Plist Ripper
 If anyone knows of alternatives I would be more than happy to add them here.
 
 ####Uses the CCL Forensics BPlist parser
-https://code.google.com/p/ccl-bplist/
+https://github.com/cclgroupltd/ccl-bplist
 
 __Prereqs__<br />
 Assumes at least Python 3.4.3 is installed
