@@ -32,6 +32,72 @@ class TimeMachinePlist(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             file = os.path.join(self._input_dir, "Library", "Preferences", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
+            if self._os_version == "el_capitan":
+                if os.path.isfile(file):
+                    try:
+                        bplist = open(file, "rb")
+                        pl = ccl_bplist.load(bplist)
+                        # LastDestinationID
+                        if "LastDestinationID" in pl:
+                            of.write("Last Destination ID             : {}\r\n".format(pl["LastDestinationID"]))
+                        # LocalizedDiskImageVolumeName
+                        if "LocalizedDiskImageVolumeName" in pl:
+                            of.write("Localized Disk Image Volume Name: {}\r\n".format(pl["LocalizedDiskImageVolumeName"]))
+                        # SkipSystemFiles
+                        if "SkipSystemFiles" in pl:
+                            of.write("Skip System Files               : {}\r\n".format(pl["SkipSystemFiles"]))
+                        # PreferencesVersion
+                        if "PreferencesVersion" in pl:
+                            of.write("Preferences Version             : {}\r\n".format(pl["PreferencesVersion"]))
+                        # HostUUIDs ARRAY of String
+                        if "HostUUIDs" in pl:
+                            of.write("Host UUIDs:\r\n")
+                            for host_uuid in pl["HostUUIDs"]:
+                                of.write("\t{}\r\n".format(host_uuid))
+                        # Destinations ARRAY of DICT
+                        if "Destinations" in pl:
+                            of.write("Destinations:\r\n")
+                            for destination in pl["Destinations"]:
+                                # LastKnownEncryptionState
+                                if "LastKnownEncryptionState" in destination:
+                                    of.write("\tLast Known Encryption State      : {}\r\n".format(destination["LastKnownEncryptionState"]))
+                                # RESULT
+                                if "RESULT" in destination:
+                                    of.write("\tRESULT                           : {}\r\n".format(destination["RESULT"]))
+                                # BytesUsed
+                                if "BytesUsed" in destination:
+                                    of.write("\tBytes Used                       : {}\r\n".format(destination["BytesUsed"]))
+                                # BytesAvailable
+                                if "BytesAvailable" in destination:
+                                    of.write("\tBytes Available                  : {}\r\n".format(destination["BytesAvailable"]))
+                                # RootVolumeUUID
+                                if "RootVolumeUUID" in destination:
+                                    of.write("\tRoot Volume UUID                 : {}\r\n".format(destination["RootVolumeUUID"]))
+                                # AlwaysShowDeletedBackupsWarning
+                                if "AlwaysShowDeletedBackupsWarning" in pl:
+                                    of.write("Always Show Deleted Backups Warning: {}\r\n".format(pl["AlwaysShowDeletedBackupsWarning"]))
+                                # AutoBackup
+                                if "AutoBackup" in pl:
+                                    of.write("AutoBackup                         : {}\r\n".format(pl["AutoBackup"]))
+                                # LastConfigurationTraceDate
+                                if "LastConfigurationTraceDate" in pl:
+                                    of.write("Last Configuration Trace Date      : {}\r\n".format(pl["LastConfigurationTraceDate"]))
+                                # DestinationID
+                                if "DestinationID" in destination:
+                                    of.write("\tDestination ID                   : {}\r\n".format(destination["DestinationID"]))
+                                # DestinationUUIDs ARRAY of String
+                                if "DestinationUUIDs" in destination:  # ARRAY of STRING
+                                    of.write("Destination UUIDs:\r\n")
+                                    for dest_uuid in destination["DestinationUUIDs"]:
+                                        of.write("\t\t{}\r\n".format(dest_uuid))
+                                # SnapshotDates ARRAY of Date
+                                if "SnapshotDates" in destination:  # ARRAY of DATE
+                                    of.write("Snapshot Dates:\r\n")
+                                    for snap_date in destination["SnapshotDates"]:
+                                        of.write("\t\t{}\r\n".format(snap_date))
+                        bplist.close()
+                    except KeyError:
+                        pass
             if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
                     or self._os_version == "lion" or self._os_version == "snow_leopard":
                 if os.path.isfile(file):

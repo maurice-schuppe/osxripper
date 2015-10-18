@@ -26,7 +26,7 @@ class DiagnosticReportingNetworksNew(Plugin):
     def parse(self):
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            if self._os_version == "yosemite":
+            if self._os_version == "el_capitan" or self._os_version == "yosemite":
                 file = os.path.join(self._input_dir, "Library", "Caches", self._data_file)
                 of.write("Source File: {}\r\n\r\n".format(file))
                 if os.path.isfile(file):

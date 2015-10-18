@@ -34,7 +34,7 @@ class SystemAuthDB(Plugin):
                     "datetime(modified + 978307200, 'unixepoch'), identifier, comment FROM rules ORDER BY name"
             file = os.path.join(self._input_dir, "private", "var", "db", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks":
+            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
                 if os.path.isfile(file):
                     conn = None
                     try:

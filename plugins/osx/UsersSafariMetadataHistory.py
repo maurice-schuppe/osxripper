@@ -51,7 +51,8 @@ class UsersSafariMetadataHistory(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Metadata_History.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
+                    or self._os_version == "mountain_lion":
                 plist_dir_list = os.listdir(file)
                 if ".tracked filenames.plist" in plist_dir_list:
                     bplist = open(os.path.join(file, ".tracked filenames.plist"), "rb")

@@ -30,7 +30,7 @@ class SystemTime(Plugin):
         """
         Read and parse /Library/Preferences/.GlobalPreferences.plist, /private/etc/localtime, /private/etc/ntp.conf, and /Library/Preferences/com.apple.timezone.auto.plist
         """
-        if self._os_version == "yosemite" or self._os_version == "mavericks":
+        if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
             global_plist = os.path.join(self._input_dir, "Library", "Preferences", ".GlobalPreferences.plist")
             auto_tz_plist = os.path.join(self._input_dir, "Library", "Caches", "com.apple.AutoTimeZone.plist")
             tz_auto_plist = os.path.join(self._input_dir, "Library", "Preferences", "com.apple.timezone.auto.plist")
@@ -69,17 +69,7 @@ class SystemTime(Plugin):
             else:
                 logging.warning("File {} does not exist.".format(global_plist))
                 print("[WARNING] File {} does not exist.".format(global_plist))
-            
-            # if os.path.isfile(auto_tz_plist):
-            #    self.__parse_auto_timezone_plist(auto_tz_plist)
-            # else:
-            #    print("[WARNING] File {} does not exist.".format(auto_tz_plist))
-                
-            # if os.path.isfile(tz_auto_plist):
-            #    self.__parse_timezone_auto_plist(tz_auto_plist)
-            # else:
-            #    print("[WARNING] File {} does not exist.".format(tz_auto_plist))
-            
+
             if os.path.isfile(ntp_conf):
                 self.__read_ntp(ntp_conf)
             else:

@@ -51,7 +51,7 @@ class UsersAccounts3(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite":
+            if self._os_version == "el_capitan" or self._os_version == "yosemite":
                 query = "SELECT zusername,zactive,zauthenticated,zvisible,datetime(zdate + 978307200, 'unixepoch'),zaccountdescription,zowningbundleid FROM zaccount"
                 conn = None
                 try:

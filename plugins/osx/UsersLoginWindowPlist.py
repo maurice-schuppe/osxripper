@@ -51,7 +51,21 @@ class UsersLoginWindowPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            if self._os_version == "el_capitan":
+                if os.path.isfile(file):
+                    bplist = open(file, "rb")
+                    pl = ccl_bplist.load(bplist)
+                    try:
+                        if "TALLogoutReason" in pl:
+                            of.write("Logout Reason     : {}\r\n".format(pl["TALLogoutReason"]))
+                    except KeyError:
+                        pass
+                    bplist.close()
+                else:
+                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
+                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+            elif self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     pl = ccl_bplist.load(bplist)

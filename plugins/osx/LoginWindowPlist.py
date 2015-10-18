@@ -32,14 +32,15 @@ class LoginWindowPlist(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             file = os.path.join(self._input_dir, "Library", "Preferences", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion" or self._os_version == "snow_leopard":
+            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
+                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
+                    or self._os_version == "snow_leopard":
                 if os.path.isfile(file):
                     try:
                         bplist = open(file, "rb")
                         pl = ccl_bplist.load(bplist)
                         if "lastUserName" in pl:
-                            of.write("Last User: {}\r\n".format(pl["lastUserName"]))
+                            of.write("Last User       : {}\r\n".format(pl["lastUserName"]))
                         if "lastUser" in pl:
                             of.write("Last User Action: {}\r\n".format(pl["lastUser"]))
                         bplist.close()

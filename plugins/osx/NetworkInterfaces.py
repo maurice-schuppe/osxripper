@@ -34,7 +34,7 @@ class NetworkInterfaces(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             plist_file = os.path.join(self._input_dir, "Library", "Preferences", "SystemConfiguration", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(plist_file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks":
+            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
                 if os.path.isfile(plist_file):
                     with open(plist_file, "rb") as pl:
                         plist = plistlib.load(pl)

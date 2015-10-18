@@ -34,7 +34,14 @@ class UsersRecentItemsPlist(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    plist = os.path.join(users_path, username, "Library", "Preferences", self._data_file)
+                    if self._os_version == "el_capitan":
+                        self._data_file = os.path.join(users_path, username, "Library", "Application Support",
+                                                       "com.apple.sharedfilelist",
+                                                       "com.apple.LSSharedFileList.RecentHosts.sfl")
+                        plist = self._data_file
+                    else:
+                        plist = os.path.join(users_path, username, "Library", "Preferences", self._data_file)
+
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
@@ -46,11 +53,27 @@ class UsersRecentItemsPlist(Plugin):
             
     def __parse_bplist(self, file, username):
         """
-        Parse /Users/username/Library/Preferences/com.apple.recentitems.plist
+        Parse /Users/username/Library/Preferences/com.apple.recentitems.plist or in El Capitan
+        /Users/<username>/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.RecentHosts.sfl
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
+            if self._os_version == "el_capitan":
+                if os.path.isfile(file):
+                    of.write("Source File: {}\r\n\r\n".format(file))
+                    bplist = open(file, "rb")
+                    pl = ccl_bplist.load(bplist)
+                    try:
+                        if "$objects" in pl:
+                            for objects in pl["$objects"]:
+                                if isinstance(objects, str):
+                                    if "smb://" in objects:
+                                        of.write("Name     : {}\r\n".format(objects))
+                    except KeyError:
+                        pass
+                    bplist.close()
+                pass
+            elif self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
                     or self._os_version == "lion" or self._os_version == "snow_leopard":
                 if os.path.isfile(file):
                     of.write("Source File: {}\r\n\r\n".format(file))

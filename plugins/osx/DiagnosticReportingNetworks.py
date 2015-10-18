@@ -46,7 +46,7 @@ class DiagnosticReportingNetworks(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
             
-            elif self._os_version == "yosemite":  # File does not exist in Yosemite
+            elif self._os_version == "el_capitan" or self._os_version == "yosemite":  # File does not exist in Yosemite
                 logging.info("This version of OSX is not supported this plugin.")
                 print("[INFO] This version of OSX is not supported this plugin.")
                 of.write("[INFO] This version of OSX is not supported this plugin.\r\n")

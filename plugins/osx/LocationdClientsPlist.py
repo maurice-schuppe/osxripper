@@ -35,7 +35,7 @@ class LocationdClientsPlist(Plugin):
             file = os.path.join(self._input_dir, "private", "var", "db", "locationd", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
             if os.path.isfile(file):
-                if self._os_version == "yosemite" or self._os_version == "mavericks":
+                if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
                     try:
                         bplist = open(file, "rb")
                         plist = ccl_bplist.load(bplist)

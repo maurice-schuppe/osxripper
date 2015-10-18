@@ -52,7 +52,7 @@ class UsersSafariDownloadPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Downloads.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite":
+            if self._os_version == "el_capitan" or self._os_version == "yosemite":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)

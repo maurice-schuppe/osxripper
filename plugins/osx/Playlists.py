@@ -30,8 +30,8 @@ class Playlists(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion":
+            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
+                    or self._os_version == "mountain_lion" or self._os_version == "lion":
                 working_dir = os.path.join(self._input_dir, "private", "var", "db", "BootCaches")
                 of.write("Source Directory: {}\r\n\r\n".format(working_dir))
                 if os.path.isdir(working_dir):

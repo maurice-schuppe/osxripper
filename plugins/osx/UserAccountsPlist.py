@@ -42,8 +42,8 @@ class UserAccountsPlist(Plugin):
         Parse a User Account Binary Plist files
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion":
+            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks"\
+                    or self._os_version == "mountain_lion" or self._os_version == "lion":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     pl = ccl_bplist.load(bplist)
@@ -79,7 +79,7 @@ class UserAccountsPlist(Plugin):
                                 with open(jpeg, "wb") as jof:
                                     jof.write(pl["jpegphoto"][0])
                                     jof.close()
-                                    of.write("Logon Picture: {}\r\n".format(jpeg))
+                                    of.write("Logon Picture : {}\r\n".format(jpeg))
                         else:
                             return
                     except KeyError:
@@ -126,7 +126,7 @@ class UserAccountsPlist(Plugin):
                                 with open(jpeg, "wb") as jof:
                                     jof.write(plist["jpegphoto"][0])
                                     jof.close()
-                                    of.write("Logon Picture: {}\r\n".format(jpeg))
+                                    of.write("Logon Picture : {}\r\n".format(jpeg))
                         else:
                             return
                     except KeyError:

@@ -31,6 +31,13 @@ class UsersBashHistory(Plugin):
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
+                if self._os_version == "el_capitan":
+                    if os.path.isdir(users_path):
+                        user_list = os.listdir(users_path)
+                        if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
+                            sessions = os.path.join(users_path, username, ".bash_sessions")
+                            if os.path.isdir(sessions):
+                                self.__parse_bash_sessions(username, sessions)
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
                     history = os.path.join(users_path, username, self._data_file)
                     if os.path.isfile(history):
@@ -40,6 +47,30 @@ class UsersBashHistory(Plugin):
                         print("[WARNING] {} does not exist.".format(history))
         else:
             print("[WARNING] {} does not exist.".format(users_path))
+
+    def __parse_bash_sessions(self, username, sessions_dir):
+        """
+        Read /Users/username/.bash_sessions/*
+        """
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
+            of.write("=" * 10 + " " + self._name + " " + "=" * 10 + "\r\n")
+            of.write("Bash Sessions\r\n")
+            sessions_files = os.listdir(sessions_dir)
+            for session_file in sessions_files:
+                print(session_file)
+                # .session
+                if ".session" in session_file:
+                    s_file = codecs.open(os.path.join(sessions_dir, session_file), "r", encoding="utf-8")
+                    for lines in s_file:
+                        of.write(lines.replace("\n", "\r\n"))
+                    s_file.close()
+                # .historynew
+                if ".historynew" in session_file:
+                    s_file = codecs.open(os.path.join(sessions_dir, session_file), "r", encoding="utf-8")
+                    for lines in s_file:
+                        of.write(lines.replace("\n", "\r\n"))
+                    s_file.close()
+                of.write("=" * 10 + "\r\n")
 
     def __parse_history(self, file, username):
         """

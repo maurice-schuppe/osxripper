@@ -51,7 +51,27 @@ class DhcpLeasesPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
+            if self._os_version == "el_capitan":
+                try:
+                    with open(file, "rb") as pl:
+                        plist = plistlib.load(pl)
+                    if "IPAddress" in plist:
+                        of.write("IP Address             : {}\r\n".format(plist["IPAddress"]))
+                    if "LeaseLength" in plist:
+                        of.write("Lease Length           : {}\r\n".format(plist["LeaseLength"]))
+                    if "LeaseStartDate" in plist:
+                        of.write("Lease Start Date       : {}\r\n".format(plist["LeaseStartDate"]))
+                    if "RouterHardwareAddress" in plist:
+                        # BASE64 is MAC in raw
+                        of.write("Router Hardware Address: {}\r\n".format(binascii.hexlify(plist["RouterHardwareAddress"])))
+
+                    if "RouterIPAddress" in plist:
+                        of.write("Router IP Address      : {}\r\n".format(plist["RouterIPAddress"]))
+                    if "SSID" in plist:
+                        of.write("Router SSID            : {}\r\n".format(plist["SSID"]))
+                except KeyError:
+                    pass
+            elif self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
                     or self._os_version == "lion" or self._os_version == "snow_leopard":
                 try:
                     with open(file, "rb") as pl:

@@ -33,7 +33,7 @@ class SystemSnapshots(Plugin):
             query = "SELECT datetime(time/1000000, 'unixepoch'), pid, uniqueid, comm FROM snapshots ORDER BY time"
             file = os.path.join(self._input_dir, "private", "var", "db", "systemstats", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "yosemite" or self._os_version == "mavericks":
+            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
                 if os.path.isfile(file):
                     conn = None
                     try:
