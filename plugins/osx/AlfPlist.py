@@ -157,7 +157,7 @@ class AlfPlist(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
             elif self._os_version == "snow_leopard":
-                if os.path.isfile(file):
+                if os.path.isfile(file) and os.path.getsize(file) != 0:
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
                     try:
