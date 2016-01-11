@@ -23,7 +23,7 @@ class SystemAuthDB(Plugin):
         self._data_file = "auth.db"
         self._output_file = "System_Auth.txt"
         self._type = "sqlite"
-    
+
     def parse(self):
         """
         Read the /private/var/db/auth.db SQLite database
@@ -39,7 +39,7 @@ class SystemAuthDB(Plugin):
                     conn = None
                     try:
                         conn = sqlite3.connect(file)
-                        with conn:    
+                        with conn:
                             cur = conn.cursor()
                             cur.execute(query)
                             rows = cur.fetchall()
@@ -99,7 +99,7 @@ class SystemAuthDB(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
-                    
+
             elif self._os_version == "mountain_lion":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
