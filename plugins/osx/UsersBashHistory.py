@@ -57,7 +57,7 @@ class UsersBashHistory(Plugin):
             of.write("Bash Sessions\r\n")
             sessions_files = os.listdir(sessions_dir)
             for session_file in sessions_files:
-                print(session_file)
+                # print(session_file)
                 # .session
                 if ".session" in session_file:
                     s_file = codecs.open(os.path.join(sessions_dir, session_file), "r", encoding="utf-8")

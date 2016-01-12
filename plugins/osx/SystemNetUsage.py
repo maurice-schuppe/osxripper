@@ -30,7 +30,6 @@ class SystemNetUsage(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            query = ""
             file = os.path.join(self._input_dir, "private", "var", "networkd", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version == "el_capitan":
