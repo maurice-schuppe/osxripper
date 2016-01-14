@@ -51,7 +51,9 @@ class QuicklookThumbnailCache(Plugin):
                             conn = None
                             try:
                                 conn = sqlite3.connect(database_file)
-                                query = "SELECT folder,file_name FROM files ORDER BY folder,file_name"
+                                query = "SELECT f.folder,f.file_name,tb.hit_count," \
+                                        "datetime(tb.last_hit_date + 978307200, 'unixepoch') FROM files f," \
+                                        "thumbnails tb WHERE f.rowid = tb.file_id ORDER BY f.folder, tb.last_hit_date"
                                 with conn:
                                     cur = conn.cursor()
                                     cur.execute(query)
@@ -59,13 +61,21 @@ class QuicklookThumbnailCache(Plugin):
                                     if len(rows) > 0:
                                         for row in rows:
                                             if row[0] is None:
-                                                of.write("Folder   :\r\n")
+                                                of.write("Folder       :\r\n")
                                             else:
-                                                of.write("Folder   : {}\r\n".format(row[0]))
+                                                of.write("Folder       : {}\r\n".format(row[0]))
                                             if row[1] is None:
-                                                of.write("File Name:\r\n")
+                                                of.write("File Name    :\r\n")
                                             else:
-                                                of.write("File Name: {}\r\n".format(row[1]))
+                                                of.write("File Name    : {}\r\n".format(row[1]))
+                                            if row[2] is None:
+                                                of.write("Hit Count    :\r\n")
+                                            else:
+                                                of.write("Hit Count    : {}\r\n".format(row[2]))
+                                            if row[3] is None:
+                                                of.write("Last Hit Date:\r\n")
+                                            else:
+                                                of.write("Last Hit Date: {}\r\n".format(row[3]))
                                             of.write("\r\n")
                                     else:
                                         of.write("No data in dtabase.\r\n")
