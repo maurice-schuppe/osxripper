@@ -8,7 +8,7 @@ OSX Auditor
 
 iParser
 - http://az4n6.blogspot.co.uk/2012/08/automated-plist-parser.html<br />
-- http://www.arizona4n6.com/downloads-2/?did=1
+- https://github.com/mdegrazia/iParser
 
 Mac Plist Ripper
 - https://bitbucket.org/chrishargreaves/mac_plist_ripper
