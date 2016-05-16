@@ -1,7 +1,3 @@
-__author__ = 'osxripper'
-__version__ = '0.3'
-__license__ = 'GPLv3'
-
 import argparse
 from datetime import datetime
 import importlib
@@ -10,6 +6,10 @@ import os
 import sys
 from plugins.OSXVersion import OSXVersion
 from plugins.Summary import Summary
+
+__author__ = 'osxripper'
+__version__ = '0.3'
+__license__ = 'GPLv3'
 
 use_version = "yosemite"  # Default
 active_plugin_list = []
