@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -28,7 +29,8 @@ class AlfPlist(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             file = os.path.join(self._input_dir, "Library", "Preferences", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
+            #if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
@@ -77,7 +79,7 @@ class AlfPlist(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
                     
-            elif self._os_version == "mountain_lion" or self._os_version == "lion":
+            elif self._os_version in ["mountain_lion", "lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
