@@ -1,12 +1,12 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import datetime
 import logging
 import os
 import sqlite3
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersQuarantineEventsV2(Plugin):
@@ -30,7 +30,6 @@ class UsersQuarantineEventsV2(Plugin):
         Iterate over /Users directory and find user sub-directories
         """
         users_path = os.path.join(self._input_dir, "Users")
-        # username = None
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:

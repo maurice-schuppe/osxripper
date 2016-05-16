@@ -1,12 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import plistlib
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class InstallHistory(Plugin):
@@ -47,7 +46,7 @@ class InstallHistory(Plugin):
                                 of.write("Date               : {}\r\n".format(item["date"]))
                             if "processName" in item:
                                 of.write("Process Name       : {}\r\n".format(item["processName"]))
-                            if "packageIdentifiers" in item:  # Array
+                            if "packageIdentifiers" in item:
                                 of.write("Package Identifiers:\r\n")
                                 for packageItem in item["packageIdentifiers"]:
                                     of.write("\t{}\r\n".format(packageItem))
@@ -58,8 +57,9 @@ class InstallHistory(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
-            elif self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion" or self._os_version == "snow_leopard":
+            elif self._os_version == "yosemite" or self._os_version == "mavericks" \
+                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
+                    or self._os_version == "snow_leopard":
                 if os.path.isfile(plist_file):
                     try:
                         with open(plist_file, "rb") as pl:

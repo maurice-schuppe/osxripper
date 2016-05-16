@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersLoginWindowPlist(Plugin):
@@ -29,7 +29,6 @@ class UsersLoginWindowPlist(Plugin):
         Iterate over /Users directory and find user sub-directories
         """
         users_path = os.path.join(self._input_dir, "Users")
-        # username = None
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
@@ -65,7 +64,8 @@ class UsersLoginWindowPlist(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-            elif self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            elif self._os_version == "yosemite" or self._os_version == "mavericks" \
+                    or self._os_version == "mountain_lion":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     pl = ccl_bplist.load(bplist)

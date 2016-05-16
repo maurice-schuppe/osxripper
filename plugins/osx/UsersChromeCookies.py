@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import sqlite3
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersChromeCookies(Plugin):
@@ -48,12 +48,15 @@ class UsersChromeCookies(Plugin):
         """
         Read the History SQLite database
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Chrome_Cookies.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Chrome_Cookies.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, self._data_file)
             # SQL from http://www.forensicswiki.org/wiki/Google_Chrome
-            query = "SELECT host_key,name,value,path,datetime(((creation_utc/1000000)-11644473600), 'unixepoch'),datetime(((last_access_utc/1000000)-11644473600), 'unixepoch')," \
-                    "datetime(((expires_utc/1000000)-11644473600), 'unixepoch'),secure,httponly,has_expires,persistent,priority FROM cookies ORDER BY creation_utc;"
+            query = "SELECT host_key,name,value,path,datetime(((creation_utc/1000000)-11644473600), 'unixepoch')," \
+                    "datetime(((last_access_utc/1000000)-11644473600), 'unixepoch')," \
+                    "datetime(((expires_utc/1000000)-11644473600), 'unixepoch'),secure,httponly,has_expires," \
+                    "persistent,priority FROM cookies ORDER BY creation_utc;"
             if os.path.isfile(history_db):
                 of.write("Source File: {}\r\n\r\n".format(history_db))
                 conn = None

@@ -1,12 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import gzip
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class SystemLogs(Plugin):
@@ -27,7 +26,7 @@ class SystemLogs(Plugin):
     
     def parse(self):
         """
-        "Locate and extract System.log and backups from /private/var/log"
+        Locate and extract System.log and backups from /private/var/log
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")

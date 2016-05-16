@@ -1,13 +1,12 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import binascii
 import codecs
 import logging
 import os
 import plistlib
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class NetworkInterfaces(Plugin):
@@ -55,8 +54,6 @@ class NetworkInterfaces(Plugin):
                                 if "IOInterfaceUnit" in network_interface:
                                     of.write("IO Interface Unit        : {}\r\n".format(network_interface["IOInterfaceUnit"]))
                                 if "IOMACAddress" in network_interface:
-                                    # data = plistlib.Data.asBase64(network_interface["IOMACAddress"])
-                                    # of.write("IO MAC Address           : {}\r\n".format(binascii.hexlify(base64.b64decode(data))))
                                     of.write("IO MAC Address           : {}\r\n".format(binascii.hexlify(network_interface["IOMACAddress"])))
                                 if "SCNetworkInterfaceInfo" in network_interface:
                                     of.write("SC Network Interface Info: {}\r\n".format(network_interface["SCNetworkInterfaceInfo"]["UserDefinedName"]))
@@ -93,8 +90,6 @@ class NetworkInterfaces(Plugin):
                                 if "IOInterfaceUnit" in network_interface:
                                     of.write("IO Interface Unit        : {}\r\n".format(network_interface["IOInterfaceUnit"]))
                                 if "IOMACAddress" in network_interface:
-                                    # data = plistlib.Data.asBase64(network_interface["IOMACAddress"])
-                                    # of.write("IO MAC Address           : {}\r\n".format(binascii.hexlify(base64.b64decode(data))))
                                     of.write("IO MAC Address           : {}\r\n".format(binascii.hexlify(network_interface["IOMACAddress"])))
                                 if "SCNetworkInterfaceInfo" in network_interface:
                                     of.write("SC Network Interface Info: {}\r\n".format(network_interface["SCNetworkInterfaceInfo"]["UserDefinedName"]))
@@ -108,9 +103,6 @@ class NetworkInterfaces(Plugin):
 ################################
                     except KeyError:
                         pass
-                    # except Error as e:
-                    #     logging.error("{}".format(e.args[0]))
-                    #     print("[ERROR] {}".format(e.args[0]))
                 else:
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))

@@ -1,10 +1,10 @@
-__author__ = 'osxripper - mykulh'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+__author__ = 'osxripper - mykulh'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersBashHistory(Plugin):
@@ -33,7 +33,7 @@ class UsersBashHistory(Plugin):
             for username in user_list:
                 if self._os_version == "el_capitan":
                     if os.path.isdir(users_path):
-                        user_list = os.listdir(users_path)
+                        # user_list = os.listdir(users_path)
                         if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
                             sessions = os.path.join(users_path, username, ".bash_sessions")
                             if os.path.isdir(sessions):
@@ -57,14 +57,11 @@ class UsersBashHistory(Plugin):
             of.write("Bash Sessions\r\n")
             sessions_files = os.listdir(sessions_dir)
             for session_file in sessions_files:
-                # print(session_file)
-                # .session
                 if ".session" in session_file:
                     s_file = codecs.open(os.path.join(sessions_dir, session_file), "r", encoding="utf-8")
                     for lines in s_file:
                         of.write(lines.replace("\n", "\r\n"))
                     s_file.close()
-                # .historynew
                 if ".historynew" in session_file:
                     s_file = codecs.open(os.path.join(sessions_dir, session_file), "r", encoding="utf-8")
                     for lines in s_file:

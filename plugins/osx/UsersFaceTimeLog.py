@@ -1,12 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import re
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersFaceTimeLog(Plugin):
@@ -54,46 +53,36 @@ class UsersFaceTimeLog(Plugin):
                     or self._os_version == "snow_leopard":
                 with codecs.open(file, "r", encoding="utf-8") as ft:
                     for line in ft.readlines():
-                        # Received invite push from
                         if "Received invite push from" in line:
                             of.write(line + "\r\n")
 
-                        # VCPropertyNATIP = <
                         if "VCPropertyNATIP = <" in line:
                             line = line.replace("VCPropertyNATIP = <", "").replace(">;", "").replace(" ", "")
                             of.write("VC Property NAT IP: {}\r\n".format(self.__convert_hex_ip(line)))
 
-                        # FZRelayParameter_PeerRelayIP
                         if "FZRelayParameter_PeerRelayIP\" = <" in line:
                             line = line.replace("\"FZRelayParameter_PeerRelayIP\" = <", "").replace(">;", "").replace(" ", "")
                             of.write("FZ Relay Parameter_PeerRelay IP: {}\r\n".format(self.__convert_hex_ip(line)))
 
-                        # FZRelayParameter_SelfRelayIP
                         if "\"FZRelayParameter_SelfRelayIP\" = <" in line:
                             line = line.replace("\"FZRelayParameter_SelfRelayIP\" = <", "").replace(">;", "").replace(" ", "")
                             of.write("FZ Relay Parameter_Self Relay IP: {}\r\n".format(self.__convert_hex_ip(line)))
 
-                        # Found peer ID:
                         if "Found peer ID:" in line:
                             of.write(line + "\r\n")
 
-                        # Choosing callerID
                         if "Choosing callerID" in line:
                             of.write(line + "\r\n")
 
-                        # Found account:
                         if "Found account:" in line:
                             of.write(line + "\r\n")
                         
-                        # sendRelayCancelTo:
                         if "sendRelayCancelTo:" in line:
                             of.write(line + "\r\n")
 
-                        # Sending relay cancel to:
                         if "Sending relay cancel to" in line:
                             of.write(line + "\r\n")
 
-                        # Received relay cancel push from
                         if "Received relay cancel push from" in line:
                             of.write(line + "\r\n")
 
@@ -116,4 +105,4 @@ class UsersFaceTimeLog(Plugin):
                 ip_address = ip_address + "{}".format(int(hex_item, 16)) + "."
         else:
             ip_address = "Too many bytes passed to resolve as an IP address."
-        return ip_address[:-1]  # trim the trailing .
+        return ip_address[:-1]

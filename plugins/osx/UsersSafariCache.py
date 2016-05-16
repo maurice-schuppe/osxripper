@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import sqlite3
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersSafariCache(Plugin):
@@ -29,7 +29,6 @@ class UsersSafariCache(Plugin):
         Iterate over /Users directory and find user sub-directories
         """
         users_path = os.path.join(self._input_dir, "Users")
-        # username = None
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
@@ -52,7 +51,6 @@ class UsersSafariCache(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
                     or self._os_version == "mountain_lion":
-                # query = "SELECT request_key, partition, time_stamp FROM cfurl_cache_response"
                 query = "SELECT request_key, time_stamp FROM cfurl_cache_response"
                 if os.path.isfile(file):
                     of.write("Source File: {}\r\n\r\n".format(file))

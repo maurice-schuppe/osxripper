@@ -1,13 +1,12 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
-# import base64
 import binascii
 import codecs
 import logging
 import os
 import plistlib
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class DhcpLeasesPlist(Plugin):
@@ -71,8 +70,9 @@ class DhcpLeasesPlist(Plugin):
                         of.write("Router SSID            : {}\r\n".format(plist["SSID"]))
                 except KeyError:
                     pass
-            elif self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion"\
-                    or self._os_version == "lion" or self._os_version == "snow_leopard":
+            elif self._os_version == "yosemite" or self._os_version == "mavericks" \
+                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
+                    or self._os_version == "snow_leopard":
                 try:
                     with open(file, "rb") as pl:
                         plist = plistlib.load(pl)

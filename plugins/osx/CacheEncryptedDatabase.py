@@ -35,7 +35,6 @@ class CacheEncryptedDatabase(Plugin):
             file_list = []
 
             if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
-                # search for cache_encryptedA.db
                 for root, subdirs, files in os.walk(start_folder):
                     if self._data_file in files:
                         file_list.append(os.path.join(root, self._data_file))
@@ -123,7 +122,6 @@ class CacheEncryptedDatabase(Plugin):
                     of.write("[WARNING] File: index.sqlite does not exist or cannot be found.\r\n")
                     print("[WARNING] File: index.sqlite does not exist or cannot be found.")
             elif self._os_version == "mountain_lion":
-                # search for cache_encryptedA.db
                 for root, subdirs, files in os.walk(start_folder):
                     if self._data_file in files:
                         file_list.append(os.path.join(root, self._data_file))

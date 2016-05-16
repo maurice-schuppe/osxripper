@@ -1,12 +1,12 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import plistlib
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersSafariDownloadPlist(Plugin):
@@ -30,7 +30,6 @@ class UsersSafariDownloadPlist(Plugin):
         Iterate over /Users directory and find user sub-directories
         """
         users_path = os.path.join(self._input_dir, "Users")
-        # username = None
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
@@ -57,25 +56,16 @@ class UsersSafariDownloadPlist(Plugin):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
                     try:
-                        # DownloadHistory ARRAY of DICT
                         if "DownloadHistory" in plist:
                             of.write("Download History:\r\n")
                             for item in plist["DownloadHistory"]:
-                                # DownloadEntryProgressBytesSoFar
                                 of.write("\tProgress Bytes So Far : {}\r\n".format(item["DownloadEntryProgressBytesSoFar"]))
-                                # DownloadEntryProgressTotalToLoad
                                 of.write("\tProgress Total To Load: {}\r\n".format(item["DownloadEntryProgressTotalToLoad"]))
-                                # DownloadEntryDateAddedKey
                                 of.write("\tDate Added Key        : {}\r\n".format(item["DownloadEntryDateAddedKey"]))
-                                # DownloadEntryDateFinishedKey
                                 of.write("\tDate Finished Key     : {}\r\n".format(item["DownloadEntryDateFinishedKey"]))
-                                # DownloadEntryIdentifier
                                 of.write("\tIdentifier            : {}\r\n".format(item["DownloadEntryIdentifier"]))
-                                # DownloadEntryURL
                                 of.write("\tURL                   : {}\r\n".format(item["DownloadEntryURL"]))
-                                # DownloadEntryRemoveWhenDoneKey
                                 of.write("\tRemove When Done Key  : {}\r\n".format(item["DownloadEntryRemoveWhenDoneKey"]))
-                                # DownloadEntryPath
                                 of.write("\tPath                  : {}\r\n".format(item["DownloadEntryPath"]))
                                 of.write("\r\n")
                     except KeyError:
@@ -90,19 +80,13 @@ class UsersSafariDownloadPlist(Plugin):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
                     try:
-                        # DownloadHistory
                         if "DownloadHistory" in plist:
                             of.write("Download History:\r\n")
                             for item in plist["DownloadHistory"]:
-                                # DownloadEntryIdentifier
                                 of.write("\tIdentifier            : {}\r\n".format(item["DownloadEntryIdentifier"]))
-                                # DownloadEntryURL
                                 of.write("\tURL                   : {}\r\n".format(item["DownloadEntryURL"]))
-                                # DownloadEntryProgressTotalToLoad
                                 of.write("\tProgress Total To Load: {}\r\n".format(item["DownloadEntryProgressTotalToLoad"]))
-                                # DownloadEntryProgressBytesSoFar
                                 of.write("\tProgress Bytes So Far : {}\r\n".format(item["DownloadEntryProgressBytesSoFar"]))
-                                # DownloadEntryPath
                                 of.write("\tPath                  : {}\r\n".format(item["DownloadEntryPath"]))
                                 of.write("\r\n")
                     except KeyError:

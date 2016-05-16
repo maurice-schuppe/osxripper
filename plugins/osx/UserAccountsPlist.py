@@ -1,13 +1,12 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import plistlib
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UserAccountsPlist(Plugin):
@@ -16,7 +15,8 @@ class UserAccountsPlist(Plugin):
     """
     def __init__(self):
         """
-        Initialise the class. N.B. in a full implementation of a class deriving from Plugin the self.* values should be changed.
+        Initialise the class. N.B. in a full implementation of a class deriving from Plugin the self.*
+        values should be changed.
         """
         super().__init__()
         self._name = "User Accounts"
@@ -90,7 +90,6 @@ class UserAccountsPlist(Plugin):
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
             elif self._os_version == "snow_leopard":
                 # Snow Leopard uses plain plists
-                # print(file)
                 with open(file, 'rb') as pl:
                     try:
                         name = None

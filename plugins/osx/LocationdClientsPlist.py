@@ -1,12 +1,12 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import datetime
 import logging
 import os
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class LocationdClientsPlist(Plugin):
@@ -41,7 +41,7 @@ class LocationdClientsPlist(Plugin):
                         plist = ccl_bplist.load(bplist)
                         bplist.close()
                         for client_dict in plist:
-                            of.write("{}\r\n".format(client_dict))  # client key
+                            of.write("{}\r\n".format(client_dict))
                             if "Whitelisted" in plist[client_dict]:
                                 of.write("\tWhitelisted          : {}\r\n".format(plist[client_dict]["Whitelisted"]))
                             if "BundleId" in plist[client_dict]:
@@ -71,16 +71,12 @@ class LocationdClientsPlist(Plugin):
                         plist = ccl_bplist.load(bplist)
                         bplist.close()
                         for client_dict in plist:
-                            of.write("{}\r\n".format(client_dict))  # client key
+                            of.write("{}\r\n".format(client_dict))
                             if "RequirementString" in plist[client_dict]:
                                 of.write("\tRequirement String: {}\r\n".format(plist[client_dict]["RequirementString"]))
                     except KeyError:
                         pass
-                elif self._os_version == "lion":
-                    logging.info("This version of OSX is not supported by this plugin.")
-                    print("[INFO] This version of OSX is not supported by this plugin.")
-                    of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-                elif self._os_version == "snow_leopard":
+                elif self._os_version == "lion" or self._os_version == "snow_leopard":
                     logging.info("This version of OSX is not supported by this plugin.")
                     print("[INFO] This version of OSX is not supported by this plugin.")
                     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

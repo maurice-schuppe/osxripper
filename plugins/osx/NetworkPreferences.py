@@ -1,12 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import plistlib
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class NetworkPreferences(Plugin):
@@ -49,28 +48,24 @@ class NetworkPreferences(Plugin):
                             for service_key in network_services:
                                 of.write("\tService Key: {}\r\n".format(service_key))
                                 
-                                # DNS dict
                                 if "DNS" in plist["NetworkServices"][service_key]:
                                     if len(plist["NetworkServices"][service_key]["DNS"]) == 0:
                                         of.write("\t\tDNS: No DNS data.\r\n")
                                     else:
                                         of.write("\t\tDNS: {}\r\n".format(plist["NetworkServices"][service_key]["DNS"]))
                                 
-                                # IPv4 dict
                                 if "IPv4" in plist["NetworkServices"][service_key]:
                                     if len(plist["NetworkServices"][service_key]["IPv4"]) == 0:
                                         of.write("\t\tIPv4: No IPv4 data.\r\n")
                                     else:
                                         of.write("\t\tIPv4: {}\r\n".format(plist["NetworkServices"][service_key]["IPv4"]["ConfigMethod"]))
 
-                                # IPv6 dict
                                 if "IPv6" in plist["NetworkServices"][service_key]:
                                     if len(plist["NetworkServices"][service_key]["IPv6"]) == 0:
                                         of.write("\t\tIPv6: No IPv6 data.\r\n")
                                     else:
                                         of.write("\t\tIPv6: {}\r\n".format(plist["NetworkServices"][service_key]["IPv6"]["ConfigMethod"]))
                                         
-                                # Interface dict
                                 if "Interface" in plist["NetworkServices"][service_key]:
                                     if len(plist["NetworkServices"][service_key]["Interface"]) == 0:
                                         of.write("\t\tInterface: No Interface data.\r\n")
@@ -81,7 +76,6 @@ class NetworkPreferences(Plugin):
                                         of.write("\t\t\tType             : {}\r\n".format(plist["NetworkServices"][service_key]["Interface"]["Type"]))
                                         of.write("\t\t\tUser Defined Name: {}\r\n".format(plist["NetworkServices"][service_key]["Interface"]["UserDefinedName"]))
                                         
-                                # Proxies dict
                                 if "Proxies" in plist["NetworkServices"][service_key]:
                                     if len(plist["NetworkServices"][service_key]["Proxies"]) == 0:
                                         of.write("\t\tProxies: No Proxies data.\r\n")
@@ -92,14 +86,12 @@ class NetworkPreferences(Plugin):
                                                 of.write("\t\t\tException: {}\r\n".format(proxy_exception))
                                         of.write("\t\t\tFTP Passive: {}\r\n".format(plist["NetworkServices"][service_key]["Proxies"]["FTPPassive"]))  # integer
                                         
-                                # SMB dict
                                 if "SMB" in plist["NetworkServices"][service_key]:
                                     if len(plist["NetworkServices"][service_key]["SMB"]) == 0:
                                         of.write("\t\tSMB: No SMB data.\r\n")
                                     else:
                                         of.write("\t\tSMB: {}\r\n".format(plist["NetworkServices"][service_key]["SMB"]))
                                 
-                                # UserDefinedName string
                                 if "UserDefinedName" in plist["NetworkServices"][service_key]:
                                     of.write("\t\t\tUserDefinedName: {}\r\n".format(plist["NetworkServices"][service_key]["UserDefinedName"]))
                                 
@@ -111,15 +103,11 @@ class NetworkPreferences(Plugin):
                             network_sets = plist["Sets"]
                             for network_set in network_sets:
                                 if "Network" in plist["Sets"][network_set]:
-                                    # Global
                                     of.write("\tGlobal:\r\n")
-                                    # Global.IPv4
                                     if "IPv4" in plist["Sets"][network_set]["Network"]["Global"]:
                                         of.write("\t\tIPv4 Service Order:\r\n")
-                                        # Global.IPv4.ServiceOrder
                                         for item in plist["Sets"][network_set]["Network"]["Global"]["IPv4"]["ServiceOrder"]:
                                             of.write("\t\t\tService: {}\r\n".format(item))
-                                    # Interface
                                     if "Interface" in plist["Sets"][network_set]["Network"]:
                                         keys = plist["Sets"][network_set]["Network"].keys()
                                         for key in keys:
@@ -138,7 +126,6 @@ class NetworkPreferences(Plugin):
                                                         of.write("\t\t\tRemember Joined Networks: {}\r\n".format(ik_dict.get(ik_key).get("RememberJoinedNetworks")))
                                                         of.write("\t\t\tVersion                 : {}\r\n".format(ik_dict.get(ik_key).get("Version")))
                                                         of.write("\r\n")
-                                            # Service
                                             if key == "Service":
                                                 of.write("\tService:\r\n")
                                                 for service_key in plist["Sets"][network_set]["Network"][key]:
@@ -176,15 +163,13 @@ class NetworkPreferences(Plugin):
                     with open(plist_file, "rb") as pl:
                         plist = plistlib.load(pl)
                     try:
-                        # CurrentSet
                         if "CurrentSet" in plist:
                             of.write("Current Set: {}\r\n".format(plist["CurrentSet"]))
-                        # NetworkServices
                         of.write("Network Services:\r\n")
                         network_services = plist["NetworkServices"]
                         for network_service_name in network_services:
                             of.write("Network Service Name: {}\r\n".format(network_service_name))
-                            network_service = network_services[network_service_name]  # DICT of DICTS
+                            network_service = network_services[network_service_name]
                             if "DNS" in network_service:
                                 of.write("\tDNS              : {}\r\n".format(str(network_service["DNS"])))
                             if "IPv4" in network_service:

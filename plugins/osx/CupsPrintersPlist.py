@@ -1,12 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import plistlib
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class CupsPrintersPlist(Plugin):
@@ -38,27 +37,27 @@ class CupsPrintersPlist(Plugin):
                     or self._os_version == "snow_leopard":
                 if os.path.isfile(plist_file):
                     with open(plist_file, "rb") as pl:
-                        plist = plistlib.load(pl)  # ARRAY
+                        plist = plistlib.load(pl)
                     try:
                         for printer in plist:
                             if "printer-name" in printer:
                                 of.write("Printer Name          : {}\r\n".format(printer["printer-name"]))
                             if "printer-info" in printer:
                                 of.write("Printer Info          : {}\r\n".format(printer["printer-info"]))
-                            if "printer-is-accepting-jobs" in printer:  # BOOLEAN
+                            if "printer-is-accepting-jobs" in printer:
                                 of.write("Printer Accepting Jobs: {}\r\n".format(printer["printer-is-accepting-jobs"])) 
                             if "printer-location" in printer:
-                                of.write("Printer Location      : {}\r\n".format(printer["printer-location"]))  # UNICODE STRING
+                                of.write("Printer Location      : {}\r\n".format(printer["printer-location"]))
                             if "printer-make-and-model" in printer:
                                 of.write("Printer Make & Model  : {}\r\n".format(printer["printer-make-and-model"]))
                             if "printer-state" in printer:
-                                of.write("Printer State         : {}\r\n".format(printer["printer-state"]))  # INTEGER
-                            if "printer-state-reasons" in printer:  # ARRAY
+                                of.write("Printer State         : {}\r\n".format(printer["printer-state"]))
+                            if "printer-state-reasons" in printer:
                                 of.write("Printer State Reasons:\r\n")
                                 reasons = printer["printer-state-reasons"]
                                 for reason in reasons:
                                     of.write("\t{}\r\n".format(reason))
-                            if "printer-type" in printer:  # INTEGER
+                            if "printer-type" in printer:
                                 of.write("Printer Type          : {}\r\n".format(printer["printer-type"])) 
                             if "device-uri" in printer:
                                 of.write("Device URI            : {}\r\n".format(printer["device-uri"]))

@@ -1,12 +1,12 @@
-__author__ = 'bolodev'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import ccl_bplist
 import codecs
 import datetime
 import logging
 import os
+__author__ = 'bolodev'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersCyberGhost(Plugin):
@@ -55,43 +55,29 @@ class UsersCyberGhost(Plugin):
                 pl = ccl_bplist.load(bplist)
                 bplist.close()
                 try:
-                    # Cyberghost_GUID
                     if "Cyberghost_GUID" in pl:
                         of.write("Cyberghost GUID      : {}\r\n".format(pl["Cyberghost_GUID"]))
-                    # startAtSystemStart
                     if "startAtSystemStart" in pl:
                         of.write("Start at System Start: {}\r\n".format(pl["startAtSystemStart"]))
-                    # SULastCheckTime
                     if "SULastCheckTime" in pl:
                         of.write("SU Last Check Time   : {}\r\n".format(pl["SULastCheckTime"]))
-                    # RandomPort
                     if "RandomPort" in pl:
                         of.write("Random Port          : {}\r\n".format(pl["RandomPort"]))
-                    # useOpenVpnOverTcp
                     if "useOpenVpnOverTcp" in pl:
                         of.write("Use OpenVpn Over Tcp : {}\r\n".format(pl["useOpenVpnOverTcp"]))
-                    # Cyberghost_RemoteSettings -> DICT
                     if "Cyberghost_RemoteSettings" in pl:
                         of.write("Cyberghost Remote Settings:\r\n")
                         remote_settings = pl["Cyberghost_RemoteSettings"]
                         # instdate -> Unix Millisecond
                         date_foo = remote_settings["instdate"]
-                        # print(type(date_foo))
                         date_foo = datetime.datetime.fromtimestamp(date_foo/1000.0)
                         of.write("\tInstall Date           : {}\r\n".format(date_foo))
-                        # LastCountry
                         of.write("\tLast Country           : {}\r\n".format(remote_settings["LastCountry"]))
-                        # LastServer
                         of.write("\tLast Server            : {}\r\n".format(remote_settings["LastServer"]))
-                        # LastLoggedIn
                         of.write("\tLast Logged In         : {}\r\n".format(remote_settings["LastLoggedIn"]))
-                        # LastPlanID
                         of.write("\tLas tPlan ID           : {}\r\n".format(remote_settings["LastPlanID"]))
-                        # ENC_ConnectedServerID
                         of.write("\tENC Connected Server ID: {}\r\n".format(remote_settings["ENC_ConnectedServerID"]))
-                        # LastPlanName
                         of.write("\tLast Plan Name         : {}\r\n".format(remote_settings["LastPlanName"]))
-                        # startCounter
                         of.write("\tStart Counter          : {}\r\n".format(remote_settings["startCounter"]))
                 except KeyError:
                     pass

@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersMozillaFirefoxPlist(Plugin):
@@ -29,7 +29,6 @@ class UsersMozillaFirefoxPlist(Plugin):
         Iterate over /Users directory and find user sub-directories
         """
         users_path = os.path.join(self._input_dir, "Users")
-        # username = None
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
@@ -51,12 +50,10 @@ class UsersMozillaFirefoxPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            # if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
             if os.path.isfile(file):
                 bplist = open(file, "rb")
                 plist = ccl_bplist.load(bplist)
                 try:
-                    # NSTreatUnknownArgumentsAsOpen
                     if "NSTreatUnknownArgumentsAsOpen" in plist:
                         of.write("Treat Unknown Arguments As Open: {}\r\n\r\n".format(plist["NSTreatUnknownArgumentsAsOpen"]))
                     if "NSNavLastRootDirectory" in plist:

@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersDockPlist(Plugin):
@@ -29,7 +29,6 @@ class UsersDockPlist(Plugin):
         Iterate over /Users directory and find user sub-directories
         """
         users_path = os.path.join(self._input_dir, "Users")
-        # username = None
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
@@ -60,7 +59,6 @@ class UsersDockPlist(Plugin):
                     try:
                         if "trash-full" in plist:
                             of.write("Trash Full: {}\r\n\r\n".format(plist["trash-full"]))
-                        # persistent-apps ARRAY of DICT
                         if "persistent-apps" in plist:
                             of.write("Applications:\r\n")
                             persist_apps = plist["persistent-apps"]
@@ -68,7 +66,6 @@ class UsersDockPlist(Plugin):
                                 if "file-data" in persist_app["tile-data"]:
                                     of.write("\t{}\r\n".format(persist_app["tile-data"]["file-data"]["_CFURLString"]))
                             of.write("\r\n")
-                        # persistent-others ARRAY of DICT
                         if "persistent-others" in plist:
                             persist_others = plist["persistent-others"]
                             of.write("Other:\r\n")

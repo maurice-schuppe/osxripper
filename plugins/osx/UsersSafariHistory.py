@@ -1,6 +1,3 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import datetime
@@ -8,6 +5,9 @@ import logging
 import os
 import sqlite3
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersSafariHistory(Plugin):
@@ -31,7 +31,6 @@ class UsersSafariHistory(Plugin):
         Iterate over /Users directory and find user sub-directories
         """
         users_path = os.path.join(self._input_dir, "Users")
-        # username = None
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
@@ -132,30 +131,23 @@ class UsersSafariHistory(Plugin):
                 bplist = open(history_plist, "rb")
                 plist = ccl_bplist.load(bplist)
                 try:
-                    # WebHistoryFileVersion
                     if "WebHistoryFileVersion" in plist:
                         of.write("Web History File Version: {}\r\n".format(plist["WebHistoryFileVersion"]))
-                    # WebHistoryDates ARRAY of DICT
                     if "WebHistoryDates" in plist:
                         of.write("Web History:\r\n")
                         for whd in plist["WebHistoryDates"]:
-                            # EMPTY KEY with URL value
                             of.write("\tURL: {}\r\n".format(whd[""]))
                             # title
                             if "title" in whd:
                                 of.write("\tTitle: {}\r\n".format(whd["title"]))
-                            # lastVisitedDate FLOAT DATE
                             if "lastVisitedDate" in whd:
                                 of.write("\tLast Visited Date: {}\r\n".format(mac_absolute + datetime.timedelta(0, float(whd["lastVisitedDate"]))))
-                            # visitCount
                             if "visitCount" in whd:
                                 of.write("\tVisit Count: {}\r\n".format(whd["visitCount"]))
-                            # redirectURLs ARRAY of STRING
                             if "redirectURLs" in whd:
                                 for redirect in whd["redirectURLs"]:
                                     of.write("\tRedirect URL: {}\r\n".format(redirect))
                             of.write("\r\n")
-                    # WebHistoryDomains.v2 MAVERICKS? ARRAY of DICT
                     if "WebHistoryDomains.v2" in plist:
                         of.write("Web History Domains v2:\r\n")
                         

@@ -1,18 +1,21 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import plistlib
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class SystemTime(Plugin):
     """
-    Plugin to derive time information from /Library/Preferences/.GlobalPreferences.plist, /private/etc/localtime, /private/etc/ntp.conf, and /Library/Preferences/com.apple.timezone.auto.plist
+    Plugin to derive time information from
+    /Library/Preferences/.GlobalPreferences.plist,
+    /private/etc/localtime,
+    /private/etc/ntp.conf
+    /Library/Preferences/com.apple.timezone.auto.plist
     """
     
     def __init__(self):
@@ -28,7 +31,11 @@ class SystemTime(Plugin):
     
     def parse(self):
         """
-        Read and parse /Library/Preferences/.GlobalPreferences.plist, /private/etc/localtime, /private/etc/ntp.conf, and /Library/Preferences/com.apple.timezone.auto.plist
+        Read and parse
+        /Library/Preferences/.GlobalPreferences.plist
+        /private/etc/localtime
+        /private/etc/ntp.conf
+        /Library/Preferences/com.apple.timezone.auto.plist
         """
         if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
             global_plist = os.path.join(self._input_dir, "Library", "Preferences", ".GlobalPreferences.plist")

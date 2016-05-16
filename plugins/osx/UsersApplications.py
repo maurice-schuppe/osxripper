@@ -1,10 +1,10 @@
-__author__ = 'bolodev'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+__author__ = 'bolodev'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersApplications(Plugin):
@@ -46,7 +46,8 @@ class UsersApplications(Plugin):
         """
         List .app directories
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Applications.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + '_Applications.txt'), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {}\r\n\r\n".format(file))
             for root, dirs, files in os.walk(file):

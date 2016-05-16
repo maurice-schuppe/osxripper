@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersCommercePlist(Plugin):
@@ -55,70 +55,44 @@ class UsersCommercePlist(Plugin):
                 bplist = open(file, "rb")
                 plist = ccl_bplist.load(bplist)
                 try:
-                    # AllowLegacyConversion
-                    if "AllowLegacyConversion" in plist: 
+                    if "AllowLegacyConversion" in plist:
                         of.write("Allow Legacy Conversion     : {}\r\n".format(plist["AllowLegacyConversion"]))
-                    # LastAutoUpdateInvocation
-                    if "LastAutoUpdateInvocation" in plist: 
+                    if "LastAutoUpdateInvocation" in plist:
                         of.write("Last Auto Update Invocation : {}\r\n".format(plist["LastAutoUpdateInvocation"]))
-                    # KnownAccounts ARRAY
                     accounts = plist["KnownAccounts"]
                     of.write("Accounts:\r\n\r\n")
                     for account in accounts:
                         of.write("\tAccount:\r\n")
-                        # identifier
                         if "identifier" in account:
                             of.write("\t\tIdentifier: {}\r\n".format(account["identifier"]))
-                        # dsid
                         if "dsid" in account:
                             of.write("\t\tDSID: {}\r\n".format(account["dsid"]))
-                        # signedin
                         if "signedin" in account:
                             of.write("\t\tSigned In: {}\r\n".format(account["signedin"]))
-                        # credit
                         if "credit" in account:
                             if len(account["credit"]) == 0:
                                 of.write("\t\tCredit: No credit.\r\n")
                             else:
                                 of.write("\t\tCredit: {}\r\n".format(account["credit"]))
-                        # kind
                         if "kind" in account:
                             of.write("\t\tAcct. Kind: {}\r\n".format(account["kind"]))
-                        # storefront
                         if "storefront" in account:
                             of.write("\t\tStorefront: {}\r\n".format(account["storefront"]))
-                        # bagtype
                         if "bagtype" in account:
                             of.write("\t\tBag Type: {}\r\n".format(account["bagtype"]))
                         of.write("\r\n")
                         
-                    # PurchasesInflight
-                    if "PurchasesInflight" in plist: 
+                    if "PurchasesInflight" in plist:
                         of.write("Purchases Inflight          : {}\r\n".format(plist["PurchasesInflight"]))
-                    # PrimaryAccount
-                    # PrimaryAccountMigrated
-                    if "PrimaryAccountMigrated" in plist: 
+                    if "PrimaryAccountMigrated" in plist:
                         of.write("Primary Account Migrated    : {}\r\n".format(plist["PrimaryAccountMigrated"]))
-                    # NextClientIDPingDate
-                    if "NextClientIDPingDate" in plist: 
+                    if "NextClientIDPingDate" in plist:
                         of.write("Next Client ID Ping Date    : {}\r\n".format(plist["NextClientIDPingDate"]))
-                    # AppUpdatesToInstallLater ARRAY
                 except KeyError:
                     pass
                 bplist.close()
-            elif self._os_version == "mavericks":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "mountain_lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
+            elif self._os_version == "mavericks" or self._os_version == "mountain_lion" or self._os_version == "lion" \
+                    or self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

@@ -35,7 +35,6 @@ class QuicklookThumbnailCache(Plugin):
             start_folder = os.path.join(self._input_dir, "private", "var", "folders")
             file_list = []
 
-            # of.write("Source File: {}\r\n\r\n".format(root))
             if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks"\
                 or self._os_version == "mountain_lion" or self._os_version == "lion"\
                     or self._os_version == "snow_leopard":
@@ -94,5 +93,4 @@ class QuicklookThumbnailCache(Plugin):
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
-            # of.write("="*40 + "\r\n\r\n")
         of.close()

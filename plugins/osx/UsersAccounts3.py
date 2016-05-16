@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import sqlite3
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersAccounts3(Plugin):
@@ -52,7 +52,8 @@ class UsersAccounts3(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version == "el_capitan" or self._os_version == "yosemite":
-                query = "SELECT zusername,zactive,zauthenticated,zvisible,datetime(zdate + 978307200, 'unixepoch'),zaccountdescription,zowningbundleid FROM zaccount"
+                query = "SELECT zusername,zactive,zauthenticated,zvisible,datetime(zdate + 978307200, 'unixepoch')," \
+                        "zaccountdescription,zowningbundleid FROM zaccount"
                 conn = None
                 try:
                     conn = sqlite3.connect(file)
@@ -107,7 +108,8 @@ class UsersAccounts3(Plugin):
                     if conn:
                         conn.close()
             elif self._os_version == "mavericks" or self._os_version == "mountain_lion":
-                query = "SELECT zusername,zactive,zauthenticated,datetime(zdate + 978307200, 'unixepoch'),zaccountdescription,zowningbundleid FROM zaccount"
+                query = "SELECT zusername,zactive,zauthenticated,datetime(zdate + 978307200, 'unixepoch')," \
+                        "zaccountdescription,zowningbundleid FROM zaccount"
                 conn = None
                 try:
                     conn = sqlite3.connect(file)

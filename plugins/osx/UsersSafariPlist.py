@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersSafariPlist(Plugin):
@@ -29,7 +29,6 @@ class UsersSafariPlist(Plugin):
         Iterate over /Users directory and find user sub-directories
         """
         users_path = os.path.join(self._input_dir, "Users")
-        # username = None
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
@@ -56,23 +55,18 @@ class UsersSafariPlist(Plugin):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
                     try:
-                        # RecentWebSearches ARRAY of DICT
                         if "RecentWebSearches" in plist:
                             of.write("Recent Web Searches:\r\n")
                             for rws in plist["RecentWebSearches"]:
                                 of.write("\tSearch String: {}\r\n".format(rws["SearchString"]))
                                 of.write("\tSearch Date  : {}\r\n\r\n".format(rws["Date"]))
                                 
-                        # LocalFileRestrictionsEnabled
                         if "LocalFileRestrictionsEnabled" in plist:
                             of.write("Local File Restrictions Enabled: {}\r\n".format(plist["LocalFileRestrictionsEnabled"]))
-                        # CachedBookmarksFileSize
                         if "CachedBookmarksFileSize" in plist:
                             of.write("Cached Bookmarks File Size     : {}\r\n".format(plist["CachedBookmarksFileSize"]))
-                        # ExtensionsEnabled
                         if "ExtensionsEnabled" in plist:
                             of.write("Extensions Enabled             : {}\r\n".format(plist["ExtensionsEnabled"]))
-                        # DownloadsPath
                         if "DownloadsPath" in plist:
                             of.write("Downloads Path                 : {}\r\n".format(plist["DownloadsPath"]))
                     except KeyError:
@@ -87,19 +81,15 @@ class UsersSafariPlist(Plugin):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
                     try:
-                        # RecentSearchStrings ARRAY of STRING
                         if "RecentSearchStrings" in plist:
                             of.write("Recent Search Strings:\r\n")
                             for search_string in plist["RecentSearchStrings"]:
                                 of.write("\t{}\r\n".format(search_string))
                             of.write("\r\n")
-                        # DownloadsPath
                         if "DownloadsPath" in plist:
                             of.write("Downloads Path                 : {}\r\n".format(plist["DownloadsPath"]))
-                        # LocalFileRestrictionsEnabled
                         if "LocalFileRestrictionsEnabled" in plist:
                             of.write("Local File Restrictions Enabled: {}\r\n".format(plist["LocalFileRestrictionsEnabled"]))
-                        # CachedBookmarksFileSize
                         if "CachedBookmarksFileSize" in plist:
                             of.write("Cached Bookmarks File Size     : {}\r\n".format(plist["CachedBookmarksFileSize"]))
                     except KeyError:
@@ -115,19 +105,13 @@ class UsersSafariPlist(Plugin):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
                     try:
-                        # RecentSearchStrings ARRAY of STRING
                         if "RecentSearchStrings" in plist:
                             of.write("Recent Search Strings:\r\n")
                             for search_string in plist["RecentSearchStrings"]:
                                 of.write("\t{}\r\n".format(search_string))
                             of.write("\r\n")
-                        # DownloadsPath
                         if "DownloadsPath" in plist:
                             of.write("Downloads Path                 : {}\r\n".format(plist["DownloadsPath"]))
-                        # LocalFileRestrictionsEnabled
-                        # if "LocalFileRestrictionsEnabled" in plist:
-                        #     of.write("Local File Restrictions Enabled: {}\r\n".format(plist["LocalFileRestrictionsEnabled"]))
-                        # CachedBookmarksFileSize
                         if "CachedBookmarksFileSize" in plist:
                             of.write("Cached Bookmarks File Size     : {}\r\n".format(plist["CachedBookmarksFileSize"]))
                     except KeyError:

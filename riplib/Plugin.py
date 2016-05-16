@@ -1,8 +1,8 @@
+import pprint
+
 __author__ = 'osxripper'
 __version__ = '0.2'
 __license__ = 'GPLv3'
-
-import pprint
 
 
 class Plugin(object):

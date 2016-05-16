@@ -1,12 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import plistlib
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class WifiMessageTracer(Plugin):
@@ -38,30 +37,24 @@ class WifiMessageTracer(Plugin):
                     with open(plist_file, "rb") as pl:
                         plist = plistlib.load(pl)
                     try:
-                        # AssociationSSIDMap
                         if "AssociationSSIDMap" in plist:
                             of.write("AssociationSSIDMap:\r\n")
                             for asm_key in plist["AssociationSSIDMap"]:
                                 of.write("\t{}: {}\r\n".format(asm_key, plist["AssociationSSIDMap"][asm_key]))
                             of.write("\r\n")
-                        # InternalAssociationSSIDMap
                         if "InternalAssociationSSIDMap" in plist:
                             of.write("InternalAssociationSSIDMap:\r\n")
                             for iasm_key in plist["InternalAssociationSSIDMap"]:
                                 of.write("\t{}: {}\r\n".format(iasm_key, plist["InternalAssociationSSIDMap"][iasm_key]))
                             of.write("\r\n")
-                        # LastSubmissionTimestamp
                         if "LastSubmissionTimestamp" in plist:
                             of.write("Last Submission Timestamp: {}\r\n".format(plist["LastSubmissionTimestamp"]))
                             of.write("\r\n")
-                        # PendingList
                         if "PendingList" in plist:
                             of.write("Pending List:\r\n")
                             pending_list = plist["PendingList"]  # list
-                            # print len(pending_list)
                             for pending_list_item in pending_list:
                                 for item_key in pending_list_item:
-                                    # print type(pending_list_item[item_key])
                                     if isinstance(pending_list_item[item_key], str):
                                         of.write("\t{}: {}\r\n".format(item_key, pending_list_item[item_key]))
                                     else:
@@ -79,18 +72,14 @@ class WifiMessageTracer(Plugin):
                     with open(plist_file, "rb") as pl:
                         plist = plistlib.load(pl)
                     try:
-                        # LastSubmissionTimestamp
                         if "LastSubmissionTimestamp" in plist:
                             of.write("Last Submission Timestamp: {}\r\n".format(plist["LastSubmissionTimestamp"]))
                             of.write("\r\n")
-                        # PendingList
                         if "PendingList" in plist:
                             of.write("Pending List:\r\n")
                             pending_list = plist["PendingList"]  # list
-                            # print len(pending_list)
                             for pending_list_item in pending_list:
                                 for item_key in pending_list_item:
-                                    # print type(pending_list_item[item_key])
                                     if isinstance(pending_list_item[item_key], str):
                                         of.write("\t{}: {}\r\n".format(item_key, pending_list_item[item_key]))
                                     else:
@@ -103,15 +92,8 @@ class WifiMessageTracer(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
-            elif self._os_version == "mountain_lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
+            elif self._os_version == "mountain_lion" or self._os_version == "lion" \
+                    or self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

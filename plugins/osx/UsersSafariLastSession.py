@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersSafariLastSession(Plugin):
@@ -29,7 +29,6 @@ class UsersSafariLastSession(Plugin):
         Iterate over /Users directory and find user sub-directories
         """
         users_path = os.path.join(self._input_dir, "Users")
-        # username = None
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
@@ -57,17 +56,13 @@ class UsersSafariLastSession(Plugin):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
                     try:
-                        # SessionWindows
                         if "SessionWindows" in plist:
                             for session_window in plist["SessionWindows"]:
-                                # TabStates ARRAY of DICT
                                 if "TabStates" in session_window:
                                     of.write("Tabs:\r\n")
                                     for tab_state in session_window["TabStates"]:
-                                        # TabURL
                                         if "TabURL" in tab_state:
                                             of.write("\tTab URL  : {}\r\n".format(tab_state["TabURL"]))
-                                        # TabTitle
                                         if "TabTitle" in tab_state:
                                             of.write("\tTab Title: {}\r\n".format(tab_state["TabTitle"]))
                                         of.write("\r\n")

@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersSafariWebBookmarks(Plugin):
@@ -62,10 +62,8 @@ class UsersSafariWebBookmarks(Plugin):
                         plist = ccl_bplist.load(bplist)
                         bplist.close()
                         try:
-                            # Name
                             if "Name" in plist:
                                 of.write("Name: {}\r\n".format(plist["Name"]))
-                            # URL
                             if "URL" in plist:
                                 of.write("URL: {}\r\n".format(plist["URL"]))
                         except KeyError:

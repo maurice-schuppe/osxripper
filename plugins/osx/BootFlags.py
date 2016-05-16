@@ -1,12 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import plistlib
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class BootFlags(Plugin):
@@ -34,7 +33,8 @@ class BootFlags(Plugin):
             if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
                     or self._os_version == "mountain_lion" or self._os_version == "lion" \
                     or self._os_version == "snow_leopard":
-                plist_file = os.path.join(self._input_dir, "Library", "Preferences", "SystemConfiguration", self._data_file)
+                plist_file = os.path.join(self._input_dir, "Library", "Preferences", "SystemConfiguration",
+                                          self._data_file)
                 of.write("Source File: {}\r\n\r\n".format(plist_file))
                 if os.path.isfile(plist_file):
                     with open(plist_file, "rb") as pl:

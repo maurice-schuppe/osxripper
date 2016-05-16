@@ -1,10 +1,10 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersTrueCrypt(Plugin):
@@ -28,7 +28,6 @@ class UsersTrueCrypt(Plugin):
         Find the xml file
         """
         users_path = os.path.join(self._input_dir, "Users")
-        # username = None
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
@@ -50,7 +49,6 @@ class UsersTrueCrypt(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_TrueCrypt_config.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            # if self._os_version == "yosemite":
             if os.path.isfile(file):
                 config_file = codecs.open(file, "r", encoding="utf-8")
                 for lines in config_file:

@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import sqlite3
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class UsersMozillaFirefoxCookies(Plugin):
@@ -55,7 +55,6 @@ class UsersMozillaFirefoxCookies(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox_Cookies.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            # if self._os_version == "yosemite" or self._os_version == "mavericks" or self._os_version == "mountain_lion":
             if os.path.isfile(file):
                 of.write("Source File: {}\r\n\r\n".format(file))
                 conn = None

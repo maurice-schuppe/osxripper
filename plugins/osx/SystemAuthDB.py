@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import sqlite3
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class SystemAuthDB(Plugin):
@@ -30,8 +30,9 @@ class SystemAuthDB(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            query = "SELECT name, rules.'group', type, class, tries, version, kofn, datetime(created + 978307200, 'unixepoch'), " \
-                    "datetime(modified + 978307200, 'unixepoch'), identifier, comment FROM rules ORDER BY name"
+            query = "SELECT name, rules.'group', type, class, tries, version, kofn, " \
+                    "datetime(created + 978307200, 'unixepoch'), datetime(modified + 978307200, 'unixepoch'), " \
+                    "identifier, comment FROM rules ORDER BY name"
             file = os.path.join(self._input_dir, "private", "var", "db", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
@@ -100,15 +101,8 @@ class SystemAuthDB(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
 
-            elif self._os_version == "mountain_lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
+            elif self._os_version == "mountain_lion" or self._os_version == "lion" \
+                    or self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

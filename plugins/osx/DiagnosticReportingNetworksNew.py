@@ -1,11 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class DiagnosticReportingNetworksNew(Plugin):
@@ -18,7 +18,8 @@ class DiagnosticReportingNetworksNew(Plugin):
         """
         super().__init__()
         self._name = "DiagnosticReporting.Networks.New"
-        self._description = "Parse DHCP Lease plists from /Library/Caches/com.apple.DiagnosticReporting.Networks.New.plist"
+        self._description = \
+            "Parse DHCP Lease plists from /Library/Caches/com.apple.DiagnosticReporting.Networks.New.plist"
         self._data_file = "com.apple.DiagnosticReporting.Networks.New.plist"
         self._output_file = "Networking.txt"
         self._type = "bplist"
@@ -44,19 +45,8 @@ class DiagnosticReportingNetworksNew(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-            elif self._os_version == "mavericks":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
-            elif self._os_version == "mountain_lion":
-                logging.info("This version of OSX is not supported this plugin.")
-                print("[INFO] This version of OSX is not supported this plugin.")
-                of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported this plugin.")
-                print("[INFO] This version of OSX is not supported this plugin.")
-                of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
+            elif self._os_version == "mavericks" or self._os_version == "mountain_lion" or self._os_version == "lion" \
+                    or self._os_version == "snow_leopard":
                 logging.info("This version of OSX is not supported this plugin.")
                 print("[INFO] This version of OSX is not supported this plugin.")
                 of.write("[INFO] This version of OSX is not supported this plugin.\r\n")

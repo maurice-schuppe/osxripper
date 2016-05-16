@@ -1,12 +1,11 @@
-__author__ = 'osxripper'
-__version__ = '0.1'
-__license__ = 'GPLv3'
-
 from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
 import ccl_bplist
+__author__ = 'osxripper'
+__version__ = '0.1'
+__license__ = 'GPLv3'
 
 
 class SystemGlobalPreferences(Plugin):
@@ -39,27 +38,16 @@ class SystemGlobalPreferences(Plugin):
                     bplist = open(global_plist, "rb")
                     plist = ccl_bplist.load(bplist)
                     bplist.close()
-                    # MultipleSessionEnabled
                     if "MultipleSessionEnabled" in plist:
                         of.write("Multiple Session Enabled       : {}\r\n".format(plist["MultipleSessionEnabled"]))
-                        
-                    # com.apple.updatesettings_did_disable_ftp
                     if "com.apple.updatesettings_did_disable_ftp" in plist:
                         of.write("Update Settings Did Disable FTP: {}\r\n".format(plist["com.apple.updatesettings_did_disable_ftp"]))
-                    
-                    # com.apple.AppleModemSettingTool.LastCountryCode
                     if "com.apple.AppleModemSettingTool.LastCountryCode" in plist:
                         of.write("Modem Last Country Code        : {}\r\n".format(plist["com.apple.AppleModemSettingTool.LastCountryCode"]))
-                    
-                    # Country
                     if "Country" in plist:
                         of.write("Country                        : {}\r\n".format(plist["Country"]))
-                    
-                    # AppleLocale
                     if "AppleLocale" in plist:
                         of.write("Apple Locale                   : {}\r\n".format(plist["AppleLocale"]))
-                    
-                    # AppleLanguages
                     if "AppleLanguages" in plist:
                         apple_languages = plist["AppleLanguages"]
                         of.write("Languages:\r\n")
