@@ -51,7 +51,7 @@ class UsersCommercePlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite":
+            if self._os_version in ["el_capitan", "yosemite"]:
                 bplist = open(file, "rb")
                 plist = ccl_bplist.load(bplist)
                 try:
@@ -91,8 +91,7 @@ class UsersCommercePlist(Plugin):
                 except KeyError:
                     pass
                 bplist.close()
-            elif self._os_version == "mavericks" or self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            elif self._os_version in ["mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

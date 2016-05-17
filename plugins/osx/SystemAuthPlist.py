@@ -31,7 +31,7 @@ class SystemAuthPlist(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             plist_file = os.path.join(self._input_dir, "private", "etc", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(plist_file))
-            if self._os_version == "mountain_lion" or self._os_version == "lion" or self._os_version == "snow_leopard":
+            if self._os_version in ["mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(plist_file):
                     try:
                         with open(plist_file, "rb") as pl:
@@ -69,7 +69,8 @@ class SystemAuthPlist(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
-            elif self._os_version == "yosemite" or self._os_version == "mavericks":
+
+            elif self._os_version in ["yosemite", "mavericks"]:
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

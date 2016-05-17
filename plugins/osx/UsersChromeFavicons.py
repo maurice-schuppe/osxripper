@@ -51,7 +51,8 @@ class UsersChromeFavicons(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Chrome_Favicons.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, self._data_file)
-            query = "SELECT im.page_url,fi.url,datetime((fb.last_updated / 1000000)-11644473600, 'unixepoch') FROM favicon_bitmaps fb,favicons fi,icon_mapping im WHERE fb.icon_id = fi.id AND im.icon_id = fi.id"
+            query = "SELECT im.page_url,fi.url,datetime((fb.last_updated / 1000000)-11644473600, 'unixepoch') FROM " \
+                    "favicon_bitmaps fb,favicons fi,icon_mapping im WHERE fb.icon_id = fi.id AND im.icon_id = fi.id"
             if os.path.isfile(history_db):
                 of.write("Source File: {}\r\n\r\n".format(history_db))
                 conn = None

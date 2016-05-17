@@ -37,7 +37,7 @@ class SystemTime(Plugin):
         /private/etc/ntp.conf
         /Library/Preferences/com.apple.timezone.auto.plist
         """
-        if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
+        if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
             global_plist = os.path.join(self._input_dir, "Library", "Preferences", ".GlobalPreferences.plist")
             auto_tz_plist = os.path.join(self._input_dir, "Library", "Caches", "com.apple.AutoTimeZone.plist")
             tz_auto_plist = os.path.join(self._input_dir, "Library", "Preferences", "com.apple.timezone.auto.plist")
@@ -66,7 +66,7 @@ class SystemTime(Plugin):
                 logging.warning("File {} does not exist.".format(ntp_conf))
                 print("[WARNING] File {} does not exist.".format(ntp_conf))
         
-        elif self._os_version == "mountain_lion" or self._os_version == "lion" or self._os_version == "snow_leopard":
+        elif self._os_version in ["mountain_lion", "lion", "snow_leopard"]:
             global_plist = os.path.join(self._input_dir, "Library", "Preferences", ".GlobalPreferences.plist")
             # auto_tz_plist = os.path.join(self._input_dir, "Library", "Caches", "com.apple.AutoTimeZone.plist")
             # tz_auto_plist = os.path.join(self._input_dir, "Library", "Preferences", "com.apple.timezone.auto.plist")

@@ -32,7 +32,7 @@ class WifiMessageTracer(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             plist_file = os.path.join(self._input_dir, "Library", "Preferences", "SystemConfiguration", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(plist_file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite":
+            if self._os_version in ["el_capitan", "yosemite"]:
                 if os.path.isfile(plist_file):
                     with open(plist_file, "rb") as pl:
                         plist = plistlib.load(pl)
@@ -92,8 +92,7 @@ class WifiMessageTracer(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
-            elif self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            elif self._os_version in ["mountain_lion", "lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

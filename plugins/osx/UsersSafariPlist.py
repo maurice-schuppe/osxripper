@@ -50,7 +50,7 @@ class UsersSafariPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite":
+            if self._os_version in ["el_capitan", "yosemite"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
@@ -76,7 +76,7 @@ class UsersSafariPlist(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.".format(file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
-            elif self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            elif self._os_version in ["mavericks", "mountain_lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
@@ -100,7 +100,7 @@ class UsersSafariPlist(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
 
-            elif self._os_version == "lion" or self._os_version == "snow_leopard":
+            elif self._os_version in ["lion", "snow_leopard"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)

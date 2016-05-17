@@ -50,9 +50,7 @@ class UsersDockPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Dock.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)

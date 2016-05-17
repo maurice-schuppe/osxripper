@@ -51,8 +51,7 @@ class UsersFinderPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     pl = ccl_bplist.load(bplist)
@@ -71,7 +70,7 @@ class UsersFinderPlist(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
             
-            elif self._os_version == "lion" or self._os_version == "snow_leopard":
+            elif self._os_version in ["lion", "snow_leopard"]:
                 #  This needs double checking, none of the DVD, or DMGs mounted are recorded...
                 if os.path.isfile(file):
                     bplist = open(file, "rb")

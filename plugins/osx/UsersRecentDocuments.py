@@ -73,9 +73,8 @@ class UsersRecentDocuments(Plugin):
                     logging.info("This version of OSX is not supported by this plugin.")
                     print("[INFO] This version of OSX is not supported by this plugin.")
                     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+
+            elif self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 logging.warning("File: {} does not exist or cannot be found.".format(file))
                 of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                 print("[WARNING] File: {} does not exist or cannot be found.".format(file))

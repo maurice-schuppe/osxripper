@@ -34,7 +34,7 @@ class CacheEncryptedDatabase(Plugin):
             start_folder = os.path.join(self._input_dir, "private", "var", "folders")
             file_list = []
 
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
                 for root, subdirs, files in os.walk(start_folder):
                     if self._data_file in files:
                         file_list.append(os.path.join(root, self._data_file))
@@ -204,7 +204,7 @@ class CacheEncryptedDatabase(Plugin):
                     logging.warning("File: index.sqlite does not exist or cannot be found.\r\n")
                     of.write("[WARNING] File: index.sqlite does not exist or cannot be found.\r\n")
                     print("[WARNING] File: index.sqlite does not exist or cannot be found.")
-            elif self._os_version == "lion" or self._os_version == "snow_leopard":
+            elif self._os_version in ["lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported this plugin.")
                 print("[INFO] This version of OSX is not supported this plugin.")
                 of.write("[INFO] This version of OSX is not supported this plugin.\r\n")

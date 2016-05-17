@@ -51,7 +51,7 @@ class UsersAccounts3(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite":
+            if self._os_version in ["el_capitan", "yosemite"]:
                 query = "SELECT zusername,zactive,zauthenticated,zvisible,datetime(zdate + 978307200, 'unixepoch')," \
                         "zaccountdescription,zowningbundleid FROM zaccount"
                 conn = None
@@ -107,7 +107,7 @@ class UsersAccounts3(Plugin):
                 finally:
                     if conn:
                         conn.close()
-            elif self._os_version == "mavericks" or self._os_version == "mountain_lion":
+            elif self._os_version in ["mavericks", "mountain_lion"]:
                 query = "SELECT zusername,zactive,zauthenticated,datetime(zdate + 978307200, 'unixepoch')," \
                         "zaccountdescription,zowningbundleid FROM zaccount"
                 conn = None
@@ -158,11 +158,7 @@ class UsersAccounts3(Plugin):
                 finally:
                     if conn:
                         conn.close()
-            elif self._os_version == "lion":
-                logging.info("This version of OSX is not supported by this plugin.")
-                print("[INFO] This version of OSX is not supported by this plugin.")
-                of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
-            elif self._os_version == "snow_leopard":
+            elif self._os_version in ["lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

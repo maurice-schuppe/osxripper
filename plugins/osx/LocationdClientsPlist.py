@@ -35,7 +35,7 @@ class LocationdClientsPlist(Plugin):
             file = os.path.join(self._input_dir, "private", "var", "db", "locationd", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
             if os.path.isfile(file):
-                if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
+                if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
                     try:
                         bplist = open(file, "rb")
                         plist = ccl_bplist.load(bplist)
@@ -76,7 +76,7 @@ class LocationdClientsPlist(Plugin):
                                 of.write("\tRequirement String: {}\r\n".format(plist[client_dict]["RequirementString"]))
                     except KeyError:
                         pass
-                elif self._os_version == "lion" or self._os_version == "snow_leopard":
+                elif self._os_version in ["lion", "snow_leopard"]:
                     logging.info("This version of OSX is not supported by this plugin.")
                     print("[INFO] This version of OSX is not supported by this plugin.")
                     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

@@ -70,9 +70,7 @@ class DhcpLeasesPlist(Plugin):
                         of.write("Router SSID            : {}\r\n".format(plist["SSID"]))
                 except KeyError:
                     pass
-            elif self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            elif self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 try:
                     with open(file, "rb") as pl:
                         plist = plistlib.load(pl)

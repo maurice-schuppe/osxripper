@@ -49,9 +49,7 @@ class UsersLaunchAgents(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 dir_listing = os.listdir(file)
                 for launch_agent in dir_listing:
                     of.write("\t{}\r\n".format(launch_agent))

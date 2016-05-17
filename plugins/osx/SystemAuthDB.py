@@ -35,7 +35,7 @@ class SystemAuthDB(Plugin):
                     "identifier, comment FROM rules ORDER BY name"
             file = os.path.join(self._input_dir, "private", "var", "db", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
                 if os.path.isfile(file):
                     conn = None
                     try:
@@ -101,8 +101,7 @@ class SystemAuthDB(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(file))
 
-            elif self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            elif self._os_version in ["mountain_lion", "lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

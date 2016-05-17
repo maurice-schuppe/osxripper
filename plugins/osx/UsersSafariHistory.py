@@ -64,8 +64,9 @@ class UsersSafariHistory(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_History.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, "History.db")
-            query = "SELECT hi.id,hi.url,hi.visit_count,datetime(hv.visit_time + 978307200, 'unixepoch'),hv.title,hv.redirect_source," \
-                    "hv.redirect_destination FROM history_items hi,history_visits hv WHERE hi.id = hv.id"
+            query = "SELECT hi.id,hi.url,hi.visit_count,datetime(hv.visit_time + 978307200, 'unixepoch')," \
+                    "hv.title,hv.redirect_source,hv.redirect_destination FROM history_items hi,history_visits hv" \
+                    " WHERE hi.id = hv.id"
             if os.path.isfile(history_db):
                 of.write("Source File: {}\r\n\r\n".format(history_db))
                 conn = None

@@ -50,7 +50,9 @@ class UsersChromeDownloads(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Chrome_Downloads.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, "History")
-            query = "SELECT id, current_path, target_path,datetime(start_time / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch'),received_bytes, total_bytes, referrer FROM downloads"
+            query = "SELECT id, current_path, target_path," \
+                    "datetime(start_time / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+                    "received_bytes, total_bytes, referrer FROM downloads"
             if os.path.isfile(history_db):
                 of.write("Source File: {}\r\n\r\n".format(history_db))
                 conn = None

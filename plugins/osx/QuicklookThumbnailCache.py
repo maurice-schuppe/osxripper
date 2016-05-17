@@ -35,9 +35,7 @@ class QuicklookThumbnailCache(Plugin):
             start_folder = os.path.join(self._input_dir, "private", "var", "folders")
             file_list = []
 
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks"\
-                or self._os_version == "mountain_lion" or self._os_version == "lion"\
-                    or self._os_version == "snow_leopard":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 # search for index.sqlite
                 for root, subdirs, files in os.walk(start_folder):
                     if "com.apple.QuickLook.thumbnailcache" in root:

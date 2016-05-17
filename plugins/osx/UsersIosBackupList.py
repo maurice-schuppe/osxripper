@@ -49,9 +49,7 @@ class UsersIosBackupList(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_ios_backup_list.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 dir_listing = os.listdir(file)
                 for file_item in dir_listing:
                     of.write("iOS Backup: {}\r\n".format(file_item))

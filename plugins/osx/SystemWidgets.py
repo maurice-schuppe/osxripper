@@ -31,9 +31,7 @@ class SystemWidgets(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             working_dir = os.path.join(self._input_dir, "Library", "Widgets")
             of.write("Source Directory: {}\r\n\r\n".format(working_dir))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isdir(working_dir):
                     file_listing = os.listdir(working_dir)
                     for f in file_listing:

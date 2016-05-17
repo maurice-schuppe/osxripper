@@ -107,9 +107,7 @@ class InteractionDatabase(Plugin):
                     logging.warning("File: index.sqlite does not exist or cannot be found.\r\n")
                     of.write("[WARNING] File: index.sqlite does not exist or cannot be found.\r\n")
                     print("[WARNING] File: index.sqlite does not exist or cannot be found.")
-            elif self._os_version == "yosemite" or self._os_version == "mavericks"\
-                or self._os_version == "mountain_lion" or self._os_version == "lion"\
-                    or self._os_version == "snow_leopard":
+            elif self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported this plugin.")
                 print("[INFO] This version of OSX is not supported this plugin.")
                 of.write("[INFO] This version of OSX is not supported this plugin.\r\n")

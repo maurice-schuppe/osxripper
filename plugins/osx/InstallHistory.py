@@ -57,9 +57,7 @@ class InstallHistory(Plugin):
                     logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
-            elif self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            elif self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(plist_file):
                     try:
                         with open(plist_file, "rb") as pl:

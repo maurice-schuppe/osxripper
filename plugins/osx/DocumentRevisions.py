@@ -34,7 +34,7 @@ class DocumentRevisions(Plugin):
             query = "SELECT * FROM files"
             file = os.path.join(self._input_dir, ".DocumentRevisions-V100", "db-V1", self._data_file)
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite":
+            if self._os_version in ["el_capitan", "yosemite"]:
                 if os.path.isfile(file):
                     conn = None
                     try:
@@ -92,7 +92,7 @@ class DocumentRevisions(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
                     
-            elif self._os_version == "mavericks" or self._os_version == "mountain_lion" or self._os_version == "lion":
+            elif self._os_version in ["mavericks", "mountain_lion", "lion"]:
                 if os.path.isfile(file):
                     conn = None
                     try:
