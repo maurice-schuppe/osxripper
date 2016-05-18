@@ -43,9 +43,7 @@ class Summary(Plugin):
             of.write("="*10 + " Hostname " + "="*10 + "\r\n")
             plist_file = os.path.join(self._input_dir, "Library", "Preferences", "SystemConfiguration", "com.apple.smb.server.plist")
             of.write("Source File: {}\r\n\r\n".format(plist_file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion"\
-                    or self._os_version == "snow_leopard":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(plist_file):
                     try:
                         with open(plist_file, "rb") as pl:
@@ -73,9 +71,7 @@ class Summary(Plugin):
         working_dir = os.path.join(self._input_dir, "private", "var", "db", "dhcpclient", "leases")
         if os.path.isdir(working_dir):
             file_listing = os.listdir(working_dir)
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
                     of.write("="*10 + " DHCP Leases " + "="*10 + "\r\n")
                     for f in file_listing:
@@ -108,7 +104,7 @@ class Summary(Plugin):
         """
         global_plist = os.path.join(self._input_dir, "Library", "Preferences", ".GlobalPreferences.plist")
         auto_tz_plist = os.path.join(self._input_dir, "Library", "Caches", "com.apple.AutoTimeZone.plist")
-        if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks":
+        if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
             if os.path.isfile(global_plist) and os.path.isfile(auto_tz_plist):
                 with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
                     of.write("=" * 10 + " Local Time Zone " + "=" * 10 + "\r\n")
@@ -139,7 +135,7 @@ class Summary(Plugin):
                 logging.warning("File {} does not exist.".format(global_plist))
                 print("[WARNING] File {} does not exist.".format(global_plist))
 
-        elif self._os_version == "mountain_lion" or self._os_version == "lion" or self._os_version == "snow_leopard":
+        elif self._os_version in ["mountain_lion", "lion", "snow_leopard"]:
             if os.path.isfile(global_plist):
                 with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
                     of.write("=" * 10 + " Local Time Zone " + "=" * 10 + "\r\n")
@@ -170,8 +166,7 @@ class Summary(Plugin):
         file_listing = os.listdir(working_dir)
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " User Plists " + "="*10 + "\r\n\r\n")
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
                 for f in file_listing:
                     stat_info = os.stat(working_dir + os.path.sep + f)
                     if f.endswith(".plist") and stat_info.st_size > 0:
@@ -267,8 +262,7 @@ class Summary(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " Playlists " + "="*10 + "\r\n")
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
                 working_dir = os.path.join(self._input_dir, "private", "var", "db", "BootCaches")
                 of.write("Source Directory: {}\r\n\r\n".format(working_dir))
                 if os.path.isdir(working_dir):
@@ -322,7 +316,7 @@ class Summary(Plugin):
             of.write("="*10 + " Bluetooth  " + "="*10 + "\r\n")
             file = os.path.join(self._input_dir, "Library", "Preferences", "com.apple.Bluetooth.plist")
             of.write("Source File: {}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite":
+            if self._os_version in ["el_capitan", "yosemite"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     plist = riplib.ccl_bplist.load(bplist)
@@ -593,9 +587,7 @@ class Summary(Plugin):
             of.write("="*10 + " Install History " + "="*10 + "\r\n")
             plist_file = os.path.join(self._input_dir, "Library", "Receipts", "InstallHistory.plist")
             of.write("Source File: {}\r\n\r\n".format(plist_file))
-            if self._os_version == "el_capitan" or self._os_version == "yosemite" or self._os_version == "mavericks" \
-                    or self._os_version == "mountain_lion" or self._os_version == "lion" \
-                    or self._os_version == "snow_leopard":
+            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(plist_file):
                     try:
                         with open(plist_file, "rb") as pl:
