@@ -31,21 +31,21 @@ class Applications(Plugin):
             applications_dir = os.path.join(self._input_dir, "Applications")
             if os.path.isdir(applications_dir):
                 of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-                of.write("Source Directory: {}\r\n\r\n".format(applications_dir))
+                of.write("Source Directory: {0}\r\n\r\n".format(applications_dir))
                 file_listing = os.listdir(applications_dir)
                 for f in file_listing:
                     if not f.endswith(".app") and os.path.isdir(os.path.join(applications_dir, f)):
-                        of.write("\t{}\r\n".format(f))
+                        of.write("\t{0}\r\n".format(f))
                         sub_dir = os.path.join(applications_dir, f)
                         sub_dir_list = os.listdir(sub_dir)
                         for file_name in sub_dir_list:
-                            of.write("\t\t{}\r\n".format(file_name))
+                            of.write("\t\t{0}\r\n".format(file_name))
                     else:
                         of.write("\t{}\r\n".format(f))
             else:
-                logging.warning("Directory {} does not exist.".format(applications_dir))
-                of.write("[WARNING] Directory {} does not exist or cannot be found.\r\n".format(applications_dir))
-                print("[WARNING] Directory {} does not exist.".format(applications_dir))
+                logging.warning("Directory {0} does not exist.".format(applications_dir))
+                of.write("[WARNING] Directory {0} does not exist or cannot be found.\r\n".format(applications_dir))
+                print("[WARNING] Directory {0} does not exist.".format(applications_dir))
 
             of.write("="*40 + "\r\n\r\n")
         of.close()

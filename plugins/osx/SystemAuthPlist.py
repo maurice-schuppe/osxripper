@@ -70,7 +70,7 @@ class SystemAuthPlist(Plugin):
                     of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
                     print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
 
-            elif self._os_version in ["yosemite", "mavericks"]:
+            elif self._os_version in ["el_capitan", "yosemite", "mavericks"]:
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
