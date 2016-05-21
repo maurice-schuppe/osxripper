@@ -53,7 +53,7 @@ class UsersLaunchAgents(Plugin):
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 dir_listing = os.listdir(file)
                 for launch_agent in dir_listing:
-                    of.write("\t{}\r\n".format(launch_agent))
+                    of.write("\t{0}\r\n".format(launch_agent))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

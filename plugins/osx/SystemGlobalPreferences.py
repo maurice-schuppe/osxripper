@@ -54,7 +54,7 @@ class SystemGlobalPreferences(Plugin):
                         apple_languages = plist["AppleLanguages"]
                         of.write("Languages:\r\n")
                         for apple_language in apple_languages:
-                            of.write("\tLanguage: {}\r\n".format(apple_language))
+                            of.write("\tLanguage: {0}\r\n".format(apple_language))
                 else:
                     logging.warning("File {0} does not exist.".format(global_plist))
                     print("[WARNING] File {0} does not exist.".format(global_plist))

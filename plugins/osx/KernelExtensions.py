@@ -37,9 +37,9 @@ class KernelExtensions(Plugin):
                     if f.endswith(".kext") or f.endswith(".ppp") or f.endswith(".bundle") or f.endswith(".plugin"):
                         of.write("\t{0}\r\n".format(f))
             else:
-                logging.warning("Directory {} does not exist.".format(extensions_dir))
-                of.write("[WARNING] Directory {} does not exist or cannot be found.\r\n".format(extensions_dir))
-                print("[WARNING] Directory {} does not exist.".format(extensions_dir))
+                logging.warning("Directory {0} does not exist.".format(extensions_dir))
+                of.write("[WARNING] Directory {0} does not exist or cannot be found.\r\n".format(extensions_dir))
+                print("[WARNING] Directory {0} does not exist.".format(extensions_dir))
 
             of.write("="*40 + "\r\n\r\n")
         of.close()

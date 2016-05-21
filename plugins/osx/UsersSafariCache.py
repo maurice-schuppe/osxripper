@@ -70,7 +70,7 @@ class UsersSafariCache(Plugin):
                                 # if row[1] is None:
                                 #     of.write("Partition  :\r\n")
                                 # else:
-                                #     of.write("Partition  : {}\r\n".format(row[1]))
+                                #     of.write("Partition  : {0}\r\n".format(row[1]))
                                 if row[1] is None:
                                     of.write("Timestamp  :\r\n")
                                 else:

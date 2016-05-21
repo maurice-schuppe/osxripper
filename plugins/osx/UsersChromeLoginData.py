@@ -154,7 +154,7 @@ class UsersChromeLoginData(Plugin):
                                 # if row[15] is None:
                                 #     of.write("Is Zero Click      :\r\n")
                                 # else:
-                                #     of.write("Is Zero Click      : {}\r\n".format(row[15]))
+                                #     of.write("Is Zero Click      : {0}\r\n".format(row[15]))
                                 of.write("\r\n")
                 except sqlite3.Error as e:
                     logging.error("{0}".format(e.args[0]))

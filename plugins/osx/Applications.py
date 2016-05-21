@@ -42,7 +42,7 @@ class Applications(Plugin):
                         for file_name in sub_dir_list:
                             of.write("\t\t{0}\r\n".format(file_name))
                     else:
-                        of.write("\t{}\r\n".format(f))
+                        of.write("\t{0}\r\n".format(f))
             else:
                 logging.warning("Directory {0} does not exist.".format(applications_dir))
                 of.write("[WARNING] Directory {0} does not exist or cannot be found.\r\n".format(applications_dir))

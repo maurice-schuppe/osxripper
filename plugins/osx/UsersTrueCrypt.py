@@ -42,7 +42,7 @@ class UsersTrueCrypt(Plugin):
                         logging.warning("{0} does not exist.".format(config))
                         print("[WARNING] {0} does not exist.".format(config))
         else:
-            print("[WARNING] {} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_config(self, file, username):
         """

@@ -429,7 +429,7 @@ class BluetoothPlist(Plugin):
                                              .format(item, plist["DaemonControllersConfigurationKey"][dmcck_key][item]))
                         if "HIDDevices" in plist:
                             hid_array = plist["PairedDevices"]
-                            of.write("HID Devices: {}\r\n")
+                            of.write("HID Devices: {0}\r\n")
                             for hid_device in hid_array:
                                 of.write("\t{0}\r\n".format(hid_device))
                         if "DeviceCache" in plist:

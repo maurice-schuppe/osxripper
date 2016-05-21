@@ -129,7 +129,7 @@ class SystemTime(Plugin):
 #    def __read_localtime(self, file):
 #        with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
 #            of.write("=" * 10 + " Local Timezone " + "=" * 10 + "\r\n")
-#            of.write("Source File: {}".format(file))
+#            of.write("Source File: {0}".format(file))
 #            of.write("N.B. On a live system this may look like a binary dump,
 #               check the string at the end for Timezone information\r\n\r\n")
 #            f = open(file, "rb")
