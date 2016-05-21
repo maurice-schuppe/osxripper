@@ -38,11 +38,11 @@ class UsersSafariWebIcons(Plugin):
                     if os.path.isfile(sqlite_db):
                         self.__parse_sqlite_db(sqlite_db, username)
                     else:
-                        logging.warning("{} does not exist.".format(sqlite_db))
-                        print("[WARNING] {} does not exist.".format(sqlite_db))
+                        logging.warning("{0} does not exist.".format(sqlite_db))
+                        print("[WARNING] {0} does not exist.".format(sqlite_db))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
     
     def __parse_sqlite_db(self, file, username):
         """
@@ -55,7 +55,7 @@ class UsersSafariWebIcons(Plugin):
                 query = "SELECT pu.url,ii.url,datetime(ii.stamp, 'unixepoch') FROM IconInfo ii,PageURL pu " \
                         "WHERE pu.iconID = ii.iconID"
                 if os.path.isfile(file):
-                    of.write("Source File: {}\r\n\r\n".format(file))
+                    of.write("Source File: {0}\r\n\r\n".format(file))
                     conn = None
                     try:
                         conn = sqlite3.connect(file)
@@ -67,27 +67,27 @@ class UsersSafariWebIcons(Plugin):
                                 if row[0] is None:
                                     of.write("Page URL      :\r\n")
                                 else:
-                                    of.write("Page URL      : {}\r\n".format(row[0]))
+                                    of.write("Page URL      : {0}\r\n".format(row[0]))
                                 if row[1] is None:
                                     of.write("Icon URL      :\r\n")
                                 else:
-                                    of.write("Icon URL      : {}\r\n".format(row[1]))
+                                    of.write("Icon URL      : {0}\r\n".format(row[1]))
                                 if row[2] is None:
                                     of.write("Timestamp     :\r\n")
                                 else:
-                                    of.write("Timestamp     : {}\r\n".format(row[2]))
+                                    of.write("Timestamp     : {0}\r\n".format(row[2]))
                                 of.write("\r\n")
                             
                     except sqlite3.Error as e:
-                        logging.error("{}".format(e.args[0]))
-                        print("[ERROR] {}".format(e.args[0]))
+                        logging.error("{0}".format(e.args[0]))
+                        print("[ERROR] {0}".format(e.args[0]))
                     finally:
                         if conn:
                             conn.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
