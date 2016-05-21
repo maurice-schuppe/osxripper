@@ -37,11 +37,11 @@ class UsersApplications(Plugin):
                     if os.path.isdir(user_dir):
                         self.__list_files(user_dir, username)
                     else:
-                        logging.warning("{} does not exist.".format(user_dir))
-                        print("[WARNING] {} does not exist.".format(user_dir))
+                        logging.warning("{0} does not exist.".format(user_dir))
+                        print("[WARNING] {0} does not exist.".format(user_dir))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __list_files(self, file, username):
         """
@@ -50,7 +50,7 @@ class UsersApplications(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + '_Applications.txt'), "a",
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source Directory: {}\r\n\r\n".format(file))
+            of.write("Source Directory: {0}\r\n\r\n".format(file))
             for root, dirs, files in os.walk(file):
                 for user_dir in dirs:
                     if user_dir.endswith(".app"):
