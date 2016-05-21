@@ -40,8 +40,8 @@ class UsersFaceTimeLog(Plugin):
                     if os.path.isfile(ft_log):
                         self.__parse_facetime_log(ft_log, username)
                     else:
-                        logging.warning("{} does not exist.".format(ft_log))
-                        print("[WARNING] {} does not exist.".format(ft_log))
+                        logging.warning("{0} does not exist.".format(ft_log))
+                        print("[WARNING] {0} does not exist.".format(ft_log))
         
     def __parse_facetime_log(self, file, username):
         """
@@ -49,7 +49,7 @@ class UsersFaceTimeLog(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 with codecs.open(file, "r", encoding="utf-8") as ft:
                     for line in ft.readlines():
@@ -58,17 +58,17 @@ class UsersFaceTimeLog(Plugin):
 
                         if "VCPropertyNATIP = <" in line:
                             line = line.replace("VCPropertyNATIP = <", "").replace(">;", "").replace(" ", "")
-                            of.write("VC Property NAT IP: {}\r\n".format(self.__convert_hex_ip(line)))
+                            of.write("VC Property NAT IP: {0}\r\n".format(self.__convert_hex_ip(line)))
 
                         if "FZRelayParameter_PeerRelayIP\" = <" in line:
                             line = line.replace("\"FZRelayParameter_PeerRelayIP\" = <", "")\
                                 .replace(">;", "").replace(" ", "")
-                            of.write("FZ Relay Parameter_PeerRelay IP: {}\r\n".format(self.__convert_hex_ip(line)))
+                            of.write("FZ Relay Parameter_PeerRelay IP: {0}\r\n".format(self.__convert_hex_ip(line)))
 
                         if "\"FZRelayParameter_SelfRelayIP\" = <" in line:
                             line = line.replace("\"FZRelayParameter_SelfRelayIP\" = <", "").replace(">;", "")\
                                 .replace(" ", "")
-                            of.write("FZ Relay Parameter_Self Relay IP: {}\r\n".format(self.__convert_hex_ip(line)))
+                            of.write("FZ Relay Parameter_Self Relay IP: {0}\r\n".format(self.__convert_hex_ip(line)))
 
                         if "Found peer ID:" in line:
                             of.write(line + "\r\n")
@@ -104,7 +104,7 @@ class UsersFaceTimeLog(Plugin):
         hex_list = re.findall('..', hex_string)
         if len(hex_list) == 4:
             for hex_item in hex_list:
-                ip_address = ip_address + "{}".format(int(hex_item, 16)) + "."
+                ip_address = ip_address + "{0}".format(int(hex_item, 16)) + "."
         else:
             ip_address = "Too many bytes passed to resolve as an IP address."
         return ip_address[:-1]
