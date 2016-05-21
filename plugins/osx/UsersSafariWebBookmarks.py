@@ -40,11 +40,11 @@ class UsersSafariWebBookmarks(Plugin):
                     if os.path.isdir(plist_dir):
                         self.__parse_bplist(plist_dir, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist_dir))
-                        print("[WARNING] {} does not exist.".format(plist_dir))
+                        logging.warning("{0} does not exist.".format(plist_dir))
+                        print("[WARNING] {0} does not exist.".format(plist_dir))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_bplist(self, file, username):
         """
@@ -53,28 +53,28 @@ class UsersSafariWebBookmarks(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Web_Bookmarks.txt"), "a",
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source Directory: {}\r\n\r\n".format(file))
+            of.write("Source Directory: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 plist_dir_list = os.listdir(file)
                 for wb_file in plist_dir_list:
                     wb_plist = os.path.join(file, wb_file)
-                    of.write("Bookmark Plist: {}\r\n".format(wb_plist))
+                    of.write("Bookmark Plist: {0}\r\n".format(wb_plist))
                     if os.path.isfile(wb_plist):
                         bplist = open(wb_plist, "rb")
                         plist = ccl_bplist.load(bplist)
                         bplist.close()
                         try:
                             if "Name" in plist:
-                                of.write("Name: {}\r\n".format(plist["Name"]))
+                                of.write("Name: {0}\r\n".format(plist["Name"]))
                             if "URL" in plist:
-                                of.write("URL: {}\r\n".format(plist["URL"]))
+                                of.write("URL: {0}\r\n".format(plist["URL"]))
                         except KeyError:
                             pass
                         of.write("\r\n")
                     else:
-                        logging.warning("File: {} does not exist or cannot be found.".format(file))
-                        of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                        print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                        logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                        of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                        print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
