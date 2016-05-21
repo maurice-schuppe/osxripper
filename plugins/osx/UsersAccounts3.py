@@ -39,11 +39,11 @@ class UsersAccounts3(Plugin):
                     if os.path.isfile(sqlite_db):
                         self.__parse_sqlite_db(sqlite_db, username)
                     else:
-                        logging.warning("{} does not exist.".format(sqlite_db))
-                        print("[WARNING] {} does not exist.".format(sqlite_db))
+                        logging.warning("{0} does not exist.".format(sqlite_db))
+                        print("[WARNING] {0} does not exist.".format(sqlite_db))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
     
     def __parse_sqlite_db(self, file, username):
         """
@@ -51,7 +51,7 @@ class UsersAccounts3(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite"]:
                 query = "SELECT zusername,zactive,zauthenticated,zvisible,datetime(zdate + 978307200, 'unixepoch')," \
                         "zaccountdescription,zowningbundleid FROM zaccount"
@@ -68,43 +68,43 @@ class UsersAccounts3(Plugin):
                                 if row[0] is None:
                                     of.write("Username           :\r\n")
                                 else:
-                                    of.write("Username           : {}\r\n".format(row[0]))
+                                    of.write("Username           : {0}\r\n".format(row[0]))
                                 # zactive
                                 if row[1] is None:
                                     of.write("Active             :\r\n")
                                 else:
-                                    of.write("Active             : {}\r\n".format(row[1]))
+                                    of.write("Active             : {0}\r\n".format(row[1]))
                                 # zauthenticated
                                 if row[2] is None:
                                     of.write("Authenticated      :\r\n")
                                 else:
-                                    of.write("Authenticated      : {}\r\n".format(row[2]))
+                                    of.write("Authenticated      : {0}\r\n".format(row[2]))
                                 # zvisible
                                 if row[3] is None:
                                     of.write("Visible            :\r\n")
                                 else:
-                                    of.write("Visible            : {}\r\n".format(row[3]))
+                                    of.write("Visible            : {0}\r\n".format(row[3]))
                                 # zdate
                                 if row[4] is None:
                                     of.write("Date               :\r\n")
                                 else:
-                                    of.write("Date               : {}\r\n".format(row[4]))
+                                    of.write("Date               : {0}\r\n".format(row[4]))
                                 # zaccountdescription
                                 if row[5] is None:
                                     of.write("Account Description:\r\n")
                                 else:
-                                    of.write("Account Description: {}\r\n".format(row[5]))
+                                    of.write("Account Description: {0}\r\n".format(row[5]))
                                 # zowningbundleid
                                 if row[6] is None:
                                     of.write("Owning Bundle ID   :\r\n")
                                 else:
-                                    of.write("Owning Bundle ID   : {}\r\n".format(row[6]))
+                                    of.write("Owning Bundle ID   : {0}\r\n".format(row[6]))
                                 of.write("\r\n")
                         else:
                             of.write("\r\nNo Account information found\r\n")
                 except sqlite3.Error as e:
-                    logging.error("{}".format(e.args[0]))
-                    print("[ERROR] {}".format(e.args[0]))
+                    logging.error("{0}".format(e.args[0]))
+                    print("[ERROR] {0}".format(e.args[0]))
                 finally:
                     if conn:
                         conn.close()
@@ -124,38 +124,38 @@ class UsersAccounts3(Plugin):
                                 if row[0] is None:
                                     of.write("Username           :\r\n")
                                 else:
-                                    of.write("Username           : {}\r\n".format(row[0]))
+                                    of.write("Username           : {0}\r\n".format(row[0]))
                                 # zactive
                                 if row[1] is None:
                                     of.write("Active             :\r\n")
                                 else:
-                                    of.write("Active             : {}\r\n".format(row[1]))
+                                    of.write("Active             : {0}\r\n".format(row[1]))
                                 # zauthenticated
                                 if row[2] is None:
                                     of.write("Authenticated      :\r\n")
                                 else:
-                                    of.write("Authenticated      : {}\r\n".format(row[2]))
+                                    of.write("Authenticated      : {0}\r\n".format(row[2]))
                                 # zdate
                                 if row[3] is None:
                                     of.write("Date               :\r\n")
                                 else:
-                                    of.write("Date               : {}\r\n".format(row[3]))
+                                    of.write("Date               : {0}\r\n".format(row[3]))
                                 # zaccountdescription
                                 if row[4] is None:
                                     of.write("Account Description:\r\n")
                                 else:
-                                    of.write("Account Description: {}\r\n".format(row[4]))
+                                    of.write("Account Description: {0}\r\n".format(row[4]))
                                 # zowningbundleid
                                 if row[5] is None:
                                     of.write("Owning Bundle ID   :\r\n")
                                 else:
-                                    of.write("Owning Bundle ID   : {}\r\n".format(row[5]))
+                                    of.write("Owning Bundle ID   : {0}\r\n".format(row[5]))
                                 of.write("\r\n")
                         else:
                             of.write("\r\nNo Account information found\r\n")
                 except sqlite3.Error as e:
-                    logging.error("{}".format(e.args[0]))
-                    print("[ERROR] {}".format(e.args[0]))
+                    logging.error("{0}".format(e.args[0]))
+                    print("[ERROR] {0}".format(e.args[0]))
                 finally:
                     if conn:
                         conn.close()
