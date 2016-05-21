@@ -46,26 +46,26 @@ class SystemTime(Plugin):
             if os.path.isfile(global_plist):
                 self.__parse_global_plist(global_plist)
             else:
-                logging.warning("File {} does not exist.".format(global_plist))
-                print("[WARNING] File {} does not exist.".format(global_plist))
+                logging.warning("File {0} does not exist.".format(global_plist))
+                print("[WARNING] File {0} does not exist.".format(global_plist))
             
             if os.path.isfile(auto_tz_plist):
                 self.__parse_auto_timezone_plist(auto_tz_plist)
             else:
-                logging.warning("File {} does not exist.".format(auto_tz_plist))
-                print("[WARNING] File {} does not exist.".format(auto_tz_plist))
+                logging.warning("File {0} does not exist.".format(auto_tz_plist))
+                print("[WARNING] File {0} does not exist.".format(auto_tz_plist))
                 
             if os.path.isfile(tz_auto_plist):
                 self.__parse_timezone_auto_plist(tz_auto_plist)
             else:
-                logging.warning("File {} does not exist.".format(tz_auto_plist))
-                print("[WARNING] File {} does not exist.".format(tz_auto_plist))
+                logging.warning("File {0} does not exist.".format(tz_auto_plist))
+                print("[WARNING] File {0} does not exist.".format(tz_auto_plist))
             
             if os.path.isfile(ntp_conf):
                 self.__read_ntp(ntp_conf)
             else:
-                logging.warning("File {} does not exist.".format(ntp_conf))
-                print("[WARNING] File {} does not exist.".format(ntp_conf))
+                logging.warning("File {0} does not exist.".format(ntp_conf))
+                print("[WARNING] File {0} does not exist.".format(ntp_conf))
         
         elif self._os_version in ["mountain_lion", "lion", "snow_leopard"]:
             global_plist = os.path.join(self._input_dir, "Library", "Preferences", ".GlobalPreferences.plist")
@@ -75,14 +75,14 @@ class SystemTime(Plugin):
             if os.path.isfile(global_plist):
                 self.__parse_global_plist(global_plist)
             else:
-                logging.warning("File {} does not exist.".format(global_plist))
-                print("[WARNING] File {} does not exist.".format(global_plist))
+                logging.warning("File {0} does not exist.".format(global_plist))
+                print("[WARNING] File {0} does not exist.".format(global_plist))
 
             if os.path.isfile(ntp_conf):
                 self.__read_ntp(ntp_conf)
             else:
-                logging.warning("File {} does not exist.".format(ntp_conf))
-                print("[WARNING] File {} does not exist.".format(ntp_conf))
+                logging.warning("File {0} does not exist.".format(ntp_conf))
+                print("[WARNING] File {0} does not exist.".format(ntp_conf))
         else:
             logging.warning("Not a known OSX version.")
             print("[WARNING] Not a known OSX version.")
@@ -93,20 +93,20 @@ class SystemTime(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("=" * 10 + " Local Time Zone " + "=" * 10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             bplist = open(file, "rb")
             xml = ccl_bplist.load(bplist)
             bplist.close()
             if "com.apple.preferences.timezone.selected_city" in xml:
-                of.write("Country       : {}\r\n"
+                of.write("Country       : {0}\r\n"
                          .format(xml["com.apple.preferences.timezone.selected_city"]["CountryCode"]))
-                of.write("Time Zone     : {}\r\n"
+                of.write("Time Zone     : {0}\r\n"
                          .format(xml["com.apple.preferences.timezone.selected_city"]["TimeZoneName"]))
-                of.write("Selected City : {}\r\n"
+                of.write("Selected City : {0}\r\n"
                          .format(xml["com.apple.preferences.timezone.selected_city"]["Name"]))
-                of.write("Latitude      : {}\r\n"
+                of.write("Latitude      : {0}\r\n"
                          .format(xml["com.apple.preferences.timezone.selected_city"]["Latitude"]))
-                of.write("Longitude     : {}\r\n"
+                of.write("Longitude     : {0}\r\n"
                          .format(xml["com.apple.preferences.timezone.selected_city"]["Longitude"]))
             of.write("=" * 40 + "\r\n\r\n")
         of.close()
@@ -114,10 +114,10 @@ class SystemTime(Plugin):
     def __read_ntp(self, file):
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("=" * 10 + " Time Server Setting " + "=" * 10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             # f = open(file, "rb")
             f = open(file, "r")
-            of.write("NTP Server: {}\r\n".format(f.read()))
+            of.write("NTP Server: {0}\r\n".format(f.read()))
             f.close()
             of.write("=" * 40 + "\r\n\r\n")
         of.close()
@@ -144,13 +144,13 @@ class SystemTime(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " Auto Timezone " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             with open(file, 'rb') as fp:
                 try:
                     pl = plistlib.load(fp).values()
                     for entry in pl:
-                        of.write("Timestamp: {}\r\n".format(entry["timestamp"]))
-                        of.write("Time Zone: {}\r\n".format(entry["timezone"]))
+                        of.write("Timestamp: {0}\r\n".format(entry["timestamp"]))
+                        of.write("Time Zone: {0}\r\n".format(entry["timezone"]))
                 except KeyError:
                     pass
                 fp.close()
@@ -163,11 +163,11 @@ class SystemTime(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " Timezone Auto " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             with open(file, 'rb') as fp:
                 try:
                     pl = plistlib.load(fp)
-                    of.write("Active: {}\r\n".format(pl["Active"]))
+                    of.write("Active: {0}\r\n".format(pl["Active"]))
                 except KeyError:
                     pass
                 fp.close()
