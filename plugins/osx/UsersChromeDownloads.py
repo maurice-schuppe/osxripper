@@ -40,11 +40,11 @@ class UsersChromeDownloads(Plugin):
                     if os.path.isdir(history_path):
                         self.__parse_sqlite_db(history_path, username)
                     else:
-                        logging.warning("{} does not exist.".format(history_path))
-                        print("[WARNING] {} does not exist.".format(history_path))
+                        logging.warning("{0} does not exist.".format(history_path))
+                        print("[WARNING] {0} does not exist.".format(history_path))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
     
     def __parse_sqlite_db(self, file, username):
         """
@@ -58,7 +58,7 @@ class UsersChromeDownloads(Plugin):
                     "datetime(start_time / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
                     "received_bytes, total_bytes, referrer FROM downloads"
             if os.path.isfile(history_db):
-                of.write("Source File: {}\r\n\r\n".format(history_db))
+                of.write("Source File: {0}\r\n\r\n".format(history_db))
                 conn = None
                 try:
                     conn = sqlite3.connect(history_db)
@@ -70,41 +70,41 @@ class UsersChromeDownloads(Plugin):
                             if row[0] is None:
                                 of.write("ID          :\r\n")
                             else:
-                                of.write("ID          : {}\r\n".format(row[0]))
+                                of.write("ID          : {0}\r\n".format(row[0]))
                             if row[1] is None:
                                 of.write("Current Path:\r\n")
                             else:
-                                of.write("Current Path: {}\r\n".format(row[1]))
+                                of.write("Current Path: {0}\r\n".format(row[1]))
                             if row[2] is None:
                                 of.write("Target Path :\r\n")
                             else:
-                                of.write("Target Path : {}\r\n".format(row[2]))
+                                of.write("Target Path : {0}\r\n".format(row[2]))
                             if row[3] is None:
                                 of.write("Start Time  :\r\n")
                             else:
-                                of.write("Start Time  : {}\r\n".format(row[3]))
+                                of.write("Start Time  : {0}\r\n".format(row[3]))
                             if row[4] is None:
                                 of.write("Received    :\r\n")
                             else:
-                                of.write("Received    : {}\r\n".format(row[4]))
+                                of.write("Received    : {0}\r\n".format(row[4]))
                             if row[5] is None:
                                 of.write("Total Bytes :\r\n")
                             else:
-                                of.write("Total Bytes : {}\r\n".format(row[5]))
+                                of.write("Total Bytes : {0}\r\n".format(row[5]))
                             if row[6] is None:
                                 of.write("Referer     :\r\n")
                             else:
-                                of.write("Referer     : {}\r\n".format(row[6]))
+                                of.write("Referer     : {0}\r\n".format(row[6]))
                             of.write("\r\n")
                 except sqlite3.Error as e:
-                    logging.error("{}".format(e.args[0]))
-                    print("[ERROR] {}".format(e.args[0]))
+                    logging.error("{0}".format(e.args[0]))
+                    print("[ERROR] {0}".format(e.args[0]))
                 finally:
                     if conn:
                         conn.close()
             else:
-                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             of.write("="*40 + "\r\n\r\n")
         of.close()
