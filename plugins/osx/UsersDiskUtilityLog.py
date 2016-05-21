@@ -39,8 +39,8 @@ class UsersDiskUtilityLog(Plugin):
                     if os.path.isfile(du_log):
                         self.__read_disk_util_log(du_log, username)
                     else:
-                        logging.warning("{} does not exist.".format(users_path))
-                        print("[WARNING] {} does not exist.".format(users_path))
+                        logging.warning("{0} does not exist.".format(users_path))
+                        print("[WARNING] {0} does not exist.".format(users_path))
 
     def __read_disk_util_log(self, file, username):
         """
@@ -48,7 +48,7 @@ class UsersDiskUtilityLog(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 with codecs.open(file, "r", encoding="utf-8") as du:
                     for line in du.readlines():
