@@ -40,11 +40,11 @@ class UsersChromeHistory(Plugin):
                     if os.path.isdir(history_path):
                         self.__parse_sqlite_db(history_path, username)
                     else:
-                        logging.warning("{} does not exist.".format(history_path))
-                        print("[WARNING] {} does not exist.".format(history_path))
+                        logging.warning("{0} does not exist.".format(history_path))
+                        print("[WARNING] {0} does not exist.".format(history_path))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
     
     def __parse_sqlite_db(self, file, username):
         """
@@ -58,7 +58,7 @@ class UsersChromeHistory(Plugin):
                     "datetime(last_visit_time / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
                     "typed_count,hidden FROM urls, keyword_search_terms WHERE keyword_search_terms.url_id=urls.id"
             if os.path.isfile(history_db):
-                of.write("Source File: {}\r\n\r\n".format(history_db))
+                of.write("Source File: {0}\r\n\r\n".format(history_db))
                 conn = None
                 try:
                     conn = sqlite3.connect(history_db)
@@ -70,45 +70,45 @@ class UsersChromeHistory(Plugin):
                             if row[0] is None:
                                 of.write("ID         :\r\n")
                             else:
-                                of.write("ID         : {}\r\n".format(row[0]))
+                                of.write("ID         : {0}\r\n".format(row[0]))
                             if row[1] is None:
                                 of.write("URL        :\r\n")
                             else:
-                                of.write("URL        : {}\r\n".format(row[1]))
+                                of.write("URL        : {0}\r\n".format(row[1]))
                             if row[2] is None:
                                 of.write("Title      :\r\n")
                             else:
-                                of.write("Title      : {}\r\n".format(row[2]))
+                                of.write("Title      : {0}\r\n".format(row[2]))
                             if row[3] is None:
                                 of.write("Search Term:\r\n")
                             else:
-                                of.write("Search Term: {}\r\n".format(row[3]))
+                                of.write("Search Term: {0}\r\n".format(row[3]))
                             if row[3] is None:
                                 of.write("Visit Count:\r\n")
                             else:
-                                of.write("Visit Count: {}\r\n".format(row[4]))
+                                of.write("Visit Count: {0}\r\n".format(row[4]))
                             if row[4] is None:
                                 of.write("Last Visit :\r\n")
                             else:
-                                of.write("Last Visit : {}\r\n".format(row[5]))
+                                of.write("Last Visit : {0}\r\n".format(row[5]))
                             if row[5] is None:
                                 of.write("Typed Count:\r\n")
                             else:
-                                of.write("Typed Count: {}\r\n".format(row[6]))
+                                of.write("Typed Count: {0}\r\n".format(row[6]))
                             if row[6] is None:
                                 of.write("Hidden     :\r\n")
                             else:
-                                of.write("Hidden     : {}\r\n".format(row[7]))
+                                of.write("Hidden     : {0}\r\n".format(row[7]))
                             of.write("\r\n")
                 except sqlite3.Error as e:
-                    logging.error("{}".format(e.args[0]))
-                    print("[ERROR] {}".format(e.args[0]))
+                    logging.error("{0}".format(e.args[0]))
+                    print("[ERROR] {0}".format(e.args[0]))
                 finally:
                     if conn:
                         conn.close()
             else:
-                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             of.write("="*40 + "\r\n\r\n")
         of.close()
