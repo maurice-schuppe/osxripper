@@ -37,11 +37,11 @@ class UsersFsckHfsLog(Plugin):
                     if os.path.isfile(fsck_log):
                         self.__read_fsck_hfs_log(fsck_log, username)
                     else:
-                        logging.warning("{} does not exist.".format(fsck_log))
-                        print("[WARNING] {} does not exist.".format(fsck_log))
+                        logging.warning("{0} does not exist.".format(fsck_log))
+                        print("[WARNING] {0} does not exist.".format(fsck_log))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
         
     def __read_fsck_hfs_log(self, file, username):
         """
@@ -49,7 +49,7 @@ class UsersFsckHfsLog(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 with codecs.open(file, "r", encoding="utf-8") as fsck:
                     for line in fsck.readlines():
