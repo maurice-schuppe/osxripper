@@ -32,7 +32,7 @@ class SystemLogs(Plugin):
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             working_dir = os.path.join(self._input_dir, "private", "var", "log")
-            of.write("Source Directory: {}\r\n\r\n".format(working_dir))
+            of.write("Source Directory: {0}\r\n\r\n".format(working_dir))
 
         # Get list of system logs as there many be many zipped up
         # Output log file names at the top of master output file so we know what we are working with
@@ -70,10 +70,10 @@ class SystemLogs(Plugin):
                 of.write("\r\n")
                 of.write("="*40 + "\r\n\r\n")
             else:
-                logging.warning("Directory {} or File {} does not exist or cannot be found.\r\n"
+                logging.warning("Directory {0} or File {1} does not exist or cannot be found.\r\n"
                                 .format(working_dir, "System Log"))
-                of.write("[WARNING] Directory {} or File {} does not exist or cannot be found.\r\n"
+                of.write("[WARNING] Directory {0} or File {1} does not exist or cannot be found.\r\n"
                          .format(working_dir, "System Log"))
-                print("[WARNING] Directory {} or File {} does not exist or cannot be found.\r\n"
+                print("[WARNING] Directory {0} or File {1} does not exist or cannot be found.\r\n"
                       .format(working_dir, "System Log"))
             of.close()
