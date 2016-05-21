@@ -38,11 +38,11 @@ class DhcpLeasesPlist(Plugin):
         else:
             with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
                 of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(working_dir))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(working_dir))
                 of.write("="*40 + " " + "\r\n\r\n")
             of.close()
-            logging.warning("File: {} does not exist or cannot be found.".format(working_dir))
-            print("[WARNING] File: {} does not exist or cannot be found.".format(working_dir))
+            logging.warning("File: {0} does not exist or cannot be found.".format(working_dir))
+            print("[WARNING] File: {0} does not exist or cannot be found.".format(working_dir))
     
     def __parse_plist(self, file):
         """
@@ -50,26 +50,26 @@ class DhcpLeasesPlist(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version == "el_capitan":
                 try:
                     with open(file, "rb") as pl:
                         plist = plistlib.load(pl)
                     if "IPAddress" in plist:
-                        of.write("IP Address             : {}\r\n".format(plist["IPAddress"]))
+                        of.write("IP Address             : {0}\r\n".format(plist["IPAddress"]))
                     if "LeaseLength" in plist:
-                        of.write("Lease Length           : {}\r\n".format(plist["LeaseLength"]))
+                        of.write("Lease Length           : {0}\r\n".format(plist["LeaseLength"]))
                     if "LeaseStartDate" in plist:
-                        of.write("Lease Start Date       : {}\r\n".format(plist["LeaseStartDate"]))
+                        of.write("Lease Start Date       : {0}\r\n".format(plist["LeaseStartDate"]))
                     if "RouterHardwareAddress" in plist:
                         # BASE64 is MAC in raw
-                        of.write("Router Hardware Address: {}\r\n"
+                        of.write("Router Hardware Address: {0}\r\n"
                                  .format(binascii.hexlify(plist["RouterHardwareAddress"])))
 
                     if "RouterIPAddress" in plist:
-                        of.write("Router IP Address      : {}\r\n".format(plist["RouterIPAddress"]))
+                        of.write("Router IP Address      : {0}\r\n".format(plist["RouterIPAddress"]))
                     if "SSID" in plist:
-                        of.write("Router SSID            : {}\r\n".format(plist["SSID"]))
+                        of.write("Router SSID            : {0}\r\n".format(plist["SSID"]))
                 except KeyError:
                     pass
             elif self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
@@ -77,17 +77,17 @@ class DhcpLeasesPlist(Plugin):
                     with open(file, "rb") as pl:
                         plist = plistlib.load(pl)
                     if "IPAddress" in plist:
-                        of.write("IP Address: {}\r\n".format(plist["IPAddress"]))
+                        of.write("IP Address: {0}\r\n".format(plist["IPAddress"]))
                     if "LeaseLength" in plist:
-                        of.write("Lease Length: {}\r\n".format(plist["LeaseLength"]))
+                        of.write("Lease Length: {0}\r\n".format(plist["LeaseLength"]))
                     if "LeaseStartDate" in plist:
-                        of.write("Lease Start Date: {}\r\n".format(plist["LeaseStartDate"]))
+                        of.write("Lease Start Date: {0}\r\n".format(plist["LeaseStartDate"]))
                     if "RouterHardwareAddress" in plist:
                         # TODO sort out binary string output into MAC address format
-                        of.write("Router Hardware Address: {}\r\n"
+                        of.write("Router Hardware Address: {0}\r\n"
                                  .format(binascii.hexlify(plist["RouterHardwareAddress"])))
                     if "RouterIPAddress" in plist:
-                        of.write("Router IP Address: {}\r\n".format(plist["RouterIPAddress"]))
+                        of.write("Router IP Address: {0}\r\n".format(plist["RouterIPAddress"]))
                 except KeyError:
                     pass
             else:
