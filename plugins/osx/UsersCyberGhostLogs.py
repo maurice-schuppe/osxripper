@@ -37,10 +37,10 @@ class UsersCyberGhostLogs(Plugin):
                     if os.path.isdir(config):
                         self.__read_logs(config, username)
                     else:
-                        logging.warning("{} does not exist.".format(config))
-                        print("[WARNING] {} does not exist.".format(config))
+                        logging.warning("{0} does not exist.".format(config))
+                        print("[WARNING] {0} does not exist.".format(config))
         else:
-            print("[WARNING] {} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __read_logs(self, file, username):
         """
@@ -53,21 +53,21 @@ class UsersCyberGhostLogs(Plugin):
             for directory in app_support_dir:
                 if "CyberGhost" in directory:
                     ghost_dir = os.path.join(file, directory)
-                    of.write("Source Directory: {}\r\n\r\n".format(ghost_dir))
+                    of.write("Source Directory: {0}\r\n\r\n".format(ghost_dir))
                     ghost_dir_list = os.listdir(ghost_dir)
                     for ghost_file in ghost_dir_list:
                         if ghost_file == "CyberGhostMacLog.log":
                             of.write("="*10 + " " + ghost_file + " " + "="*10 + "\r\n")
                             with open(os.path.join(ghost_dir, ghost_file), "r") as mac_log:
                                 for line in mac_log.readlines():
-                                    of.write("{}\r\n".format(line))
+                                    of.write("{0}\r\n".format(line))
                             mac_log.close()
                             of.write("\r\n")
                         if ghost_file == "CyberGhostMacLogScripts.log":
                             of.write("="*10 + " " + ghost_file + " " + "="*10 + "\r\n")
                             with open(os.path.join(ghost_dir, ghost_file), "r") as scripts_log:
                                 for line in scripts_log.readlines():
-                                    of.write("{}\r\n".format(line))
+                                    of.write("{0}\r\n".format(line))
                             scripts_log.close()
                             of.write("\r\n")
             of.write("="*40 + "\r\n\r\n")
