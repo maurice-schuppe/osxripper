@@ -45,7 +45,7 @@ class QuicklookThumbnailCache(Plugin):
                 if len(file_list) > 0:
                     for database_file in file_list:
                         if os.path.isfile(database_file):
-                            of.write("Source Database: {}\r\n\r\n".format(database_file))
+                            of.write("Source Database: {0}\r\n\r\n".format(database_file))
                             conn = None
                             try:
                                 conn = sqlite3.connect(database_file)
@@ -61,26 +61,26 @@ class QuicklookThumbnailCache(Plugin):
                                             if row[0] is None:
                                                 of.write("Folder       :\r\n")
                                             else:
-                                                of.write("Folder       : {}\r\n".format(row[0]))
+                                                of.write("Folder       : {0}\r\n".format(row[0]))
                                             if row[1] is None:
                                                 of.write("File Name    :\r\n")
                                             else:
-                                                of.write("File Name    : {}\r\n".format(row[1]))
+                                                of.write("File Name    : {0}\r\n".format(row[1]))
                                             if row[2] is None:
                                                 of.write("Hit Count    :\r\n")
                                             else:
-                                                of.write("Hit Count    : {}\r\n".format(row[2]))
+                                                of.write("Hit Count    : {0}\r\n".format(row[2]))
                                             if row[3] is None:
                                                 of.write("Last Hit Date:\r\n")
                                             else:
-                                                of.write("Last Hit Date: {}\r\n".format(row[3]))
+                                                of.write("Last Hit Date: {0}\r\n".format(row[3]))
                                             of.write("\r\n")
                                     else:
                                         of.write("No data in dtabase.\r\n")
                                 of.write("\r\n")
                             except sqlite3.Error as e:
-                                logging.error("{}".format(e.args[0]))
-                                print("[ERROR] {}".format(e.args[0]))
+                                logging.error("{0}".format(e.args[0]))
+                                print("[ERROR] {0}".format(e.args[0]))
                             finally:
                                 if conn:
                                     conn.close()
