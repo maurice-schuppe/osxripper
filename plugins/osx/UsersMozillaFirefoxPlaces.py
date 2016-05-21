@@ -45,11 +45,11 @@ class UsersMozillaFirefoxPlaces(Plugin):
                                 if os.path.isfile(sqlite_db):
                                     self.__parse_sqlite_db(sqlite_db, username)
                                 else:
-                                    logging.warning("{} does not exist.".format(sqlite_db))
-                                    print("[WARNING] {} does not exist.".format(sqlite_db))
+                                    logging.warning("{0} does not exist.".format(sqlite_db))
+                                    print("[WARNING] {0} does not exist.".format(sqlite_db))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
     
     def __parse_sqlite_db(self, file, username):
         """
@@ -59,7 +59,7 @@ class UsersMozillaFirefoxPlaces(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if os.path.isfile(file):
-                of.write("Source File: {}\r\n\r\n".format(file))
+                of.write("Source File: {0}\r\n\r\n".format(file))
                 conn = None
                 try:
                     query = "SELECT url, title, rev_host, visit_count," \
@@ -74,31 +74,31 @@ class UsersMozillaFirefoxPlaces(Plugin):
                             if row[0] is None:
                                 of.write("URL            :\r\n")
                             else:
-                                of.write("URL            : {}\r\n".format(row[0]))
+                                of.write("URL            : {0}\r\n".format(row[0]))
                             if row[1] is None:
                                 of.write("Title          :\r\n")
                             else:
-                                of.write("Title          : {}\r\n".format(row[1]))
+                                of.write("Title          : {0}\r\n".format(row[1]))
                             if row[2] is None:
                                 of.write("Rev. Host      :\r\n")
                             else:
-                                of.write("Rev. Host      : {}\r\n".format(row[2]))
+                                of.write("Rev. Host      : {0}\r\n".format(row[2]))
                             if row[3] is None:
                                 of.write("Visit Count    :\r\n")
                             else:
-                                of.write("Visit Count    : {}\r\n".format(row[3]))
+                                of.write("Visit Count    : {0}\r\n".format(row[3]))
                             if row[4] is None:
                                 of.write("Last Visit Date:\r\n")
                             else:
-                                of.write("Last Visit Date: {}\r\n".format(row[4]))
+                                of.write("Last Visit Date: {0}\r\n".format(row[4]))
                             if row[5] is None:
                                 of.write("Hidden         :\r\n")
                             else:
-                                of.write("Hidden         : {}\r\n".format(row[5]))
+                                of.write("Hidden         : {0}\r\n".format(row[5]))
                             if row[6] is None:
                                 of.write("Typed          :\r\n")
                             else:
-                                of.write("Typed          : {}\r\n".format(row[6]))
+                                of.write("Typed          : {0}\r\n".format(row[6]))
                             of.write("\r\n")
 
                         of.write("="*10 + " Mozilla Firefox Annotations " + "="*10 + "\r\n")
@@ -112,23 +112,23 @@ class UsersMozillaFirefoxPlaces(Plugin):
                             if row[0] is None:
                                 of.write("URL               :\r\n")
                             else:
-                                of.write("URL               : {}\r\n".format(row[0]))
+                                of.write("URL               : {0}\r\n".format(row[0]))
                             if row[1] is None:
                                 of.write("Content           :\r\n")
                             else:
-                                of.write("Content           : {}\r\n".format(row[1]))
+                                of.write("Content           : {0}\r\n".format(row[1]))
                             if row[2] is None:
                                 of.write("Name              :\r\n")
                             else:
-                                of.write("Name              : {}\r\n".format(row[2]))
+                                of.write("Name              : {0}\r\n".format(row[2]))
                             if row[3] is None:
                                 of.write("Date Added        :\r\n")
                             else:
-                                of.write("Date Added        : {}\r\n".format(row[3]))
+                                of.write("Date Added        : {0}\r\n".format(row[3]))
                             if row[4] is None:
                                 of.write("Date Last Modified:\r\n")
                             else:
-                                of.write("Date Last Modified: {}\r\n".format(row[4]))
+                                of.write("Date Last Modified: {0}\r\n".format(row[4]))
                             of.write("\r\n")
 
                         of.write("="*10 + " Mozilla Firefox Input History " + "="*10 + "\r\n")
@@ -143,26 +143,26 @@ class UsersMozillaFirefoxPlaces(Plugin):
                                 if row[0] is None:
                                     of.write("URL      :\r\n")
                                 else:
-                                    of.write("URL      : {}\r\n".format(row[0]))
+                                    of.write("URL      : {0}\r\n".format(row[0]))
                                 if row[0] is None:
                                     of.write("Input    :\r\n")
                                 else:
-                                    of.write("Input    : {}\r\n".format(row[0]))
+                                    of.write("Input    : {0}\r\n".format(row[0]))
                                 if row[0] is None:
                                     of.write("Use Count:\r\n")
                                 else:
-                                    of.write("Use Count:{}\r\n".format(row[0]))
+                                    of.write("Use Count:{0}\r\n".format(row[0]))
                                 of.write("\r\n")
 
                 except sqlite3.Error as e:
-                    logging.error("{}".format(e.args[0]))
-                    print("[ERROR] {}".format(e.args[0]))
+                    logging.error("{0}".format(e.args[0]))
+                    print("[ERROR] {0}".format(e.args[0]))
                 finally:
                     if conn:
                         conn.close()
             else:
-                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
             of.write("="*40 + "\r\n\r\n")
         of.close()
