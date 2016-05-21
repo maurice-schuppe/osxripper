@@ -39,10 +39,10 @@ class UsersVMWare(Plugin):
                     if os.path.isfile(inventory):
                         self.__parse_config(inventory, username)
                     else:
-                        logging.warning("{} does not exist.".format(inventory))
-                        print("[WARNING] {} does not exist.".format(inventory))
+                        logging.warning("{0} does not exist.".format(inventory))
+                        print("[WARNING] {0} does not exist.".format(inventory))
         else:
-            print("[WARNING] {} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_config(self, file, username):
         """
@@ -52,15 +52,15 @@ class UsersVMWare(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_VMware_inventory.txt"), "a",
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if os.path.isfile(file):
                 inventory_file = codecs.open(file, "r", encoding="utf-8")
                 for lines in inventory_file:
                     of.write(lines.replace("\n", "\r\n"))
                 inventory_file.close()
             else:
-                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
             of.write("="*40 + "\r\n\r\n")
         of.close()
