@@ -46,11 +46,11 @@ class UsersMozillaFirefoxCookies(Plugin):
                                 if os.path.isfile(sqlite_db):
                                     self.__parse_sqlite_db(sqlite_db, username)
                                 else:
-                                    logging.warning("{} does not exist.".format(sqlite_db))
-                                    print("[WARNING] {} does not exist.".format(sqlite_db))
+                                    logging.warning("{0} does not exist.".format(sqlite_db))
+                                    print("[WARNING] {0} does not exist.".format(sqlite_db))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
     
     def __parse_sqlite_db(self, file, username):
         """
@@ -60,7 +60,7 @@ class UsersMozillaFirefoxCookies(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if os.path.isfile(file):
-                of.write("Source File: {}\r\n\r\n".format(file))
+                of.write("Source File: {0}\r\n\r\n".format(file))
                 conn = None
                 try:
                     query = "SELECT baseDomain,name,value,host,path," \
@@ -77,55 +77,55 @@ class UsersMozillaFirefoxCookies(Plugin):
                             if row[0] is None:
                                 of.write("Base Domain  :\r\n")
                             else:
-                                of.write("Base Domain  : {}\r\n".format(row[0]))
+                                of.write("Base Domain  : {0}\r\n".format(row[0]))
                             if row[1] is None:
                                 of.write("Name         :\r\n")
                             else:
-                                of.write("Name         : {}\r\n".format(row[1]))
+                                of.write("Name         : {0}\r\n".format(row[1]))
                             if row[2] is None:
                                 of.write("Value        :\r\n")
                             else:
-                                of.write("Value        : {}\r\n".format(row[2]))
+                                of.write("Value        : {0}\r\n".format(row[2]))
                             if row[3] is None:
                                 of.write("Host         :\r\n")
                             else:
-                                of.write("Host         : {}\r\n".format(row[3]))
+                                of.write("Host         : {0}\r\n".format(row[3]))
                             if row[4] is None:
                                 of.write("Path         :\r\n")
                             else:
-                                of.write("Path         : {}\r\n".format(row[4]))
+                                of.write("Path         : {0}\r\n".format(row[4]))
                             if row[5] is None:
                                 of.write("Creation Time:\r\n")
                             else:
-                                of.write("Creation Time: {}\r\n".format(row[5]))
+                                of.write("Creation Time: {0}\r\n".format(row[5]))
                             if row[6] is None:
                                 of.write("Last Accessed:\r\n")
                             else:
-                                of.write("Last Accessed: {}\r\n".format(row[6]))
+                                of.write("Last Accessed: {0}\r\n".format(row[6]))
                             if row[7] is None:
                                 of.write("Expiry       :\r\n")
                             else:
-                                of.write("Expiry       : {}\r\n".format(row[7]))
+                                of.write("Expiry       : {0}\r\n".format(row[7]))
                             if row[8] is None:
                                 of.write("Is Secure    :\r\n")
                             else:
-                                of.write("Is Secure    : {}\r\n".format(row[8]))
+                                of.write("Is Secure    : {0}\r\n".format(row[8]))
                             if row[9] is None:
                                 of.write("Is HTTP Only :\r\n")
                             else:
-                                of.write("Is HTTP Only : {}\r\n".format(row[9]))
+                                of.write("Is HTTP Only : {0}\r\n".format(row[9]))
 
                             of.write("\r\n")
 
                 except sqlite3.Error as e:
-                    logging.error("{}".format(e.args[0]))
-                    print("[ERROR] {}".format(e.args[0]))
+                    logging.error("{0}".format(e.args[0]))
+                    print("[ERROR] {0}".format(e.args[0]))
                 finally:
                     if conn:
                         conn.close()
             else:
-                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
             of.write("="*40 + "\r\n\r\n")
         of.close()
