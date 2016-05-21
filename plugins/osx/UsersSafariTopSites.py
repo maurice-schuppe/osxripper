@@ -38,11 +38,11 @@ class UsersSafariTopSites(Plugin):
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist))
-                        print("[WARNING] {} does not exist.".format(plist))
+                        logging.warning("{0} does not exist.".format(plist))
+                        print("[WARNING] {0} does not exist.".format(plist))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_bplist(self, file, username):
         """
@@ -51,33 +51,33 @@ class UsersSafariTopSites(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Top_Sites.txt"), "a",
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     plist = ccl_bplist.load(bplist)
                     try:
                         if "DisplayedSitesLastModified" in plist:
-                            of.write("Displayed Sites Last Modified: {}\r\n\r\n"
+                            of.write("Displayed Sites Last Modified: {0}\r\n\r\n"
                                      .format(plist["DisplayedSitesLastModified"]))
                         if "TopSites" in plist:
                             of.write("Top Sites:\r\n")
                             for top_site in plist["TopSites"]:
                                 if "TopSiteIsBuiltIn" in top_site:
-                                    of.write("\tIs Built In: {}\r\n".format(top_site["TopSiteIsBuiltIn"]))
+                                    of.write("\tIs Built In: {0}\r\n".format(top_site["TopSiteIsBuiltIn"]))
                                 if "TopSiteURLString" in top_site:
-                                    of.write("\tURL String : {}\r\n".format(top_site["TopSiteURLString"]))
+                                    of.write("\tURL String : {0}\r\n".format(top_site["TopSiteURLString"]))
                                 if "TopSiteTitle" in top_site:
-                                    of.write("\tTitle      : {}\r\n".format(top_site["TopSiteTitle"]))
+                                    of.write("\tTitle      : {0}\r\n".format(top_site["TopSiteTitle"]))
                                 of.write("\r\n")
                         of.write("\r\n")
                     except KeyError:
                         pass
                     bplist.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
