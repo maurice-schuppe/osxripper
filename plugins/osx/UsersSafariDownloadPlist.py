@@ -39,11 +39,11 @@ class UsersSafariDownloadPlist(Plugin):
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist))
-                        print("[WARNING] {} does not exist.".format(plist))
+                        logging.warning("{0} does not exist.".format(plist))
+                        print("[WARNING] {0} does not exist.".format(plist))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_bplist(self, file, username):
         """
@@ -52,7 +52,7 @@ class UsersSafariDownloadPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Downloads.txt"), "a",
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
@@ -61,30 +61,30 @@ class UsersSafariDownloadPlist(Plugin):
                         if "DownloadHistory" in plist:
                             of.write("Download History:\r\n")
                             for item in plist["DownloadHistory"]:
-                                of.write("\tProgress Bytes So Far : {}\r\n"
+                                of.write("\tProgress Bytes So Far : {0}\r\n"
                                          .format(item["DownloadEntryProgressBytesSoFar"]))
-                                of.write("\tProgress Total To Load: {}\r\n"
+                                of.write("\tProgress Total To Load: {0}\r\n"
                                          .format(item["DownloadEntryProgressTotalToLoad"]))
-                                of.write("\tDate Added Key        : {}\r\n"
+                                of.write("\tDate Added Key        : {0}\r\n"
                                          .format(item["DownloadEntryDateAddedKey"]))
-                                of.write("\tDate Finished Key     : {}\r\n"
+                                of.write("\tDate Finished Key     : {0}\r\n"
                                          .format(item["DownloadEntryDateFinishedKey"]))
-                                of.write("\tIdentifier            : {}\r\n"
+                                of.write("\tIdentifier            : {0}\r\n"
                                          .format(item["DownloadEntryIdentifier"]))
-                                of.write("\tURL                   : {}\r\n"
+                                of.write("\tURL                   : {0}\r\n"
                                          .format(item["DownloadEntryURL"]))
-                                of.write("\tRemove When Done Key  : {}\r\n"
+                                of.write("\tRemove When Done Key  : {0}\r\n"
                                          .format(item["DownloadEntryRemoveWhenDoneKey"]))
-                                of.write("\tPath                  : {}\r\n"
+                                of.write("\tPath                  : {0}\r\n"
                                          .format(item["DownloadEntryPath"]))
                                 of.write("\r\n")
                     except KeyError:
                         pass
                     bplist.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
 
             elif self._os_version in ["mavericks", "mountain_lion", "lion"]:
                 if os.path.isfile(file):
@@ -94,24 +94,24 @@ class UsersSafariDownloadPlist(Plugin):
                         if "DownloadHistory" in plist:
                             of.write("Download History:\r\n")
                             for item in plist["DownloadHistory"]:
-                                of.write("\tIdentifier            : {}\r\n"
+                                of.write("\tIdentifier            : {0}\r\n"
                                          .format(item["DownloadEntryIdentifier"]))
-                                of.write("\tURL                   : {}\r\n"
+                                of.write("\tURL                   : {0}\r\n"
                                          .format(item["DownloadEntryURL"]))
-                                of.write("\tProgress Total To Load: {}\r\n"
+                                of.write("\tProgress Total To Load: {0}\r\n"
                                          .format(item["DownloadEntryProgressTotalToLoad"]))
-                                of.write("\tProgress Bytes So Far : {}\r\n"
+                                of.write("\tProgress Bytes So Far : {0}\r\n"
                                          .format(item["DownloadEntryProgressBytesSoFar"]))
-                                of.write("\tPath                  : {}\r\n"
+                                of.write("\tPath                  : {0}\r\n"
                                          .format(item["DownloadEntryPath"]))
                                 of.write("\r\n")
                     except KeyError:
                         pass
                     bplist.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             elif self._os_version == "snow_leopard":
                 if os.path.isfile(file):
                     try:
@@ -122,29 +122,29 @@ class UsersSafariDownloadPlist(Plugin):
                             downloads = plist["DownloadHistory"]
                             for download in downloads:
                                 if "DownloadEntryURL" in download:
-                                    of.write("URL                   : {}\r\n".format(download["DownloadEntryURL"]))
+                                    of.write("URL                   : {0}\r\n".format(download["DownloadEntryURL"]))
                                 if "DownloadEntryIdentifier" in download:
-                                    of.write("Identifier            : {}\r\n"
+                                    of.write("Identifier            : {0}\r\n"
                                              .format(download["DownloadEntryIdentifier"]))
                                 if "DownloadEntryPath" in download:
-                                    of.write("Path                  : {}\r\n"
+                                    of.write("Path                  : {0}\r\n"
                                              .format(download["DownloadEntryPath"]))
                                 if "DownloadEntryPostPath" in download:
-                                    of.write("Post Path             : {}\r\n"
+                                    of.write("Post Path             : {0}\r\n"
                                              .format(download["DownloadEntryPostPath"]))
                                 if "DownloadEntryProgressBytesSoFar" in download:
-                                    of.write("Progress Bytes So Far : {}\r\n"
+                                    of.write("Progress Bytes So Far : {0}\r\n"
                                              .format(download["DownloadEntryProgressBytesSoFar"]))
                                 if "DownloadEntryProgressTotalToLoad" in download:
-                                    of.write("Progress Total To Load: {}\r\n"
+                                    of.write("Progress Total To Load: {0}\r\n"
                                              .format(download["DownloadEntryProgressTotalToLoad"]))
                                 of.write("\r\n")
                     except KeyError:
                         pass
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
