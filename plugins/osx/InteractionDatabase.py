@@ -34,7 +34,7 @@ class InteractionDatabase(Plugin):
             database_file = os.path.join(self._input_dir, "private", "var", "db", "CoreDuet", "People", self._data_file)
             if self._os_version == "el_capitan":
                 if os.path.isfile(database_file):
-                    of.write("Source Database: {}\r\n\r\n".format(database_file))
+                    of.write("Source Database: {0}\r\n\r\n".format(database_file))
                     conn = None
                     try:
                         conn = sqlite3.connect(database_file)
@@ -56,50 +56,50 @@ class InteractionDatabase(Plugin):
                                     if row[0] is None:
                                         of.write("Name                         :\r\n")
                                     else:
-                                        of.write("Name                         : {}\r\n".format(row[0]))
+                                        of.write("Name                         : {0}\r\n".format(row[0]))
                                     if row[1] is None:
                                         of.write("Display Name                 :\r\n")
                                     else:
-                                        of.write("Display Name                 : {}\r\n".format(row[1]))
+                                        of.write("Display Name                 : {0}\r\n".format(row[1]))
                                     if row[2] is None:
                                         of.write("Identifier                   :\r\n")
                                     else:
-                                        of.write("Identifier                   : {}\r\n".format(row[2]))
+                                        of.write("Identifier                   : {0}\r\n".format(row[2]))
                                     if row[3] is None:
                                         of.write("Creation Date                :\r\n")
                                     else:
-                                        of.write("Creation Date                : {}\r\n".format(row[3]))
+                                        of.write("Creation Date                : {0}\r\n".format(row[3]))
                                     if row[4] is None:
                                         of.write("First Incoming Recipient Date:\r\n")
                                     else:
-                                        of.write("First Incoming Recipient Date: {}\r\n".format(row[4]))
+                                        of.write("First Incoming Recipient Date: {0}\r\n".format(row[4]))
                                     if row[5] is None:
                                         of.write("First Incoming Sender Date   :\r\n")
                                     else:
-                                        of.write("First Incoming Sender Date   : {}\r\n".format(row[5]))
+                                        of.write("First Incoming Sender Date   : {0}\r\n".format(row[5]))
                                     if row[6] is None:
                                         of.write("First Outgoing Recipient Date:\r\n")
                                     else:
-                                        of.write("First Outgoing Recipient Date: {}\r\n".format(row[6]))
+                                        of.write("First Outgoing Recipient Date: {0}\r\n".format(row[6]))
                                     if row[7] is None:
                                         of.write("Last Incoming Recipient Date :\r\n")
                                     else:
-                                        of.write("Last Incoming Recipient Date : {}\r\n".format(row[7]))
+                                        of.write("Last Incoming Recipient Date : {0}\r\n".format(row[7]))
                                     if row[8] is None:
                                         of.write("Last Incoming Sender Date    :\r\n")
                                     else:
-                                        of.write("Last Incoming Sender Date    : {}\r\n".format(row[8]))
+                                        of.write("Last Incoming Sender Date    : {0}\r\n".format(row[8]))
                                     if row[9] is None:
                                         of.write("Last Outgoing Recipient Date :\r\n")
                                     else:
-                                        of.write("Last Outgoing Recipient Date : {}\r\n".format(row[9]))
+                                        of.write("Last Outgoing Recipient Date : {0}\r\n".format(row[9]))
                                     of.write("\r\n")
                             else:
                                 of.write("No data in dtabase.\r\n")
                         of.write("\r\n")
                     except sqlite3.Error as e:
-                        logging.error("{}".format(e.args[0]))
-                        print("[ERROR] {}".format(e.args[0]))
+                        logging.error("{0}".format(e.args[0]))
+                        print("[ERROR] {0}".format(e.args[0]))
                     finally:
                         if conn:
                             conn.close()
