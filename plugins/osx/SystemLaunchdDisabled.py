@@ -31,21 +31,21 @@ class SystemLaunchdDisabled(Plugin):
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             plist_file = os.path.join(self._input_dir, "private", "var", "db", "com.apple.xpc.launchd", self._data_file)
-            of.write("Source File: {}\r\n\r\n".format(plist_file))
+            of.write("Source File: {0}\r\n\r\n".format(plist_file))
             if self._os_version in ["el_capitan", "yosemite"]:
                 if os.path.isfile(plist_file):
                     try:
                         with open(plist_file, "rb") as pl:
                             plist = plistlib.load(pl)
                         for launchd_item in plist:
-                            of.write("{}: {}\r\n".format(launchd_item, plist[launchd_item]))
+                            of.write("{0}: {1}\r\n".format(launchd_item, plist[launchd_item]))
 
                     except KeyError:
                         pass
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(plist_file))
             elif self._os_version in ["mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
