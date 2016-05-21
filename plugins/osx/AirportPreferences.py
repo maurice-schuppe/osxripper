@@ -151,9 +151,9 @@ class AirportPreferences(Plugin):
                         pass
                         
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.".format(plist_file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
+                    logging.warning("File: {0} does not exist or cannot be found.".format(plist_file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(plist_file))
             elif self._os_version in ["mountain_lion", "lion"]:
                 if os.path.isfile(plist_file):
                     with open(plist_file, "rb") as pl:
