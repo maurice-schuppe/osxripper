@@ -39,8 +39,8 @@ class UsersTrueCrypt(Plugin):
                     if os.path.isfile(config):
                         self.__parse_config(config, username)
                     else:
-                        logging.warning("{} does not exist.".format(config))
-                        print("[WARNING] {} does not exist.".format(config))
+                        logging.warning("{0} does not exist.".format(config))
+                        print("[WARNING] {0} does not exist.".format(config))
         else:
             print("[WARNING] {} does not exist.".format(users_path))
             
@@ -52,15 +52,15 @@ class UsersTrueCrypt(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_TrueCrypt_config.txt"), "a",
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if os.path.isfile(file):
                 config_file = codecs.open(file, "r", encoding="utf-8")
                 for lines in config_file:
                     of.write(lines.replace("\n", "\r\n"))
                 config_file.close()
             else:
-                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
             of.write("="*40 + "\r\n\r\n")
         of.close()
