@@ -53,11 +53,11 @@ class UsersSafariHistory(Plugin):
                             logging.warning("Not a known OSX version.")
                             print("[WARNING] Not a known OSX version.")
                     else:
-                        logging.warning("{} does not exist.".format(history_path))
-                        print("[WARNING] {} does not exist.".format(history_path))
+                        logging.warning("{0} does not exist.".format(history_path))
+                        print("[WARNING] {0} does not exist.".format(history_path))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
     
     def __parse_sqlite_db(self, file, username):
         """
@@ -71,7 +71,7 @@ class UsersSafariHistory(Plugin):
                     "hv.title,hv.redirect_source,hv.redirect_destination FROM history_items hi,history_visits hv" \
                     " WHERE hi.id = hv.id"
             if os.path.isfile(history_db):
-                of.write("Source File: {}\r\n\r\n".format(history_db))
+                of.write("Source File: {0}\r\n\r\n".format(history_db))
                 conn = None
                 try:
                     conn = sqlite3.connect(history_db)
@@ -83,42 +83,42 @@ class UsersSafariHistory(Plugin):
                             if row[0] is None:
                                 of.write("ID               :\r\n")
                             else:
-                                of.write("ID               : {}\r\n".format(row[0]))
+                                of.write("ID               : {0}\r\n".format(row[0]))
                             if row[1] is None:
                                 of.write("URL              :\r\n")
                             else:
-                                of.write("URL              : {}\r\n".format(row[1]))
+                                of.write("URL              : {0}\r\n".format(row[1]))
                             if row[2] is None:
                                 of.write("Visit Count      :\r\n")
                             else:
-                                of.write("Visit Count      : {}\r\n".format(row[2]))
+                                of.write("Visit Count      : {0}\r\n".format(row[2]))
                             if row[3] is None:
                                 of.write("Visit Time       :\r\n")
                             else:
-                                of.write("Visit Time       : {}\r\n".format(row[3]))
+                                of.write("Visit Time       : {0}\r\n".format(row[3]))
                             if row[4] is None:
                                 of.write("Title            :\r\n")
                             else:
-                                of.write("Title            : {}\r\n".format(row[4]))
+                                of.write("Title            : {0}\r\n".format(row[4]))
                             if row[5] is None:
                                 of.write("Redirect ID      :\r\n")
                             else:
-                                of.write("Redirect ID      : {}\r\n".format(row[5]))
+                                of.write("Redirect ID      : {0}\r\n".format(row[5]))
                             if row[6] is None:
                                 of.write("Redirect Dest. ID:\r\n")
                             else:
-                                of.write("Redirect Dest. ID: {}\r\n".format(row[6]))
+                                of.write("Redirect Dest. ID: {0}\r\n".format(row[6]))
                             of.write("\r\n")
                 except sqlite3.Error as e:
-                    logging.error("{}".format(e.args[0]))
-                    print("[ERROR] {}".format(e.args[0]))
+                    logging.error("{0}".format(e.args[0]))
+                    print("[ERROR] {0}".format(e.args[0]))
                 finally:
                     if conn:
                         conn.close()
             else:
-                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
             of.write("="*40 + "\r\n\r\n")
         of.close()
         
@@ -132,27 +132,27 @@ class UsersSafariHistory(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_plist = os.path.join(file, "History.plist")
             if os.path.isfile(history_plist):
-                of.write("Source File: {}\r\n\r\n".format(history_plist))
+                of.write("Source File: {0}\r\n\r\n".format(history_plist))
                 bplist = open(history_plist, "rb")
                 plist = ccl_bplist.load(bplist)
                 try:
                     if "WebHistoryFileVersion" in plist:
-                        of.write("Web History File Version: {}\r\n".format(plist["WebHistoryFileVersion"]))
+                        of.write("Web History File Version: {0}\r\n".format(plist["WebHistoryFileVersion"]))
                     if "WebHistoryDates" in plist:
                         of.write("Web History:\r\n")
                         for whd in plist["WebHistoryDates"]:
-                            of.write("\tURL: {}\r\n".format(whd[""]))
+                            of.write("\tURL: {0}\r\n".format(whd[""]))
                             # title
                             if "title" in whd:
-                                of.write("\tTitle: {}\r\n".format(whd["title"]))
+                                of.write("\tTitle: {0}\r\n".format(whd["title"]))
                             if "lastVisitedDate" in whd:
-                                of.write("\tLast Visited Date: {}\r\n"
+                                of.write("\tLast Visited Date: {0}\r\n"
                                          .format(mac_absolute + datetime.timedelta(0, float(whd["lastVisitedDate"]))))
                             if "visitCount" in whd:
-                                of.write("\tVisit Count: {}\r\n".format(whd["visitCount"]))
+                                of.write("\tVisit Count: {0}\r\n".format(whd["visitCount"]))
                             if "redirectURLs" in whd:
                                 for redirect in whd["redirectURLs"]:
-                                    of.write("\tRedirect URL: {}\r\n".format(redirect))
+                                    of.write("\tRedirect URL: {0}\r\n".format(redirect))
                             of.write("\r\n")
                     if "WebHistoryDomains.v2" in plist:
                         of.write("Web History Domains v2:\r\n")
@@ -161,8 +161,8 @@ class UsersSafariHistory(Plugin):
                 except KeyError:
                     pass
             else:
-                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
             of.write("="*40 + "\r\n\r\n")
         of.close()

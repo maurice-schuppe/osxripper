@@ -38,11 +38,11 @@ class UsersSafariLastSession(Plugin):
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist))
-                        print("[WARNING] {} does not exist.".format(plist))
+                        logging.warning("{0} does not exist.".format(plist))
+                        print("[WARNING] {0} does not exist.".format(plist))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_bplist(self, file, username):
         """
@@ -51,7 +51,7 @@ class UsersSafariLastSession(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Last_Session.txt"), "a",
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
@@ -63,17 +63,17 @@ class UsersSafariLastSession(Plugin):
                                     of.write("Tabs:\r\n")
                                     for tab_state in session_window["TabStates"]:
                                         if "TabURL" in tab_state:
-                                            of.write("\tTab URL  : {}\r\n".format(tab_state["TabURL"]))
+                                            of.write("\tTab URL  : {0}\r\n".format(tab_state["TabURL"]))
                                         if "TabTitle" in tab_state:
-                                            of.write("\tTab Title: {}\r\n".format(tab_state["TabTitle"]))
+                                            of.write("\tTab Title: {0}\r\n".format(tab_state["TabTitle"]))
                                         of.write("\r\n")
                     except KeyError:
                         pass
                     bplist.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             elif self._os_version == "snow_leopard":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
@@ -87,17 +87,17 @@ class UsersSafariLastSession(Plugin):
                                         if "BackForwardList" in tab_state:
                                             for back_forward_list in tab_state["BackForwardList"]:
                                                 if "URL" in back_forward_list:
-                                                    of.write("\tTab URL  : {}\r\n".format(back_forward_list["URL"]))
+                                                    of.write("\tTab URL  : {0}\r\n".format(back_forward_list["URL"]))
                                                 if "Title" in back_forward_list:
-                                                    of.write("\tTab Title: {}\r\n".format(back_forward_list["Title"]))
+                                                    of.write("\tTab Title: {0}\r\n".format(back_forward_list["Title"]))
                                         of.write("\r\n")
                     except KeyError:
                         pass
                     bplist.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
