@@ -38,11 +38,11 @@ class UsersIosBackupList(Plugin):
                     if os.path.isdir(ios_backup_dir):
                         self.__list_files(ios_backup_dir, username)
                     else:
-                        logging.info("{} does not exist.".format(ios_backup_dir))
-                        print("[INFO] {} does not exist.".format(ios_backup_dir))
+                        logging.info("{0} does not exist.".format(ios_backup_dir))
+                        print("[INFO] {0} does not exist.".format(ios_backup_dir))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __list_files(self, file, username):
         """
@@ -51,11 +51,11 @@ class UsersIosBackupList(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_ios_backup_list.txt"), "a",
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source Directory: {}\r\n\r\n".format(file))
+            of.write("Source Directory: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 dir_listing = os.listdir(file)
                 for file_item in dir_listing:
-                    of.write("iOS Backup: {}\r\n".format(file_item))
+                    of.write("iOS Backup: {0}\r\n".format(file_item))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
