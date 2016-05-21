@@ -41,11 +41,11 @@ class UsersChromeWebData(Plugin):
                     if os.path.isdir(history_path):
                         self.__parse_sqlite_db(history_path, username)
                     else:
-                        logging.warning("{} does not exist.".format(history_path))
-                        print("[WARNING] {} does not exist.".format(history_path))
+                        logging.warning("{0} does not exist.".format(history_path))
+                        print("[WARNING] {0} does not exist.".format(history_path))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
     
     def __parse_sqlite_db(self, file, username):
         """
@@ -60,7 +60,7 @@ class UsersChromeWebData(Plugin):
                     "datetime(date_last_used / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
                     "count FROM autofill"
             if os.path.isfile(web_data_db):
-                of.write("Source File: {}\r\n\r\n".format(web_data_db))
+                of.write("Source File: {0}\r\n\r\n".format(web_data_db))
                 conn = None
                 try:
                     conn = sqlite3.connect(web_data_db)
@@ -74,27 +74,27 @@ class UsersChromeWebData(Plugin):
                                 if row[0] is None:
                                     of.write("Name          :\r\n")
                                 else:
-                                    of.write("Name          : {}\r\n".format(row[0]))
+                                    of.write("Name          : {0}\r\n".format(row[0]))
                                 if row[1] is None:
                                     of.write("Value         :\r\n")
                                 else:
-                                    of.write("Value         : {}\r\n".format(row[1]))
+                                    of.write("Value         : {0}\r\n".format(row[1]))
                                 if row[2] is None:
                                     of.write("Value Lower   :\r\n")
                                 else:
-                                    of.write("Value Lower   : {}\r\n".format(row[2]))
+                                    of.write("Value Lower   : {0}\r\n".format(row[2]))
                                 if row[3] is None:
                                     of.write("Date Created  :\r\n")
                                 else:
-                                    of.write("Date Created  : {}\r\n".format(row[3]))
+                                    of.write("Date Created  : {0}\r\n".format(row[3]))
                                 if row[4] is None:
                                     of.write("Date Last Used:\r\n")
                                 else:
-                                    of.write("Date Last Used: {}\r\n".format(row[4]))
+                                    of.write("Date Last Used: {0}\r\n".format(row[4]))
                                 if row[5] is None:
                                     of.write("Count         :\r\n")
                                 else:
-                                    of.write("Count         : {}\r\n".format(row[5]))
+                                    of.write("Count         : {0}\r\n".format(row[5]))
                         else:
                             of.write("No data found in Autofill table.\r\n")
                         of.write("\r\n")
@@ -108,11 +108,11 @@ class UsersChromeWebData(Plugin):
                                 if row[0] is None:
                                     of.write("GUID :\r\n")
                                 else:
-                                    of.write("GUID : {}\r\n".format(row[0]))
+                                    of.write("GUID : {0}\r\n".format(row[0]))
                                 if row[1] is None:
                                     of.write("Email:\r\n")
                                 else:
-                                    of.write("Email: {}\r\n".format(row[1]))
+                                    of.write("Email: {0}\r\n".format(row[1]))
                         else:
                             of.write("No data found in Autofill Profile Email table.\r\n")
                         of.write("\r\n")
@@ -126,23 +126,23 @@ class UsersChromeWebData(Plugin):
                                 if row[0] is None:
                                     of.write("GUID       :\r\n")
                                 else:
-                                    of.write("GUID       : {}\r\n".format(row[0]))
+                                    of.write("GUID       : {0}\r\n".format(row[0]))
                                 if row[1] is None:
                                     of.write("First Name :\r\n")
                                 else:
-                                    of.write("First Name : {}\r\n".format(row[1]))
+                                    of.write("First Name : {0}\r\n".format(row[1]))
                                 if row[2] is None:
                                     of.write("Middle Name:\r\n")
                                 else:
-                                    of.write("Middle Name: {}\r\n".format(row[2]))
+                                    of.write("Middle Name: {0}\r\n".format(row[2]))
                                 if row[3] is None:
                                     of.write("Last Name  :\r\n")
                                 else:
-                                    of.write("Last Name  : {}\r\n".format(row[3]))
+                                    of.write("Last Name  : {0}\r\n".format(row[3]))
                                 if row[4] is None:
                                     of.write("Full Name  :\r\n")
                                 else:
-                                    of.write("Full Name  : {}\r\n".format(row[4]))
+                                    of.write("Full Name  : {0}\r\n".format(row[4]))
                         else:
                             of.write("No data found in Autofill Profile Names table.\r\n")
                         of.write("\r\n")
@@ -156,11 +156,11 @@ class UsersChromeWebData(Plugin):
                                 if row[0] is None:
                                     of.write("GUID        :\r\n")
                                 else:
-                                    of.write("GUID        : {}\r\n".format(row[0]))
+                                    of.write("GUID        : {0}\r\n".format(row[0]))
                                 if row[1] is None:
                                     of.write("Phone Number:\r\n")
                                 else:
-                                    of.write("Phone Number: {}\r\n".format(row[1]))
+                                    of.write("Phone Number: {0}\r\n".format(row[1]))
                         else:
                             of.write("No data found in Autofill Profile Phones table.\r\n")
                         of.write("\r\n")
@@ -177,51 +177,51 @@ class UsersChromeWebData(Plugin):
                                 if row[0] is None:
                                     of.write("GUID              :\r\n")
                                 else:
-                                    of.write("GUID              : {}\r\n".format(row[0]))
+                                    of.write("GUID              : {0}\r\n".format(row[0]))
                                 if row[1] is None:
                                     of.write("Company Name      :\r\n")
                                 else:
-                                    of.write("Company Name      : {}\r\n".format(row[1]))
+                                    of.write("Company Name      : {0}\r\n".format(row[1]))
                                 if row[2] is None:
                                     of.write("Street Address    :\r\n")
                                 else:
-                                    of.write("Street Address    : {}\r\n".format(row[2]))
+                                    of.write("Street Address    : {0}\r\n".format(row[2]))
                                 if row[3] is None:
                                     of.write("Dependent Locality:\r\n")
                                 else:
-                                    of.write("Dependent Locality: {}\r\n".format(row[3]))
+                                    of.write("Dependent Locality: {0}\r\n".format(row[3]))
                                 if row[4] is None:
                                     of.write("City              :\r\n")
                                 else:
-                                    of.write("City              : {}\r\n".format(row[4]))
+                                    of.write("City              : {0}\r\n".format(row[4]))
                                 if row[5] is None:
                                     of.write("State             :\r\n")
                                 else:
-                                    of.write("State             : {}\r\n".format(row[5]))
+                                    of.write("State             : {0}\r\n".format(row[5]))
                                 if row[6] is None:
                                     of.write("Zipcode           :\r\n")
                                 else:
-                                    of.write("Zipcode           : {}\r\n".format(row[6]))
+                                    of.write("Zipcode           : {0}\r\n".format(row[6]))
                                 if row[7] is None:
                                     of.write("Sorting Code      :\r\n")
                                 else:
-                                    of.write("Sorting Code      : {}\r\n".format(row[7]))
+                                    of.write("Sorting Code      : {0}\r\n".format(row[7]))
                                 if row[8] is None:
                                     of.write("Country Code      :\r\n")
                                 else:
-                                    of.write("Country Code      : {}\r\n".format(row[8]))
+                                    of.write("Country Code      : {0}\r\n".format(row[8]))
                                 if row[9] is None:
                                     of.write("Date Modified     :\r\n")
                                 else:
-                                    of.write("Date Modified     : {}\r\n".format(row[9]))
+                                    of.write("Date Modified     : {0}\r\n".format(row[9]))
                                 if row[10] is None:
                                     of.write("Origin            :\r\n")
                                 else:
-                                    of.write("Origin            : {}\r\n".format(row[10]))
+                                    of.write("Origin            : {0}\r\n".format(row[10]))
                                 if row[11] is None:
                                     of.write("Language Code     :\r\n")
                                 else:
-                                    of.write("Language Code     : {}\r\n".format(row[11]))
+                                    of.write("Language Code     : {0}\r\n".format(row[11]))
                         else:
                             of.write("No data found in Autofill Profiles table.\r\n")
                         of.write("\r\n")
@@ -235,7 +235,7 @@ class UsersChromeWebData(Plugin):
                                 if row[0] is None:
                                     of.write("GUID:\r\n")
                                 else:
-                                    of.write("GUID: {}\r\n".format(row[0]))
+                                    of.write("GUID: {0}\r\n".format(row[0]))
                         else:
                             of.write("No data found in Autofill Profile Trash table.\r\n")
                         of.write("\r\n")
@@ -252,27 +252,27 @@ class UsersChromeWebData(Plugin):
                                 if row[0] is None:
                                     of.write("GUID            :\r\n")
                                 else:
-                                    of.write("GUID            : {}\r\n".format(row[0]))
+                                    of.write("GUID            : {0}\r\n".format(row[0]))
                                 if row[1] is None:
                                     of.write("Name on Card    :\r\n")
                                 else:
-                                    of.write("Name on Card    : {}\r\n".format(row[1]))
+                                    of.write("Name on Card    : {0}\r\n".format(row[1]))
                                 if row[2] is None:
                                     of.write("Expiration Month:\r\n")
                                 else:
-                                    of.write("Expiration Month: {}\r\n".format(row[2]))
+                                    of.write("Expiration Month: {0}\r\n".format(row[2]))
                                 if row[3] is None:
                                     of.write("Expiration Year :\r\n")
                                 else:
-                                    of.write("Expiration Year : {}\r\n".format(row[3]))
+                                    of.write("Expiration Year : {0}\r\n".format(row[3]))
                                 if row[4] is None:
                                     of.write("Date Modified   :\r\n")
                                 else:
-                                    of.write("Date Modified   : {}\r\n".format(row[4]))
+                                    of.write("Date Modified   : {0}\r\n".format(row[4]))
                                 if row[5] is None:
                                     of.write("Origin          :\r\n")
                                 else:
-                                    of.write("Origin          : {}\r\n".format(row[5]))
+                                    of.write("Origin          : {0}\r\n".format(row[5]))
                         else:
                             of.write("No data found in Credit Cards table.\r\n")
                         of.write("\r\n")
@@ -291,103 +291,103 @@ class UsersChromeWebData(Plugin):
                                 if row[0] is None:
                                     of.write("ID                          :\r\n")
                                 else:
-                                    of.write("ID                          : {}\r\n".format(row[0]))
+                                    of.write("ID                          : {0}\r\n".format(row[0]))
                                 if row[1] is None:
                                     of.write("Short Name                  :\r\n")
                                 else:
-                                    of.write("Short Name                  : {}\r\n".format(row[1]))
+                                    of.write("Short Name                  : {0}\r\n".format(row[1]))
                                 if row[2] is None:
                                     of.write("Keyword                     :\r\n")
                                 else:
-                                    of.write("Keyword                     : {}\r\n".format(row[2]))
+                                    of.write("Keyword                     : {0}\r\n".format(row[2]))
                                 if row[3] is None:
                                     of.write("FavIcon URL                 :\r\n")
                                 else:
-                                    of.write("FavIcon URL                 : {}\r\n".format(row[3]))
+                                    of.write("FavIcon URL                 : {0}\r\n".format(row[3]))
                                 if row[4] is None:
                                     of.write("URL                         :\r\n")
                                 else:
-                                    of.write("URL                         : {}\r\n".format(row[4]))
+                                    of.write("URL                         : {0}\r\n".format(row[4]))
                                 if row[5] is None:
                                     of.write("Safe for Autoreplace        :\r\n")
                                 else:
-                                    of.write("Safe for Autoreplace        : {}\r\n".format(row[5]))
+                                    of.write("Safe for Autoreplace        : {0}\r\n".format(row[5]))
                                 if row[6] is None:
                                     of.write("Originating URL             :\r\n")
                                 else:
-                                    of.write("Originating URL             : {}\r\n".format(row[6]))
+                                    of.write("Originating URL             : {0}\r\n".format(row[6]))
                                 if row[7] is None:
                                     of.write("Date Created                :\r\n")
                                 else:
-                                    of.write("Date Created                : {}\r\n".format(row[7]))
+                                    of.write("Date Created                : {0}\r\n".format(row[7]))
                                 if row[8] is None:
                                     of.write("Usage Count                 :\r\n")
                                 else:
-                                    of.write("Usage Count                 : {}\r\n".format(row[8]))
+                                    of.write("Usage Count                 : {0}\r\n".format(row[8]))
                                 if row[9] is None:
                                     of.write("Input Encodings             :\r\n")
                                 else:
-                                    of.write("Input Encodings             : {}\r\n".format(row[9]))
+                                    of.write("Input Encodings             : {0}\r\n".format(row[9]))
                                 if row[10] is None:
                                     of.write("Show in Default List        :\r\n")
                                 else:
-                                    of.write("Show in Default List        : {}\r\n".format(row[10]))
+                                    of.write("Show in Default List        : {0}\r\n".format(row[10]))
                                 if row[11] is None:
                                     of.write("Suggest URL                 :\r\n")
                                 else:
-                                    of.write("Suggest URL                 : {}\r\n".format(row[11]))
+                                    of.write("Suggest URL                 : {0}\r\n".format(row[11]))
                                 if row[12] is None:
                                     of.write("Prepoulate ID               :\r\n")
                                 else:
-                                    of.write("Prepoulate ID               : {}\r\n".format(row[12]))
+                                    of.write("Prepoulate ID               : {0}\r\n".format(row[12]))
                                 if row[13] is None:
                                     of.write("Created by Policy           :\r\n")
                                 else:
-                                    of.write("Created by Policy           : {}\r\n".format(row[13]))
+                                    of.write("Created by Policy           : {0}\r\n".format(row[13]))
                                 if row[14] is None:
                                     of.write("Instant URL                 :\r\n")
                                 else:
-                                    of.write("Instant URL                 : {}\r\n".format(row[14]))
+                                    of.write("Instant URL                 : {0}\r\n".format(row[14]))
                                 if row[15] is None:
                                     of.write("Last Modified               :\r\n")
                                 else:
-                                    of.write("Last Modified               : {}\r\n".format(row[15]))
+                                    of.write("Last Modified               : {0}\r\n".format(row[15]))
                                 if row[16] is None:
                                     of.write("Sync GUID                   :\r\n")
                                 else:
-                                    of.write("Sync GUID                   : {}\r\n".format(row[16]))
+                                    of.write("Sync GUID                   : {0}\r\n".format(row[16]))
                                 if row[17] is None:
                                     of.write("Alternate URLs              :\r\n")
                                 else:
-                                    of.write("Alternate URLs              : {}\r\n".format(row[17]))
+                                    of.write("Alternate URLs              : {0}\r\n".format(row[17]))
                                 if row[18] is None:
                                     of.write("Search Terms Replacement Key:\r\n")
                                 else:
-                                    of.write("Search Terms Replacement Key: {}\r\n".format(row[18]))
+                                    of.write("Search Terms Replacement Key: {0}\r\n".format(row[18]))
                                 if row[19] is None:
                                     of.write("Image URL                   :\r\n")
                                 else:
-                                    of.write("Image URL                   : {}\r\n".format(row[19]))
+                                    of.write("Image URL                   : {0}\r\n".format(row[19]))
                                 if row[20] is None:
                                     of.write("Search URL POST Params      :\r\n")
                                 else:
-                                    of.write("Search URL POST Params      : {}\r\n".format(row[20]))
+                                    of.write("Search URL POST Params      : {0}\r\n".format(row[20]))
                                 if row[21] is None:
                                     of.write("Suggest URL POST Params     :\r\n")
                                 else:
-                                    of.write("Suggest URL POST Params     : {}\r\n".format(row[21]))
+                                    of.write("Suggest URL POST Params     : {0}\r\n".format(row[21]))
                                 if row[22] is None:
                                     of.write("Instant URL POST Params     :\r\n")
                                 else:
-                                    of.write("Instant URL POST Params     : {}\r\n".format(row[22]))
+                                    of.write("Instant URL POST Params     : {0}\r\n".format(row[22]))
                                 if row[23] is None:
                                     of.write("Image URL POST Params       :\r\n")
                                 else:
-                                    of.write("Image URL POST Params       : {}\r\n".format(row[23]))
+                                    of.write("Image URL POST Params       : {0}\r\n".format(row[23]))
                                 if row[24] is None:
                                     of.write("New Tab URL                 :\r\n")
                                 else:
-                                    of.write("New Tab URL                 : {}\r\n".format(row[24]))
+                                    of.write("New Tab URL                 : {0}\r\n".format(row[24]))
                                 of.write("\r\n")
                         else:
                             of.write("No data found in Keywords table.\r\n")
@@ -403,19 +403,19 @@ class UsersChromeWebData(Plugin):
                                 if row[0] is None:
                                     of.write("Service:\r\n")
                                 else:
-                                    of.write("Service: {}\r\n".format(row[0]))
+                                    of.write("Service: {0}\r\n".format(row[0]))
                         else:
                             of.write("No data found in Token Service table.\r\n")
                         of.write("\r\n")
                 except sqlite3.Error as e:
-                    logging.error("{}".format(e.args[0]))
-                    print("[ERROR] {}".format(e.args[0]))
+                    logging.error("{0}".format(e.args[0]))
+                    print("[ERROR] {0}".format(e.args[0]))
                 finally:
                     if conn:
                         conn.close()
             else:
-                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             of.write("="*40 + "\r\n\r\n")
         of.close()
