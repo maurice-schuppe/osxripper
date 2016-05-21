@@ -34,20 +34,20 @@ class BootFlags(Plugin):
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 plist_file = os.path.join(self._input_dir, "Library", "Preferences", "SystemConfiguration",
                                           self._data_file)
-                of.write("Source File: {}\r\n\r\n".format(plist_file))
+                of.write("Source File: {0}\r\n\r\n".format(plist_file))
                 if os.path.isfile(plist_file):
                     with open(plist_file, "rb") as pl:
                         plist = plistlib.load(pl)
                         try:
                             if "Kernel Flags" in plist:
-                                of.write("Kernel Flags: {}\r\n".format(plist["Kernel Flags"]))
+                                of.write("Kernel Flags: {0}\r\n".format(plist["Kernel Flags"]))
                             of.write("\r\n")
                         except KeyError:
                             pass
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(plist_file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")
