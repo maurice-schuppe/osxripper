@@ -10,6 +10,7 @@ __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
 
+
 class Summary(Plugin):
     """
     Plugin to output a summary of the system
@@ -41,7 +42,8 @@ class Summary(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " Hostname " + "="*10 + "\r\n")
-            plist_file = os.path.join(self._input_dir, "Library", "Preferences", "SystemConfiguration", "com.apple.smb.server.plist")
+            plist_file = os.path\
+                .join(self._input_dir, "Library", "Preferences", "SystemConfiguration", "com.apple.smb.server.plist")
             of.write("Source File: {}\r\n\r\n".format(plist_file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(plist_file):
@@ -113,11 +115,16 @@ class Summary(Plugin):
                     xml = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     if "com.apple.preferences.timezone.selected_city" in xml:
-                        of.write("Country      : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["CountryCode"]))
-                        of.write("Time Zone    : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["TimeZoneName"]))
-                        of.write("Selected City: {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["Name"]))
-                        of.write("Latitude     : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["Latitude"]))
-                        of.write("Longitude    : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["Longitude"]))
+                        of.write("Country      : {}\r\n"
+                                 .format(xml["com.apple.preferences.timezone.selected_city"]["CountryCode"]))
+                        of.write("Time Zone    : {}\r\n"
+                                 .format(xml["com.apple.preferences.timezone.selected_city"]["TimeZoneName"]))
+                        of.write("Selected City: {}\r\n"
+                                 .format(xml["com.apple.preferences.timezone.selected_city"]["Name"]))
+                        of.write("Latitude     : {}\r\n"
+                                 .format(xml["com.apple.preferences.timezone.selected_city"]["Latitude"]))
+                        of.write("Longitude    : {}\r\n"
+                                 .format(xml["com.apple.preferences.timezone.selected_city"]["Longitude"]))
                         of.write("\r\n")
                         of.write("Source File: {}\r\n\r\n".format(auto_tz_plist))
                         with open(auto_tz_plist, 'rb') as fp:
@@ -144,11 +151,16 @@ class Summary(Plugin):
                     xml = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     if "com.apple.preferences.timezone.selected_city" in xml:
-                        of.write("Country       : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["CountryCode"]))
-                        of.write("Time Zone     : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["TimeZoneName"]))
-                        of.write("Selected City : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["Name"]))
-                        of.write("Latitude      : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["Latitude"]))
-                        of.write("Longitude     : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["Longitude"]))
+                        of.write("Country       : {}\r\n"
+                                 .format(xml["com.apple.preferences.timezone.selected_city"]["CountryCode"]))
+                        of.write("Time Zone     : {}\r\n"
+                                 .format(xml["com.apple.preferences.timezone.selected_city"]["TimeZoneName"]))
+                        of.write("Selected City : {}\r\n"
+                                 .format(xml["com.apple.preferences.timezone.selected_city"]["Name"]))
+                        of.write("Latitude      : {}\r\n"
+                                 .format(xml["com.apple.preferences.timezone.selected_city"]["Latitude"]))
+                        of.write("Longitude     : {}\r\n"
+                                 .format(xml["com.apple.preferences.timezone.selected_city"]["Longitude"]))
                     of.write("\r\n")
                 of.close()
             else:
@@ -192,7 +204,8 @@ class Summary(Plugin):
                                         of.write("UID           : {}\r\n".format(pl["uid"][0]))
                                     if "generateduid" in pl:
                                         of.write("Generated UID : {}\r\n".format(pl["generateduid"][0]))
-                                    if os.path.isdir(os.path.join("Users", name, "Application Support", "MobileSync", "Backup")):
+                                    if os.path.isdir(
+                                            os.path.join("Users", name, "Application Support", "MobileSync", "Backup")):
                                             of.write("Has iOS Backup: Yes\r\n")
                                     else:
                                         of.write("Has iOS Backup: No\r\n")
@@ -241,7 +254,8 @@ class Summary(Plugin):
                                         if "picture" in plist:
                                             of.write("Picture       : {}\r\n".format(plist["picture"][0]))
                                         if "jpegphoto" in plist and name is not None:
-                                            jpeg = os.path.join(self._output_dir, "UserAccounts-" + name + "-jpgphoto.jpg")
+                                            jpeg = os.path\
+                                                .join(self._output_dir, "UserAccounts-" + name + "-jpgphoto.jpg")
                                             with open(jpeg, "wb") as jof:
                                                 jof.write(plist["jpegphoto"][0])
                                                 jof.close()
@@ -322,7 +336,6 @@ class Summary(Plugin):
                     plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
-                        # BRPairedDevices ARRAY
                         if "BRPairedDevices" in plist:
                             if len(plist["BRPairedDevices"]) == 0:
                                 of.write("BR Paired Devices:\r\n\tNo paired devices listed.\r\n")
@@ -331,7 +344,6 @@ class Summary(Plugin):
                                 for item in plist["BRPairedDevices"]:
                                     of.write("\tDevice: {}\r\n".format(item))
 
-                        # HIDDevices ARRAY
                         if "HIDDevices" in plist:
                             if len(plist["HIDDevices"]) == 0:
                                 of.write("HID Devices:\r\n\tNo paired devices listed.\r\n")
@@ -340,28 +352,23 @@ class Summary(Plugin):
                                 for item in plist["HIDDevices"]:
                                     of.write("\tDevice: {}\r\n".format(item))
 
-                        # DeviceCache  NESTED DICT
                         if "DeviceCache" in plist:
 
                             for device in plist["DeviceCache"]:
                                 of.write("Device Cache\r\n")
                                 of.write("\tDevice: {}\r\n".format(device))
 
-                                # VendorID
                                 if "VendorID" in plist["DeviceCache"][device]:
                                     of.write("\t\tVendor ID: {}\r\n".format(plist["DeviceCache"][device]["VendorID"]))
 
-                                # Name
                                 if "Name" in plist["DeviceCache"][device]:
                                     of.write("\t\tName: {}\r\n".format(plist["DeviceCache"][device]["Name"]))
 
                             of.write("\r\n")
 
-                        # D2D MAC Address DATA
                         if "D2D MAC Address" in plist:
-                            of.write("D2D MAC Address: {}\r\n".format(binascii.hexlify(plist["D2D MAC Address"])))  # data
+                            of.write("D2D MAC Address: {}\r\n".format(binascii.hexlify(plist["D2D MAC Address"])))
 
-                        # PairedDevices ARRAY
                         if "PairedDevices" in plist:
                             if len(plist["PairedDevices"]) == 0:
                                 of.write("Paired Devices:\r\n\tNo paired devices listed.\r\n")
@@ -383,7 +390,6 @@ class Summary(Plugin):
                     plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
-                        # PairedDevices ARRAY
                         if "PairedDevices" in plist:
                             if len(plist["PairedDevices"]) == 0:
                                 of.write("Paired Devices:\r\n\tNo paired devices listed.\r\n")
@@ -392,26 +398,21 @@ class Summary(Plugin):
                                 for paired_device in plist["PairedDevices"]:
                                     of.write("\tDevice: {}\r\n".format(paired_device))
 
-                        # HIDDevices
                         if "HIDDevices" in plist:
                             of.write("HIDDevices\r\n")
                             for hid_device in plist["HIDDevices"]:
                                 of.write("\tHID Device: {}\r\n".format(hid_device))
 
-                        # D2D MAC Address
                         if "D2D MAC Address" in plist:
                             of.write("D2D MAC Address :{}\r\n".format(plist["D2D MAC Address"]))
-                        # DeviceCache
                         if "DeviceCache" in plist:
                             of.write("Device Cache\r\n")
                             for cached_device in plist["DeviceCache"]:
-                                # MAC ADDRESS
                                 of.write("\tCached Device: {}\r\n".format(cached_device))
                                 for device_data in plist["DeviceCache"][cached_device]:
-                                    # VendorID
                                     if "VendorID" in device_data:
-                                        of.write("\t\tVendor ID: {}\r\n".format(plist["DeviceCache"][cached_device]["VendorID"]))
-                                    # Name
+                                        of.write("\t\tVendor ID: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["VendorID"]))
                                     if "Name" in device_data:
                                         of.write("\t\tName: {}\r\n".format(plist["DeviceCache"][cached_device]["Name"]))
                     except KeyError:
@@ -428,28 +429,23 @@ class Summary(Plugin):
                     plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
-                        # D2D MAC Address
                         if "D2D MAC Address" in plist:
                             of.write("D2D MAC Address :{}\r\n".format(plist["D2D MAC Address"]))
 
-                        # HIDDevices ARRAY
                         if "HIDDevices" in plist:
                             of.write("HIDDevices\r\n")
                             for hid_device in plist["HIDDevices"]:
                                 of.write("\tHID Device: {}\r\n".format(hid_device))
-                        # DeviceCache
                         if "DeviceCache" in plist:
                             of.write("Device Cache\r\n")
                             for cached_device in plist["DeviceCache"]:
-                                # MAC ADDRESS
                                 of.write("\tCached Device: {}\r\n".format(cached_device))
                                 for device_data in plist["DeviceCache"][cached_device]:
-                                    # Name
                                     if "Name" in device_data:
                                         of.write("\t\tName: {}\r\n".format(plist["DeviceCache"][cached_device]["Name"]))
-                                    # Manufacturer
                                     if "Manufacturer" in device_data:
-                                        of.write("\t\tManufacturer: {}\r\n".format(plist["DeviceCache"][cached_device]["Manufacturer"]))
+                                        of.write("\t\tManufacturer: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["Manufacturer"]))
 
                     except KeyError:
                         pass
@@ -464,80 +460,73 @@ class Summary(Plugin):
                     plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
-                        # DaemonControllersConfigurationKey
                         if "DaemonControllersConfigurationKey" in plist:
                             of.write("Daemon Controllers Configuration Key:\r\n")
                             for dmcck_key in plist["DaemonControllersConfigurationKey"]:
-                                # INNER DICT
                                 of.write("\t{}\r\n".format(dmcck_key))
                                 for item in plist["DaemonControllersConfigurationKey"][dmcck_key]:
-                                    of.write("\t\t{}: {}\r\n".format(item, plist["DaemonControllersConfigurationKey"][dmcck_key][item]))
-                        # PANInterfaces ARRAY
+                                    of.write("\t\t{}: {}\r\n"
+                                             .format(item, plist["DaemonControllersConfigurationKey"][dmcck_key][item]))
                         if "PANInterfaces" in plist:
                             of.write("PAN Interfaces:\r\n")
                             for pan_interface in plist["PANInterfaces"]:
                                 of.write("\tPAN Interface: {}\r\n".format(pan_interface))
-                        # ControllerPowerState
                         if "ControllerPowerState" in plist:
                             of.write("Controller Power State: {}\r\n".format(plist["ControllerPowerState"]))
-                        # HIDDevices ARRAY
                         if "HIDDevices" in plist:
                             of.write("HIDDevices\r\n")
                             for hid_device in plist["HIDDevices"]:
                                 of.write("\tHID Device: {}\r\n".format(hid_device))
-                        # DeviceCache
                         if "DeviceCache" in plist:
                             of.write("Device Cache\r\n")
                             for cached_device in plist["DeviceCache"]:
-                                # MAC ADDRESS
                                 of.write("\tCached Device: {}\r\n".format(cached_device))
                                 for device_data in plist["DeviceCache"][cached_device]:
-                                    # Name
                                     if "Name" in device_data:
                                         of.write("\t\tName: {}\r\n".format(plist["DeviceCache"][cached_device]["Name"]))
-                                    # Manufacturer
                                     if "Manufacturer" in device_data:
-                                        of.write("\t\tManufacturer: {}\r\n".format(plist["DeviceCache"][cached_device]["Manufacturer"]))
-                                    # ClassOfDevice
+                                        of.write("\t\tManufacturer: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["Manufacturer"]))
                                     if "ClassOfDevice" in device_data:
-                                        of.write("\t\tClass Of Device: {}\r\n".format(plist["DeviceCache"][cached_device]["ClassOfDevice"]))
-                                    # BatteryPercent
+                                        of.write("\t\tClass Of Device: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["ClassOfDevice"]))
                                     if "BatteryPercent" in device_data:
-                                        of.write("\t\tBattery Percent: {}\r\n".format(plist["DeviceCache"][cached_device]["BatteryPercent"]))
-                                    # ClockOffset
+                                        of.write("\t\tBattery Percent: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["BatteryPercent"]))
                                     if "ClockOffset" in device_data:
-                                        of.write("\t\tClock Offset: {}\r\n".format(plist["DeviceCache"][cached_device]["ClockOffset"]))
-                                    # LastNameUpdate
+                                        of.write("\t\tClock Offset: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["ClockOffset"]))
                                     if "LastNameUpdate" in device_data:
-                                        of.write("\t\tLast Name Update: {}\r\n".format(plist["DeviceCache"][cached_device]["LastNameUpdate"]))
-                                    # LastServicesUpdate
+                                        of.write("\t\tLast Name Update: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["LastNameUpdate"]))
                                     if "LastServicesUpdate" in device_data:
-                                        of.write("\t\tLast Services Update: {}\r\n".format(plist["DeviceCache"][cached_device]["LastServicesUpdate"]))
-                                    # LastInquiryUpdate
+                                        of.write("\t\tLast Services Update: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["LastServicesUpdate"]))
                                     if "LastInquiryUpdate" in device_data:
-                                        of.write("\t\tLast Inquiry Update: {}\r\n".format(plist["DeviceCache"][cached_device]["LastInquiryUpdate"]))
-                                    # LMPVersion
+                                        of.write("\t\tLast Inquiry Update: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["LastInquiryUpdate"]))
                                     if "LMPVersion" in device_data:
-                                        of.write("\t\tLMP Version: {}\r\n".format(plist["DeviceCache"][cached_device]["LMPVersion"]))
-                                    # LMPSubversion
+                                        of.write("\t\tLMP Version: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["LMPVersion"]))
                                     if "LMPSubversion" in device_data:
-                                        of.write("\t\tLMP Subversion: {}\r\n".format(plist["DeviceCache"][cached_device]["LMPSubversion"]))
-                                    # InquiryRSSI
+                                        of.write("\t\tLMP Subversion: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["LMPSubversion"]))
                                     if "InquiryRSSI" in device_data:
-                                        of.write("\t\tInquiry RSSI: {}\r\n".format(plist["DeviceCache"][cached_device]["InquiryRSSI"]))
-                                    # PageScanMode
+                                        of.write("\t\tInquiry RSSI: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["InquiryRSSI"]))
                                     if "PageScanMode" in device_data:
-                                        of.write("\t\tPage Scan Mode: {}\r\n".format(plist["DeviceCache"][cached_device]["PageScanMode"]))
-                                    # PageScanPeriod
+                                        of.write("\t\tPage Scan Mode: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["PageScanMode"]))
                                     if "PageScanPeriod" in device_data:
-                                        of.write("\t\tPage Scan Period: {}\r\n".format(plist["DeviceCache"][cached_device]["PageScanPeriod"]))
-                                    # PageScanRepetitionMode
+                                        of.write("\t\tPage Scan Period: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["PageScanPeriod"]))
                                     if "PageScanRepetitionMode" in device_data:
-                                        of.write("\t\tPage Scan Repetition Mode: {}\r\n".format(plist["DeviceCache"][cached_device]["PageScanRepetitionMode"]))
+                                        of.write("\t\tPage Scan Repetition Mode: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["PageScanRepetitionMode"]))
                                     # EIRData NOT PARSED
                                     # Services NOT PARSED
                         # PersistentPorts NOT PARSED
-                        # PairedDevices ARRAY
+
                         if "PairedDevices" in plist:
                             if len(plist["PairedDevices"]) == 0:
                                 of.write("Paired Devices:\r\n\tNo paired devices listed.\r\n")
@@ -558,78 +547,71 @@ class Summary(Plugin):
                     plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
-                        # BluetoothAutoSeekHIDDevices
                         if "BluetoothAutoSeekHIDDevices" in plist:
-                            of.write("Bluetooth Auto Seek HID Devices: {}\r\n".format(plist["BluetoothAutoSeekHIDDevices"]))
-                        # ControllerPowerState
+                            of.write("Bluetooth Auto Seek HID Devices: {}\r\n"
+                                     .format(plist["BluetoothAutoSeekHIDDevices"]))
                         if "ControllerPowerState" in plist:
                             of.write("Controller Power State         : {}\r\n".format(plist["ControllerPowerState"]))
-                        # BluetoothVersionNumber
                         if "BluetoothVersionNumber" in plist:
                             of.write("Bluetooth Version Number       : {}\r\n".format(plist["BluetoothVersionNumber"]))
-                        # DaemonControllersConfigurationKey
                         if "DaemonControllersConfigurationKey" in plist:
                             of.write("Daemon Controllers Configuration Key:\r\n")
                             for dmcck_key in plist["DaemonControllersConfigurationKey"]:
-                                # INNER DICT
                                 of.write("\t{}\r\n".format(dmcck_key))
                                 for item in plist["DaemonControllersConfigurationKey"][dmcck_key]:
-                                    of.write("\t\t{}: {}\r\n".format(item, plist["DaemonControllersConfigurationKey"][dmcck_key][item]))
-                        # HIDDevices
+                                    of.write("\t\t{}: {}\r\n"
+                                             .format(item, plist["DaemonControllersConfigurationKey"][dmcck_key][item]))
                         if "HIDDevices" in plist:
                             hid_array = plist["PairedDevices"]
                             of.write("HID Devices: {}\r\n")
                             for hid_device in hid_array:
                                 of.write("\t{}\r\n".format(hid_device))
-                        # DeviceCache
                         if "DeviceCache" in plist:
                             of.write("Device Cache\r\n")
                             for cached_device in plist["DeviceCache"]:
-                                # MAC ADDRESS
                                 of.write("\tCached Device: {}\r\n".format(cached_device))
                                 for device_data in plist["DeviceCache"][cached_device]:
-                                    # Name
                                     if "Name" in device_data:
                                         of.write("\t\tName: {}\r\n".format(plist["DeviceCache"][cached_device]["Name"]))
-                                    # Manufacturer
                                     if "Manufacturer" in device_data:
-                                        of.write("\t\tManufacturer: {}\r\n".format(plist["DeviceCache"][cached_device]["Manufacturer"]))
-                                    # ClassOfDevice
+                                        of.write("\t\tManufacturer: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["Manufacturer"]))
                                     if "ClassOfDevice" in device_data:
-                                        of.write("\t\tClass Of Device: {}\r\n".format(plist["DeviceCache"][cached_device]["ClassOfDevice"]))
-                                    # BatteryPercent
+                                        of.write("\t\tClass Of Device: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["ClassOfDevice"]))
                                     if "BatteryPercent" in device_data:
-                                        of.write("\t\tBattery Percent: {}\r\n".format(plist["DeviceCache"][cached_device]["BatteryPercent"]))
-                                    # ClockOffset
+                                        of.write("\t\tBattery Percent: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["BatteryPercent"]))
                                     if "ClockOffset" in device_data:
-                                        of.write("\t\tClock Offset: {}\r\n".format(plist["DeviceCache"][cached_device]["ClockOffset"]))
-                                    # LastNameUpdate
+                                        of.write("\t\tClock Offset: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["ClockOffset"]))
                                     if "LastNameUpdate" in device_data:
-                                        of.write("\t\tLast Name Update: {}\r\n".format(plist["DeviceCache"][cached_device]["LastNameUpdate"]))
-                                    # LastServicesUpdate
+                                        of.write("\t\tLast Name Update: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["LastNameUpdate"]))
                                     if "LastServicesUpdate" in device_data:
-                                        of.write("\t\tLast Services Update: {}\r\n".format(plist["DeviceCache"][cached_device]["LastServicesUpdate"]))
-                                    # LastInquiryUpdate
+                                        of.write("\t\tLast Services Update: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["LastServicesUpdate"]))
                                     if "LastInquiryUpdate" in device_data:
-                                        of.write("\t\tLast Inquiry Update: {}\r\n".format(plist["DeviceCache"][cached_device]["LastInquiryUpdate"]))
-                                    # LMPVersion
+                                        of.write("\t\tLast Inquiry Update: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["LastInquiryUpdate"]))
                                     if "LMPVersion" in device_data:
-                                        of.write("\t\tLMP Version: {}\r\n".format(plist["DeviceCache"][cached_device]["LMPVersion"]))
-                                    # LMPSubversion
+                                        of.write("\t\tLMP Version: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["LMPVersion"]))
                                     if "LMPSubversion" in device_data:
-                                        of.write("\t\tLMP Subversion: {}\r\n".format(plist["DeviceCache"][cached_device]["LMPSubversion"]))
-                                    # InquiryRSSI
+                                        of.write("\t\tLMP Subversion: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["LMPSubversion"]))
                                     if "InquiryRSSI" in device_data:
-                                        of.write("\t\tInquiry RSSI: {}\r\n".format(plist["DeviceCache"][cached_device]["InquiryRSSI"]))
-                                    # PageScanMode
+                                        of.write("\t\tInquiry RSSI: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["InquiryRSSI"]))
                                     if "PageScanMode" in device_data:
-                                        of.write("\t\tPage Scan Mode: {}\r\n".format(plist["DeviceCache"][cached_device]["PageScanMode"]))
-                                    # PageScanPeriod
+                                        of.write("\t\tPage Scan Mode: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["PageScanMode"]))
                                     if "PageScanPeriod" in device_data:
-                                        of.write("\t\tPage Scan Period: {}\r\n".format(plist["DeviceCache"][cached_device]["PageScanPeriod"]))
-                                    # PageScanRepetitionMode
+                                        of.write("\t\tPage Scan Period: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["PageScanPeriod"]))
                                     if "PageScanRepetitionMode" in device_data:
-                                        of.write("\t\tPage Scan Repetition Mode: {}\r\n".format(plist["DeviceCache"][cached_device]["PageScanRepetitionMode"]))
+                                        of.write("\t\tPage Scan Repetition Mode: {}\r\n"
+                                                 .format(plist["DeviceCache"][cached_device]["PageScanRepetitionMode"]))
                         # PairedDevices
                         if "PairedDevices" in plist:
                             paired_array = plist["PairedDevices"]

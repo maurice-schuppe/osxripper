@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import logging
 import os
 import plistlib
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
