@@ -42,7 +42,7 @@ class CacheEncryptedDatabase(Plugin):
                 if len(file_list) > 0:
                     for database_file in file_list:
                         if os.path.isfile(database_file):
-                            of.write("Source Database: {}\r\n\r\n".format(database_file))
+                            of.write("Source Database: {0}\r\n\r\n".format(database_file))
                             conn = None
                             try:
                                 conn = sqlite3.connect(database_file)
@@ -58,62 +58,62 @@ class CacheEncryptedDatabase(Plugin):
                                             if row[0] is None:
                                                 of.write("MAC Address        :\r\n")
                                             else:
-                                                of.write("MAC Address        : {}\r\n".format(row[0]))
+                                                of.write("MAC Address        : {0}\r\n".format(row[0]))
                                             if row[1] is None:
                                                 of.write("Channel            :\r\n")
                                             else:
-                                                of.write("Channel            : {}\r\n".format(row[1]))
+                                                of.write("Channel            : {0}\r\n".format(row[1]))
                                             if row[2] is None:
                                                 of.write("Timestamp          :\r\n")
                                             else:
-                                                of.write("Timestamp          : {}\r\n".format(row[2]))
+                                                of.write("Timestamp          : {0}\r\n".format(row[2]))
                                             if row[3] is None:
                                                 of.write("Latitude           :\r\n")
                                             else:
-                                                of.write("Latitude           : {}\r\n".format(row[3]))
+                                                of.write("Latitude           : {0}\r\n".format(row[3]))
                                             if row[4] is None:
                                                 of.write("Longitude          :\r\n")
                                             else:
-                                                of.write("Longitude          : {}\r\n".format(row[4]))
+                                                of.write("Longitude          : {0}\r\n".format(row[4]))
                                             if row[5] is None:
                                                 of.write("Horizontal Accuracy:\r\n")
                                             else:
-                                                of.write("Horizontal Accuracy: {}\r\n".format(row[5]))
+                                                of.write("Horizontal Accuracy: {0}\r\n".format(row[5]))
                                             if row[6] is None:
                                                 of.write("Altitude           :\r\n")
                                             else:
-                                                of.write("Altitude           : {}\r\n".format(row[6]))
+                                                of.write("Altitude           : {0}\r\n".format(row[6]))
                                             if row[7] is None:
                                                 of.write("Vertical Accuracy  :\r\n")
                                             else:
-                                                of.write("Vertical Accuracy  : {}\r\n".format(row[7]))
+                                                of.write("Vertical Accuracy  : {0}\r\n".format(row[7]))
                                             if row[8] is None:
                                                 of.write("Speed              :\r\n")
                                             else:
-                                                of.write("Speed              : {}\r\n".format(row[8]))
+                                                of.write("Speed              : {0}\r\n".format(row[8]))
                                             if row[9] is None:
                                                 of.write("Course             :\r\n")
                                             else:
-                                                of.write("Course             : {}\r\n".format(row[9]))
+                                                of.write("Course             : {0}\r\n".format(row[9]))
                                             if row[10] is None:
                                                 of.write("Confidence         :\r\n")
                                             else:
-                                                of.write("Confidence         : {}\r\n".format(row[10]))
+                                                of.write("Confidence         : {0}\r\n".format(row[10]))
                                             if row[11] is None:
                                                 of.write("Score              :\r\n")
                                             else:
-                                                of.write("Score              : {}\r\n".format(row[11]))
+                                                of.write("Score              : {0}\r\n".format(row[11]))
                                             if row[12] is None:
                                                 of.write("Reach              :\r\n")
                                             else:
-                                                of.write("Reach              : {}\r\n".format(row[12]))
+                                                of.write("Reach              : {0}\r\n".format(row[12]))
                                             of.write("\r\n")
                                     else:
                                         of.write("No data in database.\r\n")
                                 of.write("\r\n")
                             except sqlite3.Error as e:
-                                logging.error("{}".format(e.args[0]))
-                                print("[ERROR] {}".format(e.args[0]))
+                                logging.error("{0}".format(e.args[0]))
+                                print("[ERROR] {0}".format(e.args[0]))
                             finally:
                                 if conn:
                                     conn.close()
@@ -129,7 +129,7 @@ class CacheEncryptedDatabase(Plugin):
                 if len(file_list) > 0:
                     for database_file in file_list:
                         if os.path.isfile(database_file):
-                            of.write("Source Database: {}\r\n\r\n".format(database_file))
+                            of.write("Source Database: {0}\r\n\r\n".format(database_file))
                             conn = None
                             try:
                                 conn = sqlite3.connect(database_file)
@@ -145,58 +145,58 @@ class CacheEncryptedDatabase(Plugin):
                                             if row[0] is None:
                                                 of.write("MAC Address        :\r\n")
                                             else:
-                                                of.write("MAC Address        : {}\r\n".format(row[0]))
+                                                of.write("MAC Address        : {0}\r\n".format(row[0]))
                                             if row[1] is None:
                                                 of.write("Channel            :\r\n")
                                             else:
-                                                of.write("Channel            : {}\r\n".format(row[1]))
+                                                of.write("Channel            : {0}\r\n".format(row[1]))
                                             if row[2] is None:
                                                 of.write("Timestamp          :\r\n")
                                             else:
-                                                of.write("Timestamp          : {}\r\n".format(row[2]))
+                                                of.write("Timestamp          : {0}\r\n".format(row[2]))
                                             if row[3] is None:
                                                 of.write("Latitude           :\r\n")
                                             else:
-                                                of.write("Latitude           : {}\r\n".format(row[3]))
+                                                of.write("Latitude           : {0}\r\n".format(row[3]))
                                             if row[4] is None:
                                                 of.write("Longitude          :\r\n")
                                             else:
-                                                of.write("Longitude          : {}\r\n".format(row[4]))
+                                                of.write("Longitude          : {0}\r\n".format(row[4]))
                                             if row[5] is None:
                                                 of.write("Horizontal Accuracy:\r\n")
                                             else:
-                                                of.write("Horizontal Accuracy: {}\r\n".format(row[5]))
+                                                of.write("Horizontal Accuracy: {0}\r\n".format(row[5]))
                                             if row[6] is None:
                                                 of.write("Altitude           :\r\n")
                                             else:
-                                                of.write("Altitude           : {}\r\n".format(row[6]))
+                                                of.write("Altitude           : {0}\r\n".format(row[6]))
                                             if row[7] is None:
                                                 of.write("Vertical Accuracy  :\r\n")
                                             else:
-                                                of.write("Vertical Accuracy  : {}\r\n".format(row[7]))
+                                                of.write("Vertical Accuracy  : {0}\r\n".format(row[7]))
                                             if row[8] is None:
                                                 of.write("Speed              :\r\n")
                                             else:
-                                                of.write("Speed              : {}\r\n".format(row[8]))
+                                                of.write("Speed              : {0}\r\n".format(row[8]))
                                             if row[9] is None:
                                                 of.write("Course             :\r\n")
                                             else:
-                                                of.write("Course             : {}\r\n".format(row[9]))
+                                                of.write("Course             : {0}\r\n".format(row[9]))
                                             if row[10] is None:
                                                 of.write("Confidence         :\r\n")
                                             else:
-                                                of.write("Confidence         : {}\r\n".format(row[10]))
+                                                of.write("Confidence         : {0}\r\n".format(row[10]))
                                             if row[11] is None:
                                                 of.write("Score              :\r\n")
                                             else:
-                                                of.write("Score              : {}\r\n".format(row[11]))
+                                                of.write("Score              : {0}\r\n".format(row[11]))
                                             of.write("\r\n")
                                     else:
                                         of.write("No data in database.\r\n")
                                 of.write("\r\n")
                             except sqlite3.Error as e:
-                                logging.error("{}".format(e.args[0]))
-                                print("[ERROR] {}".format(e.args[0]))
+                                logging.error("{0}".format(e.args[0]))
+                                print("[ERROR] {0}".format(e.args[0]))
                             finally:
                                 if conn:
                                     conn.close()
