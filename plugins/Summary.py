@@ -561,7 +561,7 @@ class Summary(Plugin):
                         if "DaemonControllersConfigurationKey" in plist:
                             of.write("Daemon Controllers Configuration Key:\r\n")
                             for dmcck_key in plist["DaemonControllersConfigurationKey"]:
-                                of.write("\t{}\r\n".format(dmcck_key))
+                                of.write("\t{0}\r\n".format(dmcck_key))
                                 for item in plist["DaemonControllersConfigurationKey"][dmcck_key]:
                                     of.write("\t\t{0}: {1}\r\n"
                                              .format(item, plist["DaemonControllersConfigurationKey"][dmcck_key][item]))
