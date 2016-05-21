@@ -33,7 +33,7 @@ class SystemSnapshots(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             query = "SELECT datetime(time/1000000, 'unixepoch'), pid, uniqueid, comm FROM snapshots ORDER BY time"
             file = os.path.join(self._input_dir, "private", "var", "db", "systemstats", self._data_file)
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
                 if os.path.isfile(file):
                     conn = None
@@ -47,30 +47,30 @@ class SystemSnapshots(Plugin):
                                 if row[3] is None:
                                     of.write("Comm     :\r\n")
                                 else:
-                                    of.write("Comm     : {}\r\n".format(row[3]))
+                                    of.write("Comm     : {0}\r\n".format(row[3]))
                                 if row[0] is None:
                                     of.write("Time     :\r\n")
                                 else:
-                                    of.write("Time     : {}\r\n".format(row[0]))
+                                    of.write("Time     : {0}\r\n".format(row[0]))
                                 if row[1] is None:
                                     of.write("PID      :\r\n")
                                 else:
-                                    of.write("PID      : {}\r\n".format(row[1]))
+                                    of.write("PID      : {0}\r\n".format(row[1]))
                                 if row[2] is None:
                                     of.write("Unique ID:\r\n")
                                 else:
-                                    of.write("Unique ID: {}\r\n".format(row[2]))
+                                    of.write("Unique ID: {0}\r\n".format(row[2]))
                                 of.write("\r\n")
                     except sqlite3.Error as e:
-                        logging.error("{}".format(e.args[0]))
-                        print("[ERROR] {}".format(e.args[0]))
+                        logging.error("{0}".format(e.args[0]))
+                        print("[ERROR] {0}".format(e.args[0]))
                     finally:
                         if conn:
                             conn.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
                     
             elif self._os_version in ["mountain_lion", "lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported by this plugin.")
