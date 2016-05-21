@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -37,7 +38,9 @@ class UsersRecentApplications(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    plist = os.path.join(users_path, username, "Library", "Application Support", "com.apple.sharedfilelist",  self._data_file)
+                    plist = os.path\
+                        .join(users_path, username, "Library", "Application Support",
+                              "com.apple.sharedfilelist",  self._data_file)
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
@@ -51,7 +54,8 @@ class UsersRecentApplications(Plugin):
         """
         Parse com.apple.LSSharedFileList.RecentApplications.sfl
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + self._output_file), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + self._output_file), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version == "el_capitan":

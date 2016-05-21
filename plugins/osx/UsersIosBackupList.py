@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -32,7 +33,8 @@ class UsersIosBackupList(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    ios_backup_dir = os.path.join(users_path, username, "Library", "Application Support", "MobileSync", "Backup")
+                    ios_backup_dir = os.path\
+                        .join(users_path, username, "Library", "Application Support", "MobileSync", "Backup")
                     if os.path.isdir(ios_backup_dir):
                         self.__list_files(ios_backup_dir, username)
                     else:
@@ -46,7 +48,8 @@ class UsersIosBackupList(Plugin):
         """
         List information from /Users/username/Library/Application Support/MobileSync/Backup
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_ios_backup_list.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_ios_backup_list.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:

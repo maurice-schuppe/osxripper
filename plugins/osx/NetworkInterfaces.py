@@ -4,6 +4,7 @@ import codecs
 import logging
 import os
 import plistlib
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -48,17 +49,23 @@ class NetworkInterfaces(Plugin):
                                 if "IOBuiltin" in network_interface:
                                     of.write("IOBuiltin                : {}\r\n".format(network_interface["IOBuiltin"]))
                                 if "IOInterfaceNamePrefix" in network_interface:
-                                    of.write("IO Interface Name Prefix : {}\r\n".format(network_interface["IOInterfaceNamePrefix"]))
+                                    of.write("IO Interface Name Prefix : {}\r\n"
+                                             .format(network_interface["IOInterfaceNamePrefix"]))
                                 if "IOInterfaceType" in network_interface:
-                                    of.write("IO Interface Type        : {}\r\n".format(network_interface["IOInterfaceType"]))
+                                    of.write("IO Interface Type        : {}\r\n"
+                                             .format(network_interface["IOInterfaceType"]))
                                 if "IOInterfaceUnit" in network_interface:
-                                    of.write("IO Interface Unit        : {}\r\n".format(network_interface["IOInterfaceUnit"]))
+                                    of.write("IO Interface Unit        : {}\r\n"
+                                             .format(network_interface["IOInterfaceUnit"]))
                                 if "IOMACAddress" in network_interface:
-                                    of.write("IO MAC Address           : {}\r\n".format(binascii.hexlify(network_interface["IOMACAddress"])))
+                                    of.write("IO MAC Address           : {}\r\n"
+                                             .format(binascii.hexlify(network_interface["IOMACAddress"])))
                                 if "SCNetworkInterfaceInfo" in network_interface:
-                                    of.write("SC Network Interface Info: {}\r\n".format(network_interface["SCNetworkInterfaceInfo"]["UserDefinedName"]))
+                                    of.write("SC Network Interface Info: {}\r\n"
+                                             .format(network_interface["SCNetworkInterfaceInfo"]["UserDefinedName"]))
                                 if "SCNetworkInterfaceType" in network_interface:
-                                    of.write("SC Network Interface Type: {}\r\n".format(network_interface["SCNetworkInterfaceType"]))
+                                    of.write("SC Network Interface Type: {}\r\n"
+                                             .format(network_interface["SCNetworkInterfaceType"]))
                                 of.write("\r\n")
 ################################
 # Move to own Plugin?
@@ -86,15 +93,20 @@ class NetworkInterfaces(Plugin):
                                 if "IOBuiltin" in network_interface:
                                     of.write("IOBuiltin                : {}\r\n".format(network_interface["IOBuiltin"]))
                                 if "IOInterfaceType" in network_interface:
-                                    of.write("IO Interface Type        : {}\r\n".format(network_interface["IOInterfaceType"]))
+                                    of.write("IO Interface Type        : {}\r\n"
+                                             .format(network_interface["IOInterfaceType"]))
                                 if "IOInterfaceUnit" in network_interface:
-                                    of.write("IO Interface Unit        : {}\r\n".format(network_interface["IOInterfaceUnit"]))
+                                    of.write("IO Interface Unit        : {}\r\n"
+                                             .format(network_interface["IOInterfaceUnit"]))
                                 if "IOMACAddress" in network_interface:
-                                    of.write("IO MAC Address           : {}\r\n".format(binascii.hexlify(network_interface["IOMACAddress"])))
+                                    of.write("IO MAC Address           : {}\r\n"
+                                             .format(binascii.hexlify(network_interface["IOMACAddress"])))
                                 if "SCNetworkInterfaceInfo" in network_interface:
-                                    of.write("SC Network Interface Info: {}\r\n".format(network_interface["SCNetworkInterfaceInfo"]["UserDefinedName"]))
+                                    of.write("SC Network Interface Info: {}\r\n"
+                                             .format(network_interface["SCNetworkInterfaceInfo"]["UserDefinedName"]))
                                 if "SCNetworkInterfaceType" in network_interface:
-                                    of.write("SC Network Interface Type: {}\r\n".format(network_interface["SCNetworkInterfaceType"]))
+                                    of.write("SC Network Interface Type: {}\r\n"
+                                             .format(network_interface["SCNetworkInterfaceType"]))
                                 of.write("\r\n")
 ################################
 # Move to own Plugin?

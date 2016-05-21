@@ -2,7 +2,8 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-__author__ = 'bolodev'
+
+__author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
 
@@ -45,7 +46,8 @@ class UsersCyberGhostLogs(Plugin):
         """
         Parse /Users/{username}/Library/Application Support/CyberGhost {version}
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_VPN_CyberGhost.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_VPN_CyberGhost.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             app_support_dir = os.listdir(file)
             for directory in app_support_dir:

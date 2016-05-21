@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -40,7 +41,8 @@ class TimeMachinePlist(Plugin):
                         if "LastDestinationID" in pl:
                             of.write("Last Destination ID             : {}\r\n".format(pl["LastDestinationID"]))
                         if "LocalizedDiskImageVolumeName" in pl:
-                            of.write("Localized Disk Image Volume Name: {}\r\n".format(pl["LocalizedDiskImageVolumeName"]))
+                            of.write("Localized Disk Image Volume Name: {}\r\n"
+                                     .format(pl["LocalizedDiskImageVolumeName"]))
                         if "SkipSystemFiles" in pl:
                             of.write("Skip System Files               : {}\r\n".format(pl["SkipSystemFiles"]))
                         if "PreferencesVersion" in pl:
@@ -53,23 +55,32 @@ class TimeMachinePlist(Plugin):
                             of.write("Destinations:\r\n")
                             for destination in pl["Destinations"]:
                                 if "LastKnownEncryptionState" in destination:
-                                    of.write("\tLast Known Encryption State      : {}\r\n".format(destination["LastKnownEncryptionState"]))
+                                    of.write("\tLast Known Encryption State      : {}\r\n"
+                                             .format(destination["LastKnownEncryptionState"]))
                                 if "RESULT" in destination:
-                                    of.write("\tRESULT                           : {}\r\n".format(destination["RESULT"]))
+                                    of.write("\tRESULT                           : {}\r\n"
+                                             .format(destination["RESULT"]))
                                 if "BytesUsed" in destination:
-                                    of.write("\tBytes Used                       : {}\r\n".format(destination["BytesUsed"]))
+                                    of.write("\tBytes Used                       : {}\r\n"
+                                             .format(destination["BytesUsed"]))
                                 if "BytesAvailable" in destination:
-                                    of.write("\tBytes Available                  : {}\r\n".format(destination["BytesAvailable"]))
+                                    of.write("\tBytes Available                  : {}\r\n"
+                                             .format(destination["BytesAvailable"]))
                                 if "RootVolumeUUID" in destination:
-                                    of.write("\tRoot Volume UUID                 : {}\r\n".format(destination["RootVolumeUUID"]))
+                                    of.write("\tRoot Volume UUID                 : {}\r\n"
+                                             .format(destination["RootVolumeUUID"]))
                                 if "AlwaysShowDeletedBackupsWarning" in pl:
-                                    of.write("Always Show Deleted Backups Warning: {}\r\n".format(pl["AlwaysShowDeletedBackupsWarning"]))
+                                    of.write("Always Show Deleted Backups Warning: {}\r\n"
+                                             .format(pl["AlwaysShowDeletedBackupsWarning"]))
                                 if "AutoBackup" in pl:
-                                    of.write("AutoBackup                         : {}\r\n".format(pl["AutoBackup"]))
+                                    of.write("AutoBackup                         : {}\r\n"
+                                             .format(pl["AutoBackup"]))
                                 if "LastConfigurationTraceDate" in pl:
-                                    of.write("Last Configuration Trace Date      : {}\r\n".format(pl["LastConfigurationTraceDate"]))
+                                    of.write("Last Configuration Trace Date      : {}\r\n"
+                                             .format(pl["LastConfigurationTraceDate"]))
                                 if "DestinationID" in destination:
-                                    of.write("\tDestination ID                   : {}\r\n".format(destination["DestinationID"]))
+                                    of.write("\tDestination ID                   : {}\r\n"
+                                             .format(destination["DestinationID"]))
                                 if "DestinationUUIDs" in destination:
                                     of.write("Destination UUIDs:\r\n")
                                     for dest_uuid in destination["DestinationUUIDs"]:
@@ -97,13 +108,16 @@ class TimeMachinePlist(Plugin):
                         if "RequiresACPower" in pl:
                             of.write("Requires AC Power                  : {}\r\n".format(pl["RequiresACPower"]))
                         if "AlwaysShowDeletedBackupsWarning" in pl:
-                            of.write("Always Show Deleted Backups Warning: {}\r\n".format(pl["AlwaysShowDeletedBackupsWarning"]))
+                            of.write("Always Show Deleted Backups Warning: {}\r\n"
+                                     .format(pl["AlwaysShowDeletedBackupsWarning"]))
                         if "RootVolumeUUID" in pl:
-                            of.write("Root Volume UUID                   : {}\r\n".format(pl["RootVolumeUUID"]))
+                            of.write("Root Volume UUID                   : {}\r\n"
+                                     .format(pl["RootVolumeUUID"]))
                         if "LastDestinationID" in pl:
                             of.write("Last Destination ID                : {}\r\n".format(pl["LastDestinationID"]))
                         if "LocalizedDiskImageVolumeName" in pl:
-                            of.write("Localized DiskImag eVolume Name    : {}\r\n".format(pl["LocalizedDiskImageVolumeName"]))
+                            of.write("Localized DiskImag eVolume Name    : {}\r\n"
+                                     .format(pl["LocalizedDiskImageVolumeName"]))
                         if "HostUUIDs" in pl:
                             of.write("Host UUIDs:\r\n")
                             for host_uuid in pl["HostUUIDs"]:

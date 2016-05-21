@@ -4,6 +4,7 @@ import datetime
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -49,7 +50,9 @@ class LocationdClientsPlist(Plugin):
                             if "Hide" in plist[client_dict]:
                                 of.write("\tHide                 : {}\r\n".format(plist[client_dict]["Hide"]))
                             if "LocationTimeStopped" in plist[client_dict]:
-                                of.write("\tLocation Time Stopped: {}\r\n".format(mac_absolute + datetime.timedelta(0, float(plist[client_dict]["LocationTimeStopped"]))))
+                                of.write("\tLocation Time Stopped: {}\r\n"
+                                         .format(mac_absolute + datetime
+                                                 .timedelta(0, float(plist[client_dict]["LocationTimeStopped"]))))
                             if "BundlePath" in plist[client_dict]:
                                 of.write("\tBundle Path          : {}\r\n".format(plist[client_dict]["BundlePath"]))
                             if "Registered" in plist[client_dict]:

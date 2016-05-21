@@ -4,6 +4,7 @@ import datetime
 import logging
 import os
 import sqlite3
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -20,7 +21,8 @@ class UsersQuarantineEventsV2(Plugin):
         """
         super().__init__()
         self._name = "User LaunchServices.QuarantineEventsV2"
-        self._description = "Parse information from /Users/<username>/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2"
+        self._description = "Parse information from " \
+                            "/Users/<username>/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2"
         self._data_file = "com.apple.LaunchServices.QuarantineEventsV2"
         self._output_file = ""  # this will have to be defined per user account
         self._type = "sqlite"
@@ -37,7 +39,9 @@ class UsersQuarantineEventsV2(Plugin):
                     if self._os_version != "snow_leopard":
                         sqlite_db = os.path.join(users_path, username, "Library", "Preferences", self._data_file)
                     else:
-                        sqlite_db = os.path.join(users_path, username, "Library", "Preferences", "com.apple.LaunchServices.QuarantineEvents")
+                        sqlite_db = os.path\
+                            .join(users_path, username, "Library", "Preferences",
+                                  "com.apple.LaunchServices.QuarantineEvents")
                     if os.path.isfile(sqlite_db):
                         self.__parse_sqlite_db(sqlite_db, username)
                     else:
@@ -51,7 +55,8 @@ class UsersQuarantineEventsV2(Plugin):
         """
         Read the com.apple.LaunchServices.QuarantineEventsV2 SQLite database
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Quarantine_Events.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Quarantine_Events.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
                 query = "SELECT * FROM LSQuarantineEvent"
@@ -72,7 +77,8 @@ class UsersQuarantineEventsV2(Plugin):
                                 if row[1] is None:
                                     of.write("Timestamp             :\r\n")
                                 else:
-                                    of.write("Timestamp             : {}\r\n".format(datetime.datetime.fromtimestamp(row[1] + 978307200)))
+                                    of.write("Timestamp             : {}\r\n"
+                                             .format(datetime.datetime.fromtimestamp(row[1] + 978307200)))
                                 if row[2] is None:
                                     of.write("AgentBundle Identifier:\r\n")
                                 else:
@@ -140,7 +146,8 @@ class UsersQuarantineEventsV2(Plugin):
                                 if row[1] is None:
                                     of.write("Timestamp             :\r\n")
                                 else:
-                                    of.write("Timestamp             : {}\r\n".format(datetime.datetime.fromtimestamp(row[1] + 978307200)))
+                                    of.write("Timestamp             : {}\r\n"
+                                             .format(datetime.datetime.fromtimestamp(row[1] + 978307200)))
                                 if row[2] is None:
                                     of.write("AgentBundle Identifier:\r\n")
                                 else:

@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -25,7 +26,8 @@ class UsersDiskUtilityLog(Plugin):
     
     def parse(self):
         """
-        Iterate over /Users directory and find user sub-directories and read /Users/username/Library/Logs/DiskUtility.log
+        Iterate over /Users directory and find user sub-directories and
+        read /Users/username/Library/Logs/DiskUtility.log
         """
         users_path = os.path.join(self._input_dir, "Users")
         # username = None

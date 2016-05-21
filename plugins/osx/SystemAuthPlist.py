@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import plistlib
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -41,27 +42,38 @@ class SystemAuthPlist(Plugin):
                             for right_item in plist["rights"]:
                                 of.write("\tRight: {}\r\n".format(right_item))
                                 if "class" in plist["rights"][right_item]:
-                                    of.write("\t\tClass            : {}\r\n".format(plist["rights"][right_item]["class"]))
+                                    of.write("\t\tClass            : {}\r\n"
+                                             .format(plist["rights"][right_item]["class"]))
                                 if "comment" in plist["rights"][right_item]:
-                                    of.write("\t\tComment          : {}\r\n".format(plist["rights"][right_item]["comment"]))
+                                    of.write("\t\tComment          : {}\r\n"
+                                             .format(plist["rights"][right_item]["comment"]))
                                 if "k-of-n" in plist["rights"][right_item]:
-                                    of.write("\t\tK-of-N           : {}\r\n".format(plist["rights"][right_item]["k-of-n"]))
+                                    of.write("\t\tK-of-N           : {}\r\n"
+                                             .format(plist["rights"][right_item]["k-of-n"]))
                                 if "rule" in plist["rights"][right_item]:
-                                    of.write("\t\tRule             : {}\r\n".format(plist["rights"][right_item]["rule"]))
+                                    of.write("\t\tRule             : {}\r\n"
+                                             .format(plist["rights"][right_item]["rule"]))
                                 if "timeout" in plist["rights"][right_item]:
-                                    of.write("\t\tTimeout          : {}\r\n".format(plist["rights"][right_item]["timeout"]))
+                                    of.write("\t\tTimeout          : {}\r\n"
+                                             .format(plist["rights"][right_item]["timeout"]))
                                 if "allow-root" in plist["rights"][right_item]:
-                                    of.write("\t\tAllow Root       : {}\r\n".format(plist["rights"][right_item]["allow-root"]))
+                                    of.write("\t\tAllow Root       : {}\r\n"
+                                             .format(plist["rights"][right_item]["allow-root"]))
                                 if "shared" in plist["rights"][right_item]:
-                                    of.write("\t\tShared           : {}\r\n".format(plist["rights"][right_item]["shared"]))
+                                    of.write("\t\tShared           : {}\r\n"
+                                             .format(plist["rights"][right_item]["shared"]))
                                 if "tries" in plist["rights"][right_item]:
-                                    of.write("\t\tTries            : {}\r\n".format(plist["rights"][right_item]["tries"]))
+                                    of.write("\t\tTries            : {}\r\n"
+                                             .format(plist["rights"][right_item]["tries"]))
                                 if "session-owner" in plist["rights"][right_item]:
-                                    of.write("\t\tSession Owner    : {}\r\n".format(plist["rights"][right_item]["session-owner"]))
+                                    of.write("\t\tSession Owner    : {}\r\n"
+                                             .format(plist["rights"][right_item]["session-owner"]))
                                 if "authenticate-user" in plist["rights"][right_item]:
-                                    of.write("\t\tAuthenticate User: {}\r\n".format(plist["rights"][right_item]["authenticate-user"]))
+                                    of.write("\t\tAuthenticate User: {}\r\n"
+                                             .format(plist["rights"][right_item]["authenticate-user"]))
                                 if "group" in plist["rights"][right_item]:
-                                    of.write("\t\tGroup            : {}\r\n".format(plist["rights"][right_item]["group"]))
+                                    of.write("\t\tGroup            : {}\r\n"
+                                             .format(plist["rights"][right_item]["group"]))
                                 of.write("\r\n")
                     except KeyError:
                         pass

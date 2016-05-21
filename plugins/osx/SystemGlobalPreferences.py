@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -40,9 +41,11 @@ class SystemGlobalPreferences(Plugin):
                     if "MultipleSessionEnabled" in plist:
                         of.write("Multiple Session Enabled       : {}\r\n".format(plist["MultipleSessionEnabled"]))
                     if "com.apple.updatesettings_did_disable_ftp" in plist:
-                        of.write("Update Settings Did Disable FTP: {}\r\n".format(plist["com.apple.updatesettings_did_disable_ftp"]))
+                        of.write("Update Settings Did Disable FTP: {}\r\n"
+                                 .format(plist["com.apple.updatesettings_did_disable_ftp"]))
                     if "com.apple.AppleModemSettingTool.LastCountryCode" in plist:
-                        of.write("Modem Last Country Code        : {}\r\n".format(plist["com.apple.AppleModemSettingTool.LastCountryCode"]))
+                        of.write("Modem Last Country Code        : {}\r\n"
+                                 .format(plist["com.apple.AppleModemSettingTool.LastCountryCode"]))
                     if "Country" in plist:
                         of.write("Country                        : {}\r\n".format(plist["Country"]))
                     if "AppleLocale" in plist:
@@ -61,7 +64,8 @@ class SystemGlobalPreferences(Plugin):
                     plist = ccl_bplist.load(bplist)
                     bplist.close()
                     if "com.apple.AppleModemSettingTool.LastCountryCode" in plist:
-                        of.write("Last Country Code: {}\r\n".format(plist["com.apple.AppleModemSettingTool.LastCountryCode"]))
+                        of.write("Last Country Code: {}\r\n"
+                                 .format(plist["com.apple.AppleModemSettingTool.LastCountryCode"]))
                     if "com.apple.preferences.timezone.selected_city" in plist:
                         of.write("Selected City: {}\r\n")
                         selected_city = plist["com.apple.preferences.timezone.selected_city"]

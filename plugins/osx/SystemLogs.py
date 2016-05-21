@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import gzip
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -69,7 +70,10 @@ class SystemLogs(Plugin):
                 of.write("\r\n")
                 of.write("="*40 + "\r\n\r\n")
             else:
-                logging.warning("Directory {} or File {} does not exist or cannot be found.\r\n".format(working_dir, "System Log"))
-                of.write("[WARNING] Directory {} or File {} does not exist or cannot be found.\r\n".format(working_dir, "System Log"))
-                print("[WARNING] Directory {} or File {} does not exist or cannot be found.\r\n".format(working_dir, "System Log"))
+                logging.warning("Directory {} or File {} does not exist or cannot be found.\r\n"
+                                .format(working_dir, "System Log"))
+                of.write("[WARNING] Directory {} or File {} does not exist or cannot be found.\r\n"
+                         .format(working_dir, "System Log"))
+                print("[WARNING] Directory {} or File {} does not exist or cannot be found.\r\n"
+                      .format(working_dir, "System Log"))
             of.close()

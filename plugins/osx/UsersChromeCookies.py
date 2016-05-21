@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import sqlite3
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -19,7 +20,8 @@ class UsersChromeCookies(Plugin):
         """
         super().__init__()
         self._name = "User Chrome Browser Cookies"
-        self._description = "Parse information from /Users/<username>/Library/Application Support/Google/Chrome/Default/Cookies"
+        self._description = "Parse information from " \
+                            "/Users/<username>/Library/Application Support/Google/Chrome/Default/Cookies"
         self._data_file = "Cookies"
         self._output_file = ""  # this will have to be defined per user account
         self._type = "sqlite"
@@ -34,7 +36,8 @@ class UsersChromeCookies(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    history_path = os.path.join(users_path, username, "Library", "Application Support", "Google", "Chrome", "Default")
+                    history_path = os.path\
+                        .join(users_path, username, "Library", "Application Support", "Google", "Chrome", "Default")
                     if os.path.isdir(history_path):
                         self.__parse_sqlite_db(history_path, username)
                     else:

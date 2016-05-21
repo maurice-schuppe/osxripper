@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -47,7 +48,8 @@ class UsersSafariPlist(Plugin):
         """
         Parse /Users/username/Library/Preferences/com.apple.finder.plist
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite"]:
@@ -62,7 +64,8 @@ class UsersSafariPlist(Plugin):
                                 of.write("\tSearch Date  : {}\r\n\r\n".format(rws["Date"]))
                                 
                         if "LocalFileRestrictionsEnabled" in plist:
-                            of.write("Local File Restrictions Enabled: {}\r\n".format(plist["LocalFileRestrictionsEnabled"]))
+                            of.write("Local File Restrictions Enabled: {}\r\n"
+                                     .format(plist["LocalFileRestrictionsEnabled"]))
                         if "CachedBookmarksFileSize" in plist:
                             of.write("Cached Bookmarks File Size     : {}\r\n".format(plist["CachedBookmarksFileSize"]))
                         if "ExtensionsEnabled" in plist:
@@ -89,7 +92,8 @@ class UsersSafariPlist(Plugin):
                         if "DownloadsPath" in plist:
                             of.write("Downloads Path                 : {}\r\n".format(plist["DownloadsPath"]))
                         if "LocalFileRestrictionsEnabled" in plist:
-                            of.write("Local File Restrictions Enabled: {}\r\n".format(plist["LocalFileRestrictionsEnabled"]))
+                            of.write("Local File Restrictions Enabled: {}\r\n"
+                                     .format(plist["LocalFileRestrictionsEnabled"]))
                         if "CachedBookmarksFileSize" in plist:
                             of.write("Cached Bookmarks File Size     : {}\r\n".format(plist["CachedBookmarksFileSize"]))
                     except KeyError:

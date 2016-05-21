@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import sqlite3
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -19,7 +20,8 @@ class UsersChromeDownloads(Plugin):
         """
         super().__init__()
         self._name = "User Chrome Browser Download History"
-        self._description = "Parse information from /Users/<username>/Library/Application Support/Google/Chrome/Default/History"
+        self._description = "Parse information from " \
+                            "/Users/<username>/Library/Application Support/Google/Chrome/Default/History"
         self._data_file = "History"
         self._output_file = ""  # this will have to be defined per user account
         self._type = "sqlite"
@@ -33,7 +35,8 @@ class UsersChromeDownloads(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    history_path = os.path.join(users_path, username, "Library", "Application Support", "Google", "Chrome", "Default")
+                    history_path = os.path\
+                        .join(users_path, username, "Library", "Application Support", "Google", "Chrome", "Default")
                     if os.path.isdir(history_path):
                         self.__parse_sqlite_db(history_path, username)
                     else:
@@ -47,7 +50,8 @@ class UsersChromeDownloads(Plugin):
         """
         Read the History SQLite database
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Chrome_Downloads.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username
+                + "_Chrome_Downloads.txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, "History")
             query = "SELECT id, current_path, target_path," \

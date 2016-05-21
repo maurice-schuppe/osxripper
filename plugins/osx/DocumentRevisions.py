@@ -4,6 +4,7 @@ import datetime
 import logging
 import os
 import sqlite3
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -67,7 +68,9 @@ class DocumentRevisions(Plugin):
                                 if row[5] is None:
                                     of.write("file_last_seen  :\r\n")
                                 else:
-                                    of.write("file_last_seen  : {}\r\n".format(datetime.datetime.fromtimestamp(int(row[5])).strftime('%Y-%m-%d %H:%M:%S')))
+                                    of.write("file_last_seen  : {}\r\n"
+                                             .format(datetime.datetime
+                                                     .fromtimestamp(int(row[5])).strftime('%Y-%m-%d %H:%M:%S')))
                                 if row[6] is None:
                                     of.write("file_status     :\r\n")
                                 else:
@@ -125,7 +128,9 @@ class DocumentRevisions(Plugin):
                                 if row[5] is None:
                                     of.write("file_last_seen :\r\n")
                                 else:
-                                    of.write("file_last_seen : {}\r\n".format(datetime.datetime.fromtimestamp(int(row[5])).strftime('%Y-%m-%d %H:%M:%S')))
+                                    of.write("file_last_seen : {}\r\n"
+                                             .format(datetime.datetime
+                                                     .fromtimestamp(int(row[5])).strftime('%Y-%m-%d %H:%M:%S')))
                                 if row[6] is None:
                                     of.write("file_status    :\r\n")
                                 else:

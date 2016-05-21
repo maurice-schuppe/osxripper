@@ -4,6 +4,7 @@ import codecs
 import datetime
 import logging
 import os
+
 __author__ = 'bolodev'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -20,7 +21,8 @@ class UsersCyberGhost(Plugin):
         """
         super().__init__()
         self._name = "User Cyber Ghost VPN Configuration"
-        self._description = "Parse information from /Users/{username}/Library/Preferences/com.cyberghostsrl.cyberghostmac.plist"
+        self._description = "Parse information from " \
+                            "/Users/{username}/Library/Preferences/com.cyberghostsrl.cyberghostmac.plist"
         self._data_file = "com.cyberghostsrl.cyberghostmac.plist"
         self._output_file = ""  # this will have to be defined per user account
         self._type = "bplist"
@@ -47,7 +49,8 @@ class UsersCyberGhost(Plugin):
         """
         Parse /Users/{username}/Library/Preferences/com.cyberghostsrl.cyberghostmac.plist
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_VPN_CyberGhost.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_VPN_CyberGhost.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if os.path.isfile(file):

@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -47,7 +48,8 @@ class UsersSafariLastSession(Plugin):
         """
         Parse /Users/username/Library/Safari/LastSession.plist
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Last_Session.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Last_Session.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:

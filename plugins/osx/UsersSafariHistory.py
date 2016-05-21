@@ -5,6 +5,7 @@ import logging
 import os
 import sqlite3
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -21,7 +22,8 @@ class UsersSafariHistory(Plugin):
         """
         super().__init__()
         self._name = "User Safari History"
-        self._description = "Parse information from /Users/<username>/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2"
+        self._description = "Parse information from " \
+                            "/Users/<username>/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2"
         self._data_file = ""  # multiple files, Yosemite is a SQLite DB and others are Plists
         self._output_file = ""  # this will have to be defined per user account
         self._type = "multi"
@@ -61,7 +63,8 @@ class UsersSafariHistory(Plugin):
         """
         Read the History.db SQLite database
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_History.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_History.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, "History.db")
             query = "SELECT hi.id,hi.url,hi.visit_count,datetime(hv.visit_time + 978307200, 'unixepoch')," \
@@ -124,7 +127,8 @@ class UsersSafariHistory(Plugin):
         Read the History.plist
         """
         mac_absolute = datetime.datetime(2001, 1, 1, 0, 0, 0)
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_History.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_History.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_plist = os.path.join(file, "History.plist")
             if os.path.isfile(history_plist):
@@ -142,7 +146,8 @@ class UsersSafariHistory(Plugin):
                             if "title" in whd:
                                 of.write("\tTitle: {}\r\n".format(whd["title"]))
                             if "lastVisitedDate" in whd:
-                                of.write("\tLast Visited Date: {}\r\n".format(mac_absolute + datetime.timedelta(0, float(whd["lastVisitedDate"]))))
+                                of.write("\tLast Visited Date: {}\r\n"
+                                         .format(mac_absolute + datetime.timedelta(0, float(whd["lastVisitedDate"]))))
                             if "visitCount" in whd:
                                 of.write("\tVisit Count: {}\r\n".format(whd["visitCount"]))
                             if "redirectURLs" in whd:

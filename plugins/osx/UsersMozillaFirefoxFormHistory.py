@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import sqlite3
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -19,7 +20,9 @@ class UsersMozillaFirefoxFormHistory(Plugin):
         """
         super().__init__()
         self._name = "User Mozilla Firefox Form History"
-        self._description = "Parse information from /Users/<username>/Library/Application Support/Firefox/Profiles/*.default/formhistory.sqlite"
+        self._description = "Parse information from " \
+                            "/Users/<username>/Library/Application " \
+                            "Support/Firefox/Profiles/*.default/formhistory.sqlite"
         self._data_file = "formhistory.sqlite"
         self._output_file = ""  # this will have to be defined per user account
         self._type = "sqlite"
@@ -33,7 +36,8 @@ class UsersMozillaFirefoxFormHistory(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    profile_search_path = os.path.join(users_path, username, "Library", "Application Support", "Firefox", "Profiles")
+                    profile_search_path = os.path\
+                        .join(users_path, username, "Library", "Application Support", "Firefox", "Profiles")
                     if os.path.isdir(profile_search_path):
                         profiles_list = os.listdir(profile_search_path)
                         for profile in profiles_list:
@@ -52,13 +56,15 @@ class UsersMozillaFirefoxFormHistory(Plugin):
         """
         Read the formhistory.sqlite SQLite database
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox_Form_History.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox_Form_History.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if os.path.isfile(file):
                 of.write("Source File: {}\r\n\r\n".format(file))
                 conn = None
                 try:
-                    query = "SELECT fieldname,value,timesUsed,datetime(firstUsed / 1000000, 'unixepoch'),datetime(lastUsed / 1000000, 'unixepoch') FROM moz_formhistory ORDER BY firstUsed"
+                    query = "SELECT fieldname,value,timesUsed,datetime(firstUsed / 1000000, 'unixepoch')," \
+                            "datetime(lastUsed / 1000000, 'unixepoch') FROM moz_formhistory ORDER BY firstUsed"
                     conn = sqlite3.connect(file)
                     with conn:
                         cur = conn.cursor()

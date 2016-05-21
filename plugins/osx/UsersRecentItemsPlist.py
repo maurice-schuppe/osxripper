@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -53,7 +54,8 @@ class UsersRecentItemsPlist(Plugin):
     def __parse_bplist(self, file, username):
         """
         Parse /Users/username/Library/Preferences/com.apple.recentitems.plist or in El Capitan
-        /Users/<username>/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.RecentHosts.sfl
+        /Users/<username>/Library/Application Support/
+        com.apple.sharedfilelist/com.apple.LSSharedFileList.RecentHosts.sfl
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")

@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -18,7 +19,8 @@ class UsersTrueCrypt(Plugin):
         """
         super().__init__()
         self._name = "TrueCrypt Configuration File"
-        self._description = "Parse information from /Users/{username}/Library/Application Support/TrueCrypt/Configuration.xml file"
+        self._description = "Parse information from " \
+                            "/Users/{username}/Library/Application Support/TrueCrypt/Configuration.xml file"
         self._data_file = "Configuration.xml"
         self._output_file = ""  # this will have to be defined per user account
         self._type = "text"
@@ -32,7 +34,8 @@ class UsersTrueCrypt(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    config = os.path.join(users_path, username, "Library", "Application Support", "TrueCrypt", self._data_file)
+                    config = os.path\
+                        .join(users_path, username, "Library", "Application Support", "TrueCrypt", self._data_file)
                     if os.path.isfile(config):
                         self.__parse_config(config, username)
                     else:
@@ -46,7 +49,8 @@ class UsersTrueCrypt(Plugin):
         /Users/{username}/Library/Application Support/TrueCrypt/Configuration.xml
         N.B. OSX version checking removed as this is a common directory and file across versions
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_TrueCrypt_config.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_TrueCrypt_config.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if os.path.isfile(file):

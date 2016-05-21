@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import re
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -26,7 +27,8 @@ class UsersFaceTimeLog(Plugin):
     
     def parse(self):
         """
-        Iterate over /Users directory and find user sub-directories and read /Users/username/Library/Logs/FaceTime/FaceTime.log
+        Iterate over /Users directory and find user sub-directories and read
+        /Users/username/Library/Logs/FaceTime/FaceTime.log
         """
         users_path = os.path.join(self._input_dir, "Users")
         # username = None
@@ -59,11 +61,13 @@ class UsersFaceTimeLog(Plugin):
                             of.write("VC Property NAT IP: {}\r\n".format(self.__convert_hex_ip(line)))
 
                         if "FZRelayParameter_PeerRelayIP\" = <" in line:
-                            line = line.replace("\"FZRelayParameter_PeerRelayIP\" = <", "").replace(">;", "").replace(" ", "")
+                            line = line.replace("\"FZRelayParameter_PeerRelayIP\" = <", "")\
+                                .replace(">;", "").replace(" ", "")
                             of.write("FZ Relay Parameter_PeerRelay IP: {}\r\n".format(self.__convert_hex_ip(line)))
 
                         if "\"FZRelayParameter_SelfRelayIP\" = <" in line:
-                            line = line.replace("\"FZRelayParameter_SelfRelayIP\" = <", "").replace(">;", "").replace(" ", "")
+                            line = line.replace("\"FZRelayParameter_SelfRelayIP\" = <", "").replace(">;", "")\
+                                .replace(" ", "")
                             of.write("FZ Relay Parameter_Self Relay IP: {}\r\n".format(self.__convert_hex_ip(line)))
 
                         if "Found peer ID:" in line:

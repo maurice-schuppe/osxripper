@@ -3,6 +3,7 @@ import ccl_bplist
 import codecs
 import logging
 import os
+
 __author__ = 'bolodev'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -19,7 +20,8 @@ class UsersTunnelBear(Plugin):
         """
         super().__init__()
         self._name = "User Tunnelbear VPN Configuration"
-        self._description = "Parse information from /Users/{username}/Library/Preferences/com.tunnelbear.mac.TunnelBear.plist file"
+        self._description = "Parse information from " \
+                            "/Users/{username}/Library/Preferences/com.tunnelbear.mac.TunnelBear.plist file"
         self._data_file = "com.tunnelbear.mac.TunnelBear.plist"
         self._output_file = ""  # this will have to be defined per user account
         self._type = "bplist"
@@ -46,7 +48,8 @@ class UsersTunnelBear(Plugin):
         """
         Parse /Users/{username}/Library/Preferences/com.tunnelbear.mac.TunnelBear.plist
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_VPN_TunnelBear.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_VPN_TunnelBear.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if os.path.isfile(file):
@@ -77,7 +80,8 @@ class UsersTunnelBear(Plugin):
                     if "currentCountry" in pl:
                         of.write("Current Country                     : {}\r\n".format(pl["currentCountry"]))
                     if "vpnNumSuccessfulTCPConnections" in pl:
-                        of.write("VPN Num. Successful TCP Connections : {}\r\n".format(pl["vpnNumSuccessfulTCPConnections"]))
+                        of.write("VPN Num. Successful TCP Connections : {}\r\n"
+                                 .format(pl["vpnNumSuccessfulTCPConnections"]))
                     if "shouldReconnect" in pl:
                         of.write("Should Reconnect                    : {}\r\n".format(pl["shouldReconnect"]))
                     if "vpnServers" in pl:

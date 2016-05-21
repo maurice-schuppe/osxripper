@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+
 __author__ = 'bolodev'
 __version__ = '0.1'
 __license__ = 'GPLv3'

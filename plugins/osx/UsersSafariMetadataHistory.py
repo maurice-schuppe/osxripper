@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -10,7 +11,8 @@ __license__ = 'GPLv3'
 
 class UsersSafariMetadataHistory(Plugin):
     """
-    Parse information from /Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist and list the *.webhistory files
+    Parse information from
+    /Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist and list the *.webhistory files
     """
 
     def __init__(self):
@@ -19,7 +21,9 @@ class UsersSafariMetadataHistory(Plugin):
         """
         super().__init__()
         self._name = "User Safari Web Bookmarks"
-        self._description = "Parse information from /Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist and list the *.webhistory files"
+        self._description = "Parse information from " \
+                            "/Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist " \
+                            "and list the *.webhistory files"
         self._data_file = ""  # None as scanning through multiple files
         self._output_file = ""  # this will have to be defined per user account
         self._type = "multi"
@@ -45,9 +49,11 @@ class UsersSafariMetadataHistory(Plugin):
             
     def __parse_bplist(self, file, username):
         """
-        Parse /Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist and list the *.webhistory files
+        Parse /Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist
+        and list the *.webhistory files
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Metadata_History.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Metadata_History.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion"]:

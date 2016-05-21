@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import sqlite3
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -19,7 +20,8 @@ class UsersMozillaFirefoxPlaces(Plugin):
         """
         super().__init__()
         self._name = "User Mozilla Firefox Places"
-        self._description = "Parse information from /Users/<username>/Library/Application Support/Firefox/Profiles/*.default/places.sqlite"
+        self._description = "Parse information from " \
+                            "/Users/<username>/Library/Application Support/Firefox/Profiles/*.default/places.sqlite"
         self._data_file = "places.sqlite"
         self._output_file = ""  # this will have to be defined per user account
         self._type = "sqlite"
@@ -33,7 +35,8 @@ class UsersMozillaFirefoxPlaces(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    profile_search_path = os.path.join(users_path, username, "Library", "Application Support", "Firefox", "Profiles")
+                    profile_search_path = os.path\
+                        .join(users_path, username, "Library", "Application Support", "Firefox", "Profiles")
                     if os.path.isdir(profile_search_path):
                         profiles_list = os.listdir(profile_search_path)
                         for profile in profiles_list:
@@ -52,13 +55,16 @@ class UsersMozillaFirefoxPlaces(Plugin):
         """
         Read the places.sqlite SQLite database
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox_Places.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox_Places.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if os.path.isfile(file):
                 of.write("Source File: {}\r\n\r\n".format(file))
                 conn = None
                 try:
-                    query = "SELECT url, title, rev_host, visit_count, datetime(last_visit_date / 1000000, 'unixepoch'), hidden, typed FROM moz_places ORDER BY visit_count DESC"
+                    query = "SELECT url, title, rev_host, visit_count," \
+                            "datetime(last_visit_date / 1000000, 'unixepoch')," \
+                            "hidden, typed FROM moz_places ORDER BY visit_count DESC"
                     conn = sqlite3.connect(file)
                     with conn:
                         cur = conn.cursor()
@@ -97,8 +103,9 @@ class UsersMozillaFirefoxPlaces(Plugin):
 
                         of.write("="*10 + " Mozilla Firefox Annotations " + "="*10 + "\r\n")
                         query = "SELECT mp.url,ma.content,maa.name,datetime(ma.dateAdded / 1000000, 'unixepoch')," \
-                                "datetime(ma.lastModified / 1000000, 'unixepoch') FROM moz_annos ma,moz_anno_attributes maa," \
-                                "moz_places mp WHERE ma.anno_attribute_id = maa.id AND mp.id = ma.place_id"
+                                "datetime(ma.lastModified / 1000000, 'unixepoch') " \
+                                "FROM moz_annos ma,moz_anno_attributes maa,moz_places mp " \
+                                "WHERE ma.anno_attribute_id = maa.id AND mp.id = ma.place_id"
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
@@ -125,7 +132,8 @@ class UsersMozillaFirefoxPlaces(Plugin):
                             of.write("\r\n")
 
                         of.write("="*10 + " Mozilla Firefox Input History " + "="*10 + "\r\n")
-                        query = "SELECT mp.url,mi.input,mi.use_count FROM moz_inputhistory mi,moz_places mp WHERE mi.place_id = mp.id ORDER BY use_count DESC"
+                        query = "SELECT mp.url,mi.input,mi.use_count FROM moz_inputhistory mi,moz_places mp " \
+                                "WHERE mi.place_id = mp.id ORDER BY use_count DESC"
                         cur.execute(query)
                         rows = cur.fetchall()
                         if len(rows) == 0:

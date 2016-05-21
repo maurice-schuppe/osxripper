@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import sqlite3
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -19,7 +20,8 @@ class UsersMozillaFirefoxCookies(Plugin):
         """
         super().__init__()
         self._name = "User Mozilla Firefox Cookies"
-        self._description = "Parse information from /Users/<username>/Library/Application Support/Firefox/Profiles/*.default/cookies.sqlite"
+        self._description = "Parse information from " \
+                            "/Users/<username>/Library/Application Support/Firefox/Profiles/*.default/cookies.sqlite"
         self._data_file = "cookies.sqlite"
         self._output_file = ""  # this will have to be defined per user account
         self._type = "sqlite"
@@ -34,7 +36,8 @@ class UsersMozillaFirefoxCookies(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    profile_search_path = os.path.join(users_path, username, "Library", "Application Support", "Firefox", "Profiles")
+                    profile_search_path = os.path\
+                        .join(users_path, username, "Library", "Application Support", "Firefox", "Profiles")
                     if os.path.isdir(profile_search_path):
                         profiles_list = os.listdir(profile_search_path)
                         for profile in profiles_list:
@@ -53,14 +56,18 @@ class UsersMozillaFirefoxCookies(Plugin):
         """
         Read the places.sqlite SQLite database
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox_Cookies.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox_Cookies.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if os.path.isfile(file):
                 of.write("Source File: {}\r\n\r\n".format(file))
                 conn = None
                 try:
-                    query = "SELECT baseDomain,name,value,host,path,datetime(creationTime/1000000, 'unixepoch'),datetime(lastAccessed/1000000, 'unixepoch')," \
-                            "datetime(expiry/1000000, 'unixepoch'),isSecure,isHttpOnly FROM moz_cookies ORDER BY creationTime"
+                    query = "SELECT baseDomain,name,value,host,path," \
+                            "datetime(creationTime/1000000, 'unixepoch')," \
+                            "datetime(lastAccessed/1000000, 'unixepoch')," \
+                            "datetime(expiry/1000000, 'unixepoch')," \
+                            "isSecure,isHttpOnly FROM moz_cookies ORDER BY creationTime"
                     conn = sqlite3.connect(file)
                     with conn:
                         cur = conn.cursor()

@@ -4,6 +4,7 @@ import logging
 import os
 import plistlib
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -97,11 +98,16 @@ class SystemTime(Plugin):
             xml = ccl_bplist.load(bplist)
             bplist.close()
             if "com.apple.preferences.timezone.selected_city" in xml:
-                of.write("Country       : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["CountryCode"]))
-                of.write("Time Zone     : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["TimeZoneName"]))
-                of.write("Selected City : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["Name"]))
-                of.write("Latitude      : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["Latitude"]))
-                of.write("Longitude     : {}\r\n".format(xml["com.apple.preferences.timezone.selected_city"]["Longitude"]))
+                of.write("Country       : {}\r\n"
+                         .format(xml["com.apple.preferences.timezone.selected_city"]["CountryCode"]))
+                of.write("Time Zone     : {}\r\n"
+                         .format(xml["com.apple.preferences.timezone.selected_city"]["TimeZoneName"]))
+                of.write("Selected City : {}\r\n"
+                         .format(xml["com.apple.preferences.timezone.selected_city"]["Name"]))
+                of.write("Latitude      : {}\r\n"
+                         .format(xml["com.apple.preferences.timezone.selected_city"]["Latitude"]))
+                of.write("Longitude     : {}\r\n"
+                         .format(xml["com.apple.preferences.timezone.selected_city"]["Longitude"]))
             of.write("=" * 40 + "\r\n\r\n")
         of.close()
 
@@ -124,7 +130,8 @@ class SystemTime(Plugin):
 #        with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
 #            of.write("=" * 10 + " Local Timezone " + "=" * 10 + "\r\n")
 #            of.write("Source File: {}".format(file))
-#            of.write("N.B. On a live system this may look like a binary dump, check the string at the end for Timezone information\r\n\r\n")
+#            of.write("N.B. On a live system this may look like a binary dump,
+#               check the string at the end for Timezone information\r\n\r\n")
 #            f = open(file, "rb")
 #            of.write("Local Timezone: " + f.read() + "\r\n")
 #            f.close()

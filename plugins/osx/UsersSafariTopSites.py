@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -47,7 +48,8 @@ class UsersSafariTopSites(Plugin):
         """
         Parse /Users/username/Library/Safari/LastSession.plist
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Top_Sites.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Top_Sites.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
@@ -56,7 +58,8 @@ class UsersSafariTopSites(Plugin):
                     plist = ccl_bplist.load(bplist)
                     try:
                         if "DisplayedSitesLastModified" in plist:
-                            of.write("Displayed Sites Last Modified: {}\r\n\r\n".format(plist["DisplayedSitesLastModified"]))
+                            of.write("Displayed Sites Last Modified: {}\r\n\r\n"
+                                     .format(plist["DisplayedSitesLastModified"]))
                         if "TopSites" in plist:
                             of.write("Top Sites:\r\n")
                             for top_site in plist["TopSites"]:

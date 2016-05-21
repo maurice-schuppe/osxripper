@@ -4,6 +4,7 @@ import logging
 import os
 import plistlib
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -48,7 +49,8 @@ class UsersSafariDownloadPlist(Plugin):
         """
         Parse /Users/username/Library/Safari/Downloads.plist
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Downloads.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Downloads.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite"]:
@@ -59,14 +61,22 @@ class UsersSafariDownloadPlist(Plugin):
                         if "DownloadHistory" in plist:
                             of.write("Download History:\r\n")
                             for item in plist["DownloadHistory"]:
-                                of.write("\tProgress Bytes So Far : {}\r\n".format(item["DownloadEntryProgressBytesSoFar"]))
-                                of.write("\tProgress Total To Load: {}\r\n".format(item["DownloadEntryProgressTotalToLoad"]))
-                                of.write("\tDate Added Key        : {}\r\n".format(item["DownloadEntryDateAddedKey"]))
-                                of.write("\tDate Finished Key     : {}\r\n".format(item["DownloadEntryDateFinishedKey"]))
-                                of.write("\tIdentifier            : {}\r\n".format(item["DownloadEntryIdentifier"]))
-                                of.write("\tURL                   : {}\r\n".format(item["DownloadEntryURL"]))
-                                of.write("\tRemove When Done Key  : {}\r\n".format(item["DownloadEntryRemoveWhenDoneKey"]))
-                                of.write("\tPath                  : {}\r\n".format(item["DownloadEntryPath"]))
+                                of.write("\tProgress Bytes So Far : {}\r\n"
+                                         .format(item["DownloadEntryProgressBytesSoFar"]))
+                                of.write("\tProgress Total To Load: {}\r\n"
+                                         .format(item["DownloadEntryProgressTotalToLoad"]))
+                                of.write("\tDate Added Key        : {}\r\n"
+                                         .format(item["DownloadEntryDateAddedKey"]))
+                                of.write("\tDate Finished Key     : {}\r\n"
+                                         .format(item["DownloadEntryDateFinishedKey"]))
+                                of.write("\tIdentifier            : {}\r\n"
+                                         .format(item["DownloadEntryIdentifier"]))
+                                of.write("\tURL                   : {}\r\n"
+                                         .format(item["DownloadEntryURL"]))
+                                of.write("\tRemove When Done Key  : {}\r\n"
+                                         .format(item["DownloadEntryRemoveWhenDoneKey"]))
+                                of.write("\tPath                  : {}\r\n"
+                                         .format(item["DownloadEntryPath"]))
                                 of.write("\r\n")
                     except KeyError:
                         pass
@@ -84,11 +94,16 @@ class UsersSafariDownloadPlist(Plugin):
                         if "DownloadHistory" in plist:
                             of.write("Download History:\r\n")
                             for item in plist["DownloadHistory"]:
-                                of.write("\tIdentifier            : {}\r\n".format(item["DownloadEntryIdentifier"]))
-                                of.write("\tURL                   : {}\r\n".format(item["DownloadEntryURL"]))
-                                of.write("\tProgress Total To Load: {}\r\n".format(item["DownloadEntryProgressTotalToLoad"]))
-                                of.write("\tProgress Bytes So Far : {}\r\n".format(item["DownloadEntryProgressBytesSoFar"]))
-                                of.write("\tPath                  : {}\r\n".format(item["DownloadEntryPath"]))
+                                of.write("\tIdentifier            : {}\r\n"
+                                         .format(item["DownloadEntryIdentifier"]))
+                                of.write("\tURL                   : {}\r\n"
+                                         .format(item["DownloadEntryURL"]))
+                                of.write("\tProgress Total To Load: {}\r\n"
+                                         .format(item["DownloadEntryProgressTotalToLoad"]))
+                                of.write("\tProgress Bytes So Far : {}\r\n"
+                                         .format(item["DownloadEntryProgressBytesSoFar"]))
+                                of.write("\tPath                  : {}\r\n"
+                                         .format(item["DownloadEntryPath"]))
                                 of.write("\r\n")
                     except KeyError:
                         pass
@@ -109,15 +124,20 @@ class UsersSafariDownloadPlist(Plugin):
                                 if "DownloadEntryURL" in download:
                                     of.write("URL                   : {}\r\n".format(download["DownloadEntryURL"]))
                                 if "DownloadEntryIdentifier" in download:
-                                    of.write("Identifier            : {}\r\n".format(download["DownloadEntryIdentifier"]))
+                                    of.write("Identifier            : {}\r\n"
+                                             .format(download["DownloadEntryIdentifier"]))
                                 if "DownloadEntryPath" in download:
-                                    of.write("Path                  : {}\r\n".format(download["DownloadEntryPath"]))
+                                    of.write("Path                  : {}\r\n"
+                                             .format(download["DownloadEntryPath"]))
                                 if "DownloadEntryPostPath" in download:
-                                    of.write("Post Path             : {}\r\n".format(download["DownloadEntryPostPath"]))
+                                    of.write("Post Path             : {}\r\n"
+                                             .format(download["DownloadEntryPostPath"]))
                                 if "DownloadEntryProgressBytesSoFar" in download:
-                                    of.write("Progress Bytes So Far : {}\r\n".format(download["DownloadEntryProgressBytesSoFar"]))
+                                    of.write("Progress Bytes So Far : {}\r\n"
+                                             .format(download["DownloadEntryProgressBytesSoFar"]))
                                 if "DownloadEntryProgressTotalToLoad" in download:
-                                    of.write("Progress Total To Load: {}\r\n".format(download["DownloadEntryProgressTotalToLoad"]))
+                                    of.write("Progress Total To Load: {}\r\n"
+                                             .format(download["DownloadEntryProgressTotalToLoad"]))
                                 of.write("\r\n")
                     except KeyError:
                         pass

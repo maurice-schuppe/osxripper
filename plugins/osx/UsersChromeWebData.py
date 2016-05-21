@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import sqlite3
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -19,7 +20,8 @@ class UsersChromeWebData(Plugin):
         """
         super().__init__()
         self._name = "User Chrome Browser Web Data"
-        self._description = "Parse information from /Users/<username>/Library/Application Support/Google/Chrome/Default/Web Data"
+        self._description = "Parse information from " \
+                            "/Users/<username>/Library/Application Support/Google/Chrome/Default/Web Data"
         self._data_file = "Web Data"
         self._output_file = ""  # this will have to be defined per user account
         self._type = "sqlite"
@@ -34,7 +36,8 @@ class UsersChromeWebData(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    history_path = os.path.join(users_path, username, "Library", "Application Support", "Google", "Chrome", "Default")
+                    history_path = os.path\
+                        .join(users_path, username, "Library", "Application Support", "Google", "Chrome", "Default")
                     if os.path.isdir(history_path):
                         self.__parse_sqlite_db(history_path, username)
                     else:
@@ -48,10 +51,14 @@ class UsersChromeWebData(Plugin):
         """
         Read the Web Data SQLite database
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Chrome_Web_Data.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Chrome_Web_Data.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             web_data_db = os.path.join(file, "Web Data")
-            query = "SELECT name,value,value_lower,datetime(date_created / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch'),datetime(date_last_used / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch'),count FROM autofill"
+            query = "SELECT name,value,value_lower," \
+                    "datetime(date_created / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+                    "datetime(date_last_used / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+                    "count FROM autofill"
             if os.path.isfile(web_data_db):
                 of.write("Source File: {}\r\n\r\n".format(web_data_db))
                 conn = None
@@ -158,8 +165,10 @@ class UsersChromeWebData(Plugin):
                             of.write("No data found in Autofill Profile Phones table.\r\n")
                         of.write("\r\n")
 
-                        query = "SELECT guid,company_name,street_address,dependent_locality,city,state,zipcode,sorting_code,country_code," \
-                                "datetime(date_modified / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch'),origin,language_code FROM autofill_profiles"
+                        query = "SELECT guid,company_name,street_address,dependent_locality,city,state,zipcode," \
+                                "sorting_code,country_code," \
+                                "datetime(date_modified / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+                                "origin,language_code FROM autofill_profiles"
                         cur.execute(query)
                         rows = cur.fetchall()
                         of.write("="*10 + " Autofill Profiles " + "="*10 + "\r\n")
@@ -231,7 +240,9 @@ class UsersChromeWebData(Plugin):
                             of.write("No data found in Autofill Profile Trash table.\r\n")
                         of.write("\r\n")
 
-                        query = "SELECT guid, name_on_card, expiration_month, expiration_year, datetime(date_modified / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch'), origin FROM credit_cards"
+                        query = "SELECT guid, name_on_card, expiration_month, expiration_year," \
+                                "datetime(date_modified / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+                                "origin FROM credit_cards"
                         cur.execute(query)
                         rows = cur.fetchall()
                         of.write("="*10 + " Credit Cards " + "="*10 + "\r\n")
@@ -267,9 +278,11 @@ class UsersChromeWebData(Plugin):
                         of.write("\r\n")
 
                         query = "SELECT id,short_name,keyword,favicon_url,url,safe_for_autoreplace,originating_url," \
-                                "date_created,usage_count,input_encodings,show_in_default_list,suggest_url,prepopulate_id," \
-                                "created_by_policy,instant_url,last_modified,sync_guid,alternate_urls,search_terms_replacement_key," \
-                                "image_url,search_url_post_params,suggest_url_post_params,instant_url_post_params,image_url_post_params,new_tab_url FROM keywords"
+                                "date_created,usage_count,input_encodings,show_in_default_list,suggest_url," \
+                                "prepopulate_id,created_by_policy,instant_url,last_modified,sync_guid,alternate_urls," \
+                                "search_terms_replacement_key,image_url,search_url_post_params," \
+                                "suggest_url_post_params,instant_url_post_params,image_url_post_params," \
+                                "new_tab_url FROM keywords"
                         cur.execute(query)
                         rows = cur.fetchall()
                         of.write("="*10 + " Keywords " + "="*10 + "\r\n")

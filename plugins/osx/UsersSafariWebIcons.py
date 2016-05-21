@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import sqlite3
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -47,10 +48,12 @@ class UsersSafariWebIcons(Plugin):
         """
         Read the WebpageIcons.db SQLite database
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Webpage_Icons.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Webpage_Icons.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
-                query = "SELECT pu.url,ii.url,datetime(ii.stamp, 'unixepoch') FROM IconInfo ii,PageURL pu WHERE pu.iconID = ii.iconID"
+                query = "SELECT pu.url,ii.url,datetime(ii.stamp, 'unixepoch') FROM IconInfo ii,PageURL pu " \
+                        "WHERE pu.iconID = ii.iconID"
                 if os.path.isfile(file):
                     of.write("Source File: {}\r\n\r\n".format(file))
                     conn = None

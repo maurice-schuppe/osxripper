@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -19,7 +20,8 @@ class UsersSafariWebBookmarks(Plugin):
         """
         super().__init__()
         self._name = "User Safari Web Bookmarks"
-        self._description = "Parse information from /Users/username/Library/Caches/Metadata/Safari/Bookmarks/*.webbookmark plists"
+        self._description = "Parse information from " \
+                            "/Users/username/Library/Caches/Metadata/Safari/Bookmarks/*.webbookmark plists"
         self._data_file = ""  # None as scanning through multiple files
         self._output_file = ""  # this will have to be defined per user account
         self._type = "bplist"
@@ -33,7 +35,8 @@ class UsersSafariWebBookmarks(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    plist_dir = os.path.join(users_path, username, "Library", "Caches", "Metadata", "Safari", "Bookmarks")
+                    plist_dir = os.path\
+                        .join(users_path, username, "Library", "Caches", "Metadata", "Safari", "Bookmarks")
                     if os.path.isdir(plist_dir):
                         self.__parse_bplist(plist_dir, username)
                     else:
@@ -47,7 +50,8 @@ class UsersSafariWebBookmarks(Plugin):
         """
         Parse /Users/username/Library/Caches/Metadata/Safari/Bookmarks/*.webbookmark
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Web_Bookmarks.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Web_Bookmarks.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:

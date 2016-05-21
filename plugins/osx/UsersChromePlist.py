@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -47,7 +48,8 @@ class UsersChromePlist(Plugin):
         """
         Parse /Users/username/Library/Preferences/com.google.Chrome.plist
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Chrome.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Chrome.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
@@ -58,7 +60,8 @@ class UsersChromePlist(Plugin):
                         if "LastRunAppBundlePath" in plist:
                             of.write("Last Run App Bundle Path: {}\r\n\r\n".format(plist["LastRunAppBundlePath"]))
                         if "NSNavLastRootDirectory" in plist:
-                            of.write("Nav Last Root Directory        : {}\r\n\r\n".format(plist["NSNavLastRootDirectory"]))
+                            of.write("Nav Last Root Directory        : {}\r\n\r\n"
+                                     .format(plist["NSNavLastRootDirectory"]))
                         of.write("\r\n")
                     except KeyError:
                         pass

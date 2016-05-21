@@ -4,6 +4,7 @@ import codecs
 import logging
 import os
 import plistlib
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -62,7 +63,8 @@ class DhcpLeasesPlist(Plugin):
                         of.write("Lease Start Date       : {}\r\n".format(plist["LeaseStartDate"]))
                     if "RouterHardwareAddress" in plist:
                         # BASE64 is MAC in raw
-                        of.write("Router Hardware Address: {}\r\n".format(binascii.hexlify(plist["RouterHardwareAddress"])))
+                        of.write("Router Hardware Address: {}\r\n"
+                                 .format(binascii.hexlify(plist["RouterHardwareAddress"])))
 
                     if "RouterIPAddress" in plist:
                         of.write("Router IP Address      : {}\r\n".format(plist["RouterIPAddress"]))
@@ -82,7 +84,8 @@ class DhcpLeasesPlist(Plugin):
                         of.write("Lease Start Date: {}\r\n".format(plist["LeaseStartDate"]))
                     if "RouterHardwareAddress" in plist:
                         # TODO sort out binary string output into MAC address format
-                        of.write("Router Hardware Address: {}\r\n".format(binascii.hexlify(plist["RouterHardwareAddress"])))
+                        of.write("Router Hardware Address: {}\r\n"
+                                 .format(binascii.hexlify(plist["RouterHardwareAddress"])))
                     if "RouterIPAddress" in plist:
                         of.write("Router IP Address: {}\r\n".format(plist["RouterIPAddress"]))
                 except KeyError:

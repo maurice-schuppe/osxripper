@@ -33,7 +33,8 @@ class UsersSafariCache(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    sqlite_db = os.path.join(users_path, username, "Library", "Caches", "com.apple.safari", self._data_file)
+                    sqlite_db = os.path\
+                        .join(users_path, username, "Library", "Caches", "com.apple.safari", self._data_file)
                     if os.path.isfile(sqlite_db):
                         self.__parse_sqlite_db(sqlite_db, username)
                     else:
@@ -47,7 +48,8 @@ class UsersSafariCache(Plugin):
         """
         Read the WebpageIcons.db SQLite database
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Cache.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Cache.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion"]:
                 query = "SELECT request_key, time_stamp FROM cfurl_cache_response"
