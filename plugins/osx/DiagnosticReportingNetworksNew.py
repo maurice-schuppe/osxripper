@@ -30,22 +30,22 @@ class DiagnosticReportingNetworksNew(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if self._os_version in ["el_capitan", "yosemite"]:
                 file = os.path.join(self._input_dir, "Library", "Caches", self._data_file)
-                of.write("Source File: {}\r\n\r\n".format(file))
+                of.write("Source File: {0}\r\n\r\n".format(file))
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     pl = ccl_bplist.load(bplist)
                     try:
                         if "ExternalSignatures" in pl:
                             for ext_sig in pl["ExternalSignatures"]:
-                                of.write("Network Data: {}\r\n".format(ext_sig))
-                                of.write("Timestamp: {}\r\n".format(pl["ExternalSignatures"][ext_sig]))
+                                of.write("Network Data: {0}\r\n".format(ext_sig))
+                                of.write("Timestamp: {0}\r\n".format(pl["ExternalSignatures"][ext_sig]))
                     except KeyError:
                         pass
                     bplist.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
             elif self._os_version in ["mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported this plugin.")
                 print("[INFO] This version of OSX is not supported this plugin.")
