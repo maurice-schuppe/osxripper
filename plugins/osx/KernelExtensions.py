@@ -31,11 +31,11 @@ class KernelExtensions(Plugin):
             extensions_dir = os.path.join(self._input_dir, "System", "Library", "Extensions")
             if os.path.isdir(extensions_dir):
                 of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-                of.write("Source Directory: {}\r\n\r\n".format(extensions_dir))
+                of.write("Source Directory: {0}\r\n\r\n".format(extensions_dir))
                 file_listing = os.listdir(extensions_dir)
                 for f in file_listing:
                     if f.endswith(".kext") or f.endswith(".ppp") or f.endswith(".bundle") or f.endswith(".plugin"):
-                        of.write("\t{}\r\n".format(f))
+                        of.write("\t{0}\r\n".format(f))
             else:
                 logging.warning("Directory {} does not exist.".format(extensions_dir))
                 of.write("[WARNING] Directory {} does not exist or cannot be found.\r\n".format(extensions_dir))
