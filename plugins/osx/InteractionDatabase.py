@@ -30,6 +30,16 @@ class InteractionDatabase(Plugin):
         """
         Read the /private/var/db/CoreDuet/People/interactionC.db SQLite database
         """
+        query = "SELECT zpk.z_name,zc.zdisplayname,zc.zidentifier," \
+                "zc.zcreationdate," \
+                "zc.zfirstincomingrecipientdate," \
+                "zc.zfirstincomingsenderdate," \
+                "zc.zfirstoutgoingrecipientdate," \
+                "zc.zlastincomingrecipientdate," \
+                "zc.zlastincomingsenderdate," \
+                "zc.zlastoutgoingrecipientdate" \
+                " FROM z_primarykey zpk,zcontacts zc WHERE zpk.z_ent = zc.z_ent"
+
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             database_file = os.path.join(self._input_dir, "private", "var", "db", "CoreDuet", "People", self._data_file)
@@ -44,56 +54,40 @@ class InteractionDatabase(Plugin):
                     try:
                         conn = sqlite3.connect(database_file)
                         conn.row_factory = sqlite3.Row
-                        # cocoa time 2001/1/1 00:00
-                        query = "SELECT zpk.z_name,zc.zdisplayname,zc.zidentifier," \
-                                "zc.zcreationdate," \
-                                "zc.zfirstincomingrecipientdate," \
-                                "zc.zfirstincomingsenderdate," \
-                                "zc.zfirstoutgoingrecipientdate," \
-                                "zc.zlastincomingrecipientdate," \
-                                "zc.zlastincomingsenderdate," \
-                                "zc.zlastoutgoingrecipientdate" \
-                                " FROM z_primarykey zpk,zcontacts zc WHERE zpk.z_ent = zc.z_ent"
                         with conn:
                             cur = conn.cursor()
                             cur.execute(query)
                             rows = cur.fetchall()
-                            if len(rows) > 0:
+                            if len(rows) == 0:
+                                of.write("No data in database.\r\n")
+                            else:
                                 for row in rows:
                                     creationdate = \
                                         osxripper_time.get_cocoa_seconds(row["zcreationdate"])
-                                    firstincomingrecipientdate = \
+                                    firstinrecipdate = \
                                         osxripper_time.get_cocoa_seconds(row["zfirstincomingrecipientdate"])
-                                    firstincomingsenderdate = \
+                                    firstinsenderdate = \
                                         osxripper_time.get_cocoa_seconds(row["zfirstincomingsenderdate"])
-                                    firstoutgoingrecipientdate = \
+                                    firstoutrecipdate = \
                                         osxripper_time.get_cocoa_seconds(row["zfirstoutgoingrecipientdate"])
-                                    lastincomingrecipientdate = \
+                                    lastinrecipdate = \
                                         osxripper_time.get_cocoa_seconds(row["zlastincomingrecipientdate"])
-                                    lastincomingsenderdate = \
+                                    lastinsenderdate = \
                                         osxripper_time.get_cocoa_seconds(row["zlastincomingsenderdate"])
-                                    lastoutgoingrecipientdate = \
+                                    lastoutrecipdate = \
                                         osxripper_time.get_cocoa_seconds(row["zlastincomingsenderdate"])
 
                                     of.write("Name                         : {0}\r\n".format(row["z_name"]))
                                     of.write("Display Name                 : {0}\r\n".format(row["zdisplayname"]))
                                     of.write("Identifier                   : {0}\r\n".format(row["zidentifier"]))
                                     of.write("Creation Date                : {0}\r\n".format(creationdate))
-                                    of.write("First Incoming Recipient Date: {0}\r\n"
-                                             .format(firstincomingrecipientdate))
-                                    of.write("First Incoming Sender Date   : {0}\r\n"
-                                             .format(firstincomingsenderdate))
-                                    of.write("First Outgoing Recipient Date: {0}\r\n"
-                                             .format(firstoutgoingrecipientdate))
-                                    of.write("Last Incoming Recipient Date : {0}\r\n"
-                                             .format(lastincomingrecipientdate))
-                                    of.write("Last Incoming Sender Date    : {0}\r\n"
-                                             .format(lastincomingsenderdate))
-                                    of.write("Last Outgoing Recipient Date : {0}\r\n"
-                                             .format(lastoutgoingrecipientdate))
+                                    of.write("First Incoming Recipient Date: {0}\r\n".format(firstinrecipdate))
+                                    of.write("First Incoming Sender Date   : {0}\r\n".format(firstinsenderdate))
+                                    of.write("First Outgoing Recipient Date: {0}\r\n".format(firstoutrecipdate))
+                                    of.write("Last Incoming Recipient Date : {0}\r\n".format(lastinrecipdate))
+                                    of.write("Last Incoming Sender Date    : {0}\r\n".format(lastinsenderdate))
+                                    of.write("Last Outgoing Recipient Date : {0}\r\n".format(lastoutrecipdate))
                                     of.write("\r\n")
-                            else:
-                                of.write("No data in database.\r\n")
                         of.write("\r\n")
                     except sqlite3.Error as e:
                         logging.error("{0}".format(e.args[0]))
