@@ -32,7 +32,8 @@ class DocumentRevisions(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            query = "SELECT * FROM files"
+            # UNIX numeric 1/1/1970
+            query = "SELECT file_row_id,file_name,file_parent_id,file_path,file_inode,file_last_seen FROM files"
             file = os.path.join(self._input_dir, ".DocumentRevisions-V100", "db-V1", self._data_file)
             of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite"]:
