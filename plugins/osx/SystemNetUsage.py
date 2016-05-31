@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -39,6 +40,7 @@ class SystemNetUsage(Plugin):
                     conn = None
                     try:
                         conn = sqlite3.connect(file)
+                        conn.row_factory = sqlite3.Row
                         of.write("="*10 + " Network Attachments " + "="*10 + "\r\n")
                         run_network_attachment_query(conn, of)
                         of.write("="*10 + " Networked Processes " + "="*10 + "\r\n")
@@ -69,35 +71,28 @@ class SystemNetUsage(Plugin):
 
 
 def run_process_query(sqlite_connection, output_file):
-    query = "SELECT zpk.z_name,zp.zprocname,datetime(zp.zfirsttimestamp + 978307200, 'unixepoch')," \
-            "datetime(zp.ztimestamp + 978307200, 'unixepoch') FROM zprocess zp,z_primarykey zpk " \
+    query = "SELECT zpk.z_name,zp.zprocname,zp.zfirsttimestamp,zp.ztimestamp FROM zprocess zp,z_primarykey zpk " \
             "WHERE zp.z_ent = zpk.z_ent ORDER BY zpk.z_name"
     with sqlite_connection:
         cur = sqlite_connection.cursor()
         cur.execute(query)
         rows = cur.fetchall()
         for row in rows:
-            if row[0] is None:
-                output_file.write("Name           :\r\n")
-            else:
-                output_file.write("Name           : {0}\r\n".format(row[0]))
-            if row[1] is None:
-                output_file.write("Process        :\r\n")
-            else:
-                output_file.write("Process        : {0}\r\n".format(row[1]))
-            if row[2] is None:
-                output_file.write("First Timestamp:\r\n")
-            else:
-                output_file.write("First Timestamp: {0}\r\n".format(row[2]))
-            if row[3] is None:
-                output_file.write("Timestamp      :\r\n")
-            else:
-                output_file.write("Timestamp      : {0}\r\n".format(row[3]))
+            first_timestamp = osxripper_time.get_cocoa_seconds(row["zfirsttimestamp"])
+            print("[DEBUG] {0}".format(row["ztimestamp"]))
+            timestamp = osxripper_time.get_cocoa_seconds(row["ztimestamp"])
+            output_file.write("Name           : {0}\r\n".format(row["z_name"]))
+            output_file.write("Process        : {0}\r\n".format(row["zprocname"]))
+            output_file.write("First Timestamp: {0}\r\n".format(first_timestamp))
+            output_file.write("Timestamp      : {0}\r\n".format(timestamp))
             output_file.write("\r\n")
 
 
 def run_live_usage_query(sqlite_connection, output_file):
-    query = "SELECT zpk.z_name,zp.zprocname,datetime(zlu.ztimestamp + 978307200, 'unixepoch') AS ts,zlu.zwifiin," \
+    # query = "SELECT zpk.z_name,zp.zprocname,datetime(zlu.ztimestamp + 978307200, 'unixepoch') AS ts,zlu.zwifiin," \
+    #         "zlu.zwifiout,zlu.zwiredin,zlu.zwiredout,zlu.zwwanin,zlu.zwwanout FROM zprocess zp,zliveusage zlu," \
+    #         "z_primarykey zpk WHERE zp.z_ent = zpk.z_ent AND zp.z_pk = zlu.zhasprocess ORDER BY zpk.z_name"
+    query = "SELECT zpk.z_name,zp.zprocname,zlu.ztimestamp,zlu.zwifiin," \
             "zlu.zwifiout,zlu.zwiredin,zlu.zwiredout,zlu.zwwanin,zlu.zwwanout FROM zprocess zp,zliveusage zlu," \
             "z_primarykey zpk WHERE zp.z_ent = zpk.z_ent AND zp.z_pk = zlu.zhasprocess ORDER BY zpk.z_name"
     with sqlite_connection:
@@ -105,42 +100,52 @@ def run_live_usage_query(sqlite_connection, output_file):
         cur.execute(query)
         rows = cur.fetchall()
         for row in rows:
-            if row[0] is None:
-                output_file.write("Name     :\r\n")
-            else:
-                output_file.write("Name     : {0}\r\n".format(row[0]))
-            if row[1] is None:
-                output_file.write("Process  :\r\n")
-            else:
-                output_file.write("Process  : {0}\r\n".format(row[1]))
-            if row[2] is None:
-                output_file.write("Timestamp:\r\n")
-            else:
-                output_file.write("Timestamp: {0}\r\n".format(row[2]))
-            if row[3] is None:
-                output_file.write("WiFi In  :\r\n")
-            else:
-                output_file.write("WiFi In  : {0}\r\n".format(row[3]))
-            if row[4] is None:
-                output_file.write("WiFi Out :\r\n")
-            else:
-                output_file.write("WiFi Out : {0}\r\n".format(row[4]))
-            if row[5] is None:
-                output_file.write("Wired In :\r\n")
-            else:
-                output_file.write("Wired In : {0}\r\n".format(row[5]))
-            if row[6] is None:
-                output_file.write("Wired Out:\r\n")
-            else:
-                output_file.write("Wired Out: {0}\r\n".format(row[6]))
-            if row[7] is None:
-                output_file.write("WAN In   :\r\n")
-            else:
-                output_file.write("WAN In   : {0}\r\n".format(row[7]))
-            if row[8] is None:
-                output_file.write("WAN Out  :\r\n")
-            else:
-                output_file.write("WAN Out  : {0}\r\n".format(row[8]))
+            ztimestamp = osxripper_time.get_cocoa_millis(row["ztimestamp"])
+            output_file.write("Name     : {0}\r\n".format(row["z_name"]))
+            output_file.write("Process  : {0}\r\n".format(row["zprocname"]))
+            output_file.write("Timestamp: {0}\r\n".format(ztimestamp))
+            output_file.write("WiFi In  : {0}\r\n".format(row["zwifiin"]))
+            output_file.write("WiFi Out : {0}\r\n".format(row["zwifiout"]))
+            output_file.write("Wired In : {0}\r\n".format(row["zwiredin"]))
+            output_file.write("Wired Out: {0}\r\n".format(row["zwiredout"]))
+            output_file.write("WAN In   : {0}\r\n".format(row["zwwanin"]))
+            output_file.write("WAN Out  : {0}\r\n".format(row["zwwanout"]))
+            # if row[0] is None:
+            #     output_file.write("Name     :\r\n")
+            # else:
+            #     output_file.write("Name     : {0}\r\n".format(row[0]))
+            # if row[1] is None:
+            #     output_file.write("Process  :\r\n")
+            # else:
+            #     output_file.write("Process  : {0}\r\n".format(row[1]))
+            # if row[2] is None:
+            #     output_file.write("Timestamp:\r\n")
+            # else:
+            #     output_file.write("Timestamp: {0}\r\n".format(row[2]))
+            # if row[3] is None:
+            #     output_file.write("WiFi In  :\r\n")
+            # else:
+            #     output_file.write("WiFi In  : {0}\r\n".format(row[3]))
+            # if row[4] is None:
+            #     output_file.write("WiFi Out :\r\n")
+            # else:
+            #     output_file.write("WiFi Out : {0}\r\n".format(row[4]))
+            # if row[5] is None:
+            #     output_file.write("Wired In :\r\n")
+            # else:
+            #     output_file.write("Wired In : {0}\r\n".format(row[5]))
+            # if row[6] is None:
+            #     output_file.write("Wired Out:\r\n")
+            # else:
+            #     output_file.write("Wired Out: {0}\r\n".format(row[6]))
+            # if row[7] is None:
+            #     output_file.write("WAN In   :\r\n")
+            # else:
+            #     output_file.write("WAN In   : {0}\r\n".format(row[7]))
+            # if row[8] is None:
+            #     output_file.write("WAN Out  :\r\n")
+            # else:
+            #     output_file.write("WAN Out  : {0}\r\n".format(row[8]))
             output_file.write("\r\n")
 
 
