@@ -32,9 +32,6 @@ class SystemAuthDB(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            # query = "SELECT name, rules.'group', type, class, tries, version, kofn, " \
-            #         "datetime(created + 978307200, 'unixepoch'), datetime(modified + 978307200, 'unixepoch'), " \
-            #         "identifier, comment FROM rules ORDER BY name"
             query = "SELECT name, rules.'group', type, class, tries, version, kofn, created, modified, " \
                     "identifier, comment FROM rules ORDER BY name"
             file = os.path.join(self._input_dir, "private", "var", "db", self._data_file)
@@ -63,50 +60,6 @@ class SystemAuthDB(Plugin):
                                 of.write("Modified  : {0}\r\n".format(modified))
                                 of.write("Identifier: {0}\r\n".format(row["identifier"]))
                                 of.write("Comment   : {0}\r\n".format(row["comment"]))
-                                # if row[0] is None:
-                                #     of.write("Name      :\r\n")
-                                # else:
-                                #     of.write("Name      : {0}\r\n".format(row[0]))
-                                # if row[1] is None:
-                                #     of.write("Group     :\r\n")
-                                # else:
-                                #     of.write("Group     : {0}\r\n".format(row[1]))
-                                # if row[2] is None:
-                                #     of.write("Type      :\r\n")
-                                # else:
-                                #     of.write("Type      : {0}\r\n".format(row[2]))
-                                # if row[3] is None:
-                                #     of.write("Class     :\r\n")
-                                # else:
-                                #     of.write("Class     : {0}\r\n".format(row[3]))
-                                # if row[4] is None:
-                                #     of.write("Tries     :\r\n")
-                                # else:
-                                #     of.write("Tries     : {0}\r\n".format(row[4]))
-                                # if row[5] is None:
-                                #     of.write("Version   :\r\n")
-                                # else:
-                                #     of.write("Version   : {0}\r\n".format(row[5]))
-                                # if row[6] is None:
-                                #     of.write("K-OF-N    :\r\n")
-                                # else:
-                                #     of.write("K-OF-N    : {0}\r\n".format(row[6]))
-                                # if row[7] is None:
-                                #     of.write("Created   :\r\n")
-                                # else:
-                                #     of.write("Created   : {0}\r\n".format(row[7]))
-                                # if row[8] is None:
-                                #     of.write("Modified  :\r\n")
-                                # else:
-                                #     of.write("Modified  : {0}\r\n".format(row[8]))
-                                # if row[9] is None:
-                                #     of.write("Identifier:\r\n")
-                                # else:
-                                #     of.write("Identifier: {0}\r\n".format(row[9]))
-                                # if row[10] is None:
-                                #     of.write("Comment   :\r\n")
-                                # else:
-                                #     of.write("Comment   : {0}\r\n".format(row[10]))
                                 of.write("\r\n")
                     except sqlite3.Error as e:
                         logging.error("{0}".format(e.args[0]))
