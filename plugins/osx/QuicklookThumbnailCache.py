@@ -60,10 +60,10 @@ class QuicklookThumbnailCache(Plugin):
                                     if len(rows) > 0:
                                         for row in rows:
                                             last_hit_date = osxripper_time.get_cocoa_seconds(row["last_hit_date"])
-                                            of.write("Folder       : {0}\r\n".format(row["folder"]))
-                                            of.write("File Name    : {0}\r\n".format(row["file_name"]))
-                                            of.write("Hit Count    : {0}\r\n".format(row["hit_count"]))
-                                            of.write("Last Hit Date: {0}\r\n".format(last_hit_date))
+                                            of.write("Folder        : {0}\r\n".format(row["folder"]))
+                                            of.write("File Name     : {0}\r\n".format(row["file_name"]))
+                                            of.write("Hit Count     : {0}\r\n".format(row["hit_count"]))
+                                            of.write("Last Hit Date : {0}\r\n".format(last_hit_date))
                                             of.write("\r\n")
                                     else:
                                         of.write("No data in dtabase.\r\n")
