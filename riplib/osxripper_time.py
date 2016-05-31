@@ -7,8 +7,8 @@ UNIX_EPOCH = datetime.datetime(1970, 1, 1)
 
 def get_unix_seconds(delta_date):
     """
-        Get the date time with a second delta
-        """
+    Get the date time with a second delta
+    """
     if delta_date is None:
         return "[ERROR] Not a date value: None"
     else:
@@ -18,10 +18,22 @@ def get_unix_seconds(delta_date):
             "[ERROR] unknown date value: {0}".format(delta_date)
 
 
+def get_unix_micros(delta_date):
+    """
+    Get the date time with a millisecond delta
+    """
+    if delta_date is None:
+        return "[ERROR] Not a date value: None"
+    else:
+        try:
+            return UNIX_EPOCH + datetime.timedelta(microseconds=delta_date)
+        except OverflowError:
+            "[ERROR] unknown date value: {0}".format(delta_date)
+
 def get_unix_millis(delta_date):
     """
-        Get the date time with a millisecond delta
-        """
+    Get the date time with a millisecond delta
+    """
     if delta_date is None:
         return "[ERROR] Not a date value: None"
     else:
