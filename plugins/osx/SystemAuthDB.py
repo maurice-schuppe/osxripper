@@ -55,7 +55,14 @@ class SystemAuthDB(Plugin):
                                 of.write("Name      : {0}\r\n".format(row["name"]))
                                 of.write("Group     : {0}\r\n".format(row["group"]))
                                 of.write("Type      : {0}\r\n".format(row["type"]))
-                                of.write("Class     : {0}\r\n".format(row[""]))
+                                of.write("Class     : {0}\r\n".format(row["class"]))
+                                of.write("Tries     : {0}\r\n".format(row["tries"]))
+                                of.write("Version   : {0}\r\n".format(row["version"]))
+                                of.write("K-OF-N    : {0}\r\n".format(row["kofn"]))
+                                of.write("Created   : {0}\r\n".format(created))
+                                of.write("Modified  : {0}\r\n".format(modified))
+                                of.write("Identifier: {0}\r\n".format(row["identifier"]))
+                                of.write("Comment   : {0}\r\n".format(row["comment"]))
                                 # if row[0] is None:
                                 #     of.write("Name      :\r\n")
                                 # else:
