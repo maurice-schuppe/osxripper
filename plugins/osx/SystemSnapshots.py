@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -31,7 +32,7 @@ class SystemSnapshots(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            query = "SELECT datetime(time/1000000, 'unixepoch'), pid, uniqueid, comm FROM snapshots ORDER BY time"
+            query = "SELECT time, pid, uniqueid, comm FROM snapshots ORDER BY time"
             file = os.path.join(self._input_dir, "private", "var", "db", "systemstats", self._data_file)
             of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
@@ -39,27 +40,17 @@ class SystemSnapshots(Plugin):
                     conn = None
                     try:
                         conn = sqlite3.connect(file)
+                        conn.row_factory = sqlite3.Row
                         with conn:    
                             cur = conn.cursor()
                             cur.execute(query)
                             rows = cur.fetchall()
                             for row in rows:
-                                if row[3] is None:
-                                    of.write("Comm     :\r\n")
-                                else:
-                                    of.write("Comm     : {0}\r\n".format(row[3]))
-                                if row[0] is None:
-                                    of.write("Time     :\r\n")
-                                else:
-                                    of.write("Time     : {0}\r\n".format(row[0]))
-                                if row[1] is None:
-                                    of.write("PID      :\r\n")
-                                else:
-                                    of.write("PID      : {0}\r\n".format(row[1]))
-                                if row[2] is None:
-                                    of.write("Unique ID:\r\n")
-                                else:
-                                    of.write("Unique ID: {0}\r\n".format(row[2]))
+                                snap_time = osxripper_time.get_unix_micros(row["time"])
+                                of.write("Comm     : {0}\r\n".format(row["comm"]))
+                                of.write("Time     : {0}\r\n".format(snap_time))
+                                of.write("PID      : {0}\r\n".format(row["pid"]))
+                                of.write("Unique ID: {0}\r\n".format(row["uniqueid"]))
                                 of.write("\r\n")
                     except sqlite3.Error as e:
                         logging.error("{0}".format(e.args[0]))
