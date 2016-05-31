@@ -31,6 +31,7 @@ class SystemAccountsPlist(Plugin):
         Public function called to parse the data file set in __init__
         """
         working_dir = os.path.join(self._input_dir, "private", "var", "db", "dslocal", "nodes", "Default", "users")
+        # TODO check working dir exists
         file_listing = os.listdir(working_dir)
         for f in file_listing:
             stat_info = os.stat(working_dir + os.path.sep + f)

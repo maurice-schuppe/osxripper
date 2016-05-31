@@ -1,6 +1,5 @@
 from riplib.Plugin import Plugin
 import codecs
-import datetime
 import logging
 import os
 import osxripper_time
