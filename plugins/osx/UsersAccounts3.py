@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -53,52 +54,26 @@ class UsersAccounts3(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite"]:
-                query = "SELECT zusername,zactive,zauthenticated,zvisible,datetime(zdate + 978307200, 'unixepoch')," \
+                query = "SELECT zusername,zactive,zauthenticated,zvisible,zdate," \
                         "zaccountdescription,zowningbundleid FROM zaccount"
                 conn = None
                 try:
                     conn = sqlite3.connect(file)
+                    conn.row_factory = sqlite3.Row
                     with conn:    
                         cur = conn.cursor()
                         cur.execute(query)
                         rows = cur.fetchall()
                         if len(rows) != 0:
                             for row in rows:
-                                # zusername
-                                if row[0] is None:
-                                    of.write("Username           :\r\n")
-                                else:
-                                    of.write("Username           : {0}\r\n".format(row[0]))
-                                # zactive
-                                if row[1] is None:
-                                    of.write("Active             :\r\n")
-                                else:
-                                    of.write("Active             : {0}\r\n".format(row[1]))
-                                # zauthenticated
-                                if row[2] is None:
-                                    of.write("Authenticated      :\r\n")
-                                else:
-                                    of.write("Authenticated      : {0}\r\n".format(row[2]))
-                                # zvisible
-                                if row[3] is None:
-                                    of.write("Visible            :\r\n")
-                                else:
-                                    of.write("Visible            : {0}\r\n".format(row[3]))
-                                # zdate
-                                if row[4] is None:
-                                    of.write("Date               :\r\n")
-                                else:
-                                    of.write("Date               : {0}\r\n".format(row[4]))
-                                # zaccountdescription
-                                if row[5] is None:
-                                    of.write("Account Description:\r\n")
-                                else:
-                                    of.write("Account Description: {0}\r\n".format(row[5]))
-                                # zowningbundleid
-                                if row[6] is None:
-                                    of.write("Owning Bundle ID   :\r\n")
-                                else:
-                                    of.write("Owning Bundle ID   : {0}\r\n".format(row[6]))
+                                zdate = osxripper_time.get_cocoa_seconds(row["zdate"])
+                                of.write("Username           : {0}\r\n".format(row["zusername"]))
+                                of.write("Active             : {0}\r\n".format(row["zactive"]))
+                                of.write("Authenticated      : {0}\r\n".format(row["zauthenticated"]))
+                                of.write("Visible            : {0}\r\n".format(row["zvisible"]))
+                                of.write("Date               : {0}\r\n".format(zdate))
+                                of.write("Account Description: {0}\r\n".format(row["zaccountdescription"]))
+                                of.write("Owning Bundle ID   : {0}\r\n".format(row["zowningbundleid"]))
                                 of.write("\r\n")
                         else:
                             of.write("\r\nNo Account information found\r\n")
@@ -109,47 +84,25 @@ class UsersAccounts3(Plugin):
                     if conn:
                         conn.close()
             elif self._os_version in ["mavericks", "mountain_lion"]:
-                query = "SELECT zusername,zactive,zauthenticated,datetime(zdate + 978307200, 'unixepoch')," \
+                query = "SELECT zusername,zactive,zauthenticated,zdate," \
                         "zaccountdescription,zowningbundleid FROM zaccount"
                 conn = None
                 try:
                     conn = sqlite3.connect(file)
+                    conn.row_factory = sqlite3.Row
                     with conn:    
                         cur = conn.cursor()
                         cur.execute(query)
                         rows = cur.fetchall()
                         if len(rows) != 0:
                             for row in rows:
-                                # zusername
-                                if row[0] is None:
-                                    of.write("Username           :\r\n")
-                                else:
-                                    of.write("Username           : {0}\r\n".format(row[0]))
-                                # zactive
-                                if row[1] is None:
-                                    of.write("Active             :\r\n")
-                                else:
-                                    of.write("Active             : {0}\r\n".format(row[1]))
-                                # zauthenticated
-                                if row[2] is None:
-                                    of.write("Authenticated      :\r\n")
-                                else:
-                                    of.write("Authenticated      : {0}\r\n".format(row[2]))
-                                # zdate
-                                if row[3] is None:
-                                    of.write("Date               :\r\n")
-                                else:
-                                    of.write("Date               : {0}\r\n".format(row[3]))
-                                # zaccountdescription
-                                if row[4] is None:
-                                    of.write("Account Description:\r\n")
-                                else:
-                                    of.write("Account Description: {0}\r\n".format(row[4]))
-                                # zowningbundleid
-                                if row[5] is None:
-                                    of.write("Owning Bundle ID   :\r\n")
-                                else:
-                                    of.write("Owning Bundle ID   : {0}\r\n".format(row[5]))
+                                zdate = osxripper_time.get_cocoa_seconds(row["zdate"])
+                                of.write("Username           : {0}\r\n".format(row["zusername"]))
+                                of.write("Active             : {0}\r\n".format(row["zactive"]))
+                                of.write("Authenticated      : {0}\r\n".format(row["zauthenticated"]))
+                                of.write("Date               : {0}\r\n".format(zdate))
+                                of.write("Account Description: {0}\r\n".format("zaccountdescription"))
+                                of.write("Owning Bundle ID   : {0}\r\n".format(row["zowningbundleid"]))
                                 of.write("\r\n")
                         else:
                             of.write("\r\nNo Account information found\r\n")
