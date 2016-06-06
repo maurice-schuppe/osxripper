@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -55,46 +56,27 @@ class UsersChromeDownloads(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, "History")
             query = "SELECT id, current_path, target_path," \
-                    "datetime(start_time / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+                    "start_time," \
                     "received_bytes, total_bytes, referrer FROM downloads"
             if os.path.isfile(history_db):
                 of.write("Source File: {0}\r\n\r\n".format(history_db))
                 conn = None
                 try:
                     conn = sqlite3.connect(history_db)
+                    conn.row_factory = sqlite3.Row
                     with conn:    
                         cur = conn.cursor()
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            if row[0] is None:
-                                of.write("ID          :\r\n")
-                            else:
-                                of.write("ID          : {0}\r\n".format(row[0]))
-                            if row[1] is None:
-                                of.write("Current Path:\r\n")
-                            else:
-                                of.write("Current Path: {0}\r\n".format(row[1]))
-                            if row[2] is None:
-                                of.write("Target Path :\r\n")
-                            else:
-                                of.write("Target Path : {0}\r\n".format(row[2]))
-                            if row[3] is None:
-                                of.write("Start Time  :\r\n")
-                            else:
-                                of.write("Start Time  : {0}\r\n".format(row[3]))
-                            if row[4] is None:
-                                of.write("Received    :\r\n")
-                            else:
-                                of.write("Received    : {0}\r\n".format(row[4]))
-                            if row[5] is None:
-                                of.write("Total Bytes :\r\n")
-                            else:
-                                of.write("Total Bytes : {0}\r\n".format(row[5]))
-                            if row[6] is None:
-                                of.write("Referer     :\r\n")
-                            else:
-                                of.write("Referer     : {0}\r\n".format(row[6]))
+                            start_time = osxripper_time.get_gregorian_micros(row["start_time"])
+                            of.write("ID          : {0}\r\n".format(row["id"]))
+                            of.write("Current Path: {0}\r\n".format(row["current_path"]))
+                            of.write("Target Path : {0}\r\n".format(row["target_path"]))
+                            of.write("Start Time  : {0}\r\n".format(start_time))
+                            of.write("Received    : {0}\r\n".format(row["received_bytes"]))
+                            of.write("Total Bytes : {0}\r\n".format(row["total_bytes"]))
+                            of.write("Referer     : {0}\r\n".format(row["referrer"]))
                             of.write("\r\n")
                 except sqlite3.Error as e:
                     logging.error("{0}".format(e.args[0]))
