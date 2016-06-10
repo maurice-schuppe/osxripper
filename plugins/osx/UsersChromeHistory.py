@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -54,51 +55,28 @@ class UsersChromeHistory(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, "History")
-            query = "SELECT id, url,title,term,visit_count," \
-                    "datetime(last_visit_time / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+            query = "SELECT id, url,title,term,visit_count,last_visit_time," \
                     "typed_count,hidden FROM urls, keyword_search_terms WHERE keyword_search_terms.url_id=urls.id"
             if os.path.isfile(history_db):
                 of.write("Source File: {0}\r\n\r\n".format(history_db))
                 conn = None
                 try:
                     conn = sqlite3.connect(history_db)
+                    conn.row_factory = sqlite3.Row
                     with conn:    
                         cur = conn.cursor()
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            if row[0] is None:
-                                of.write("ID         :\r\n")
-                            else:
-                                of.write("ID         : {0}\r\n".format(row[0]))
-                            if row[1] is None:
-                                of.write("URL        :\r\n")
-                            else:
-                                of.write("URL        : {0}\r\n".format(row[1]))
-                            if row[2] is None:
-                                of.write("Title      :\r\n")
-                            else:
-                                of.write("Title      : {0}\r\n".format(row[2]))
-                            if row[3] is None:
-                                of.write("Search Term:\r\n")
-                            else:
-                                of.write("Search Term: {0}\r\n".format(row[3]))
-                            if row[3] is None:
-                                of.write("Visit Count:\r\n")
-                            else:
-                                of.write("Visit Count: {0}\r\n".format(row[4]))
-                            if row[4] is None:
-                                of.write("Last Visit :\r\n")
-                            else:
-                                of.write("Last Visit : {0}\r\n".format(row[5]))
-                            if row[5] is None:
-                                of.write("Typed Count:\r\n")
-                            else:
-                                of.write("Typed Count: {0}\r\n".format(row[6]))
-                            if row[6] is None:
-                                of.write("Hidden     :\r\n")
-                            else:
-                                of.write("Hidden     : {0}\r\n".format(row[7]))
+                            last_visit_time = osxripper_time.get_gregorian_micros(row["last_visit_time"])
+                            of.write("ID         : {0}\r\n".format(row["id"]))
+                            of.write("URL        : {0}\r\n".format(row["url"]))
+                            of.write("Title      : {0}\r\n".format(row["term"]))
+                            of.write("Search Term: {0}\r\n".format(row["term"]))
+                            of.write("Visit Count: {0}\r\n".format(row["visit_count"]))
+                            of.write("Last Visit : {0}\r\n".format(last_visit_time))
+                            of.write("Typed Count: {0}\r\n".format(row["typed_count"]))
+                            of.write("Hidden     : {0}\r\n".format(row["hidden"]))
                             of.write("\r\n")
                 except sqlite3.Error as e:
                     logging.error("{0}".format(e.args[0]))
