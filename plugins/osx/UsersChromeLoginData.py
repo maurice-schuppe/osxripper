@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -56,17 +57,16 @@ class UsersChromeLoginData(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, self._data_file)
             query = "SELECT username_value,display_name,origin_url,action_url," \
-                    "datetime((date_created / 1000000)-11644473600, 'unixepoch')," \
-                    "datetime((date_synced / 1000000)-11644473600, 'unixepoch')," \
+                    "date_created,date_synced," \
                     "signon_realm,ssl_valid,preferred,times_used,blacklisted_by_user," \
                     "scheme,password_type,avatar_url,federation_url FROM logins ORDER BY username_value"
-
             if os.path.isfile(history_db):
                 of.write("Source File: {0}\r\n\r\n".format(history_db))
                 of.write("N.B. Creds are stored as BLOBS, not retrieved by this plugin\r\n\r\n")
                 conn = None
                 try:
                     conn = sqlite3.connect(history_db)
+                    conn.row_factory = sqlite3.Row
                     with conn:    
                         cur = conn.cursor()
                         cur.execute(query)
@@ -75,86 +75,23 @@ class UsersChromeLoginData(Plugin):
                             of.write("No data found in this database.\r\n\r\n")
                         else:
                             for row in rows:
-                                # username_value
-                                if row[0] is None:
-                                    of.write("Username           :\r\n")
-                                else:
-                                    of.write("Username           : {0}\r\n".format(row[0]))
-                                # display_name
-                                if row[1] is None:
-                                    of.write("Display Name       :\r\n")
-                                else:
-                                    of.write("Display Name       : {0}\r\n".format(row[1]))
-                                # origin_url
-                                if row[2] is None:
-                                    of.write("Origin URL         :\r\n")
-                                else:
-                                    of.write("Origin URL         : {0}\r\n".format(row[2]))
-                                # action_url
-                                if row[3] is None:
-                                    of.write("Action URL         :\r\n")
-                                else:
-                                    of.write("Action URL         : {0}\r\n".format(row[3]))
-                                # datetime((date_created / 1000000)-11644473600, 'unixepoch')
-                                if row[4] is None:
-                                    of.write("Date Created       :\r\n")
-                                else:
-                                    of.write("Date Created       : {0}\r\n".format(row[4]))
-                                # datetime((date_synced / 1000000)-11644473600, 'unixepoch')
-                                if row[5] is None:
-                                    of.write("Date Synced:       :\r\n")
-                                else:
-                                    of.write("Date Synced        : {0}\r\n".format(row[5]))
-                                # signon_realm
-                                if row[6] is None:
-                                    of.write("Signon Realm       :\r\n")
-                                else:
-                                    of.write("Signon Realm       : {0}\r\n".format(row[6]))
-                                # ssl_valid
-                                if row[7] is None:
-                                    of.write("SSL Valid          :\r\n")
-                                else:
-                                    of.write("SSL Valid          : {0}\r\n".format(row[7]))
-                                # preferred
-                                if row[8] is None:
-                                    of.write("Preferred          :\r\n")
-                                else:
-                                    of.write("Preferred          : {0}\r\n".format(row[8]))
-                                # times_used
-                                if row[9] is None:
-                                    of.write("Times Used         :\r\n")
-                                else:
-                                    of.write("Times Used         : {0}\r\n".format(row[9]))
-                                # blacklisted_by_user
-                                if row[10] is None:
-                                    of.write("Blacklisted by User:\r\n")
-                                else:
-                                    of.write("Blacklisted by User: {0}\r\n".format(row[10]))
-                                # scheme
-                                if row[11] is None:
-                                    of.write("Scheme             :\r\n")
-                                else:
-                                    of.write("Scheme             : {0}\r\n".format(row[11]))
-                                # password_type
-                                if row[12] is None:
-                                    of.write("Password Type      :\r\n")
-                                else:
-                                    of.write("Password Type      : {0}\r\n".format(row[12]))
-                                # avatar_url
-                                if row[13] is None:
-                                    of.write("Avatar URL         :\r\n")
-                                else:
-                                    of.write("Avatar URL         : {0}\r\n".format(row[13]))
-                                # federation_url
-                                if row[14] is None:
-                                    of.write("Federation URL     :\r\n")
-                                else:
-                                    of.write("Federation URL     : {0}\r\n".format(row[14]))
-                                # is_zero_click
-                                # if row[15] is None:
-                                #     of.write("Is Zero Click      :\r\n")
-                                # else:
-                                #     of.write("Is Zero Click      : {0}\r\n".format(row[15]))
+                                date_created = osxripper_time.get_gregorian_micros(row["date_created"])
+                                date_synced = osxripper_time.get_gregorian_micros(row["date_synced"])
+                                of.write("Username           : {0}\r\n".format(row["username_value"]))
+                                of.write("Display Name       : {0}\r\n".format(row["display_name"]))
+                                of.write("Origin URL         : {0}\r\n".format(row["origin_url"]))
+                                of.write("Action URL         : {0}\r\n".format(row["action_url"]))
+                                of.write("Date Created       : {0}\r\n".format(date_created))
+                                of.write("Date Synced        : {0}\r\n".format(date_synced))
+                                of.write("Signon Realm       : {0}\r\n".format(row["signon_realm"]))
+                                of.write("SSL Valid          : {0}\r\n".format(row["ssl_valid"]))
+                                of.write("Preferred          : {0}\r\n".format(row["preferred"]))
+                                of.write("Times Used         : {0}\r\n".format(row["times_used"]))
+                                of.write("Blacklisted by User: {0}\r\n".format(row["blacklisted_by_user"]))
+                                of.write("Scheme             : {0}\r\n".format(row["scheme"]))
+                                of.write("Password Type      : {0}\r\n".format(row["password_type"]))
+                                of.write("Avatar URL         : {0}\r\n".format(row["avatar_url"]))
+                                of.write("Federation URL     : {0}\r\n".format(row["federation_url"]))
                                 of.write("\r\n")
                 except sqlite3.Error as e:
                     logging.error("{0}".format(e.args[0]))
