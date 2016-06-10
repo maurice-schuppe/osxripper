@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -55,15 +56,17 @@ class UsersChromeWebData(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             web_data_db = os.path.join(file, "Web Data")
-            query = "SELECT name,value,value_lower," \
-                    "datetime(date_created / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
-                    "datetime(date_last_used / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
-                    "count FROM autofill"
+            # query = "SELECT name,value,value_lower," \
+            #         "datetime(date_created / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+            #         "datetime(date_last_used / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+            #         "count FROM autofill"
+            query = "SELECT name,value,value_lower,date_created,date_last_used,count FROM autofill"
             if os.path.isfile(web_data_db):
                 of.write("Source File: {0}\r\n\r\n".format(web_data_db))
                 conn = None
                 try:
                     conn = sqlite3.connect(web_data_db)
+                    conn.row_factory = sqlite3.Row
                     with conn:    
                         cur = conn.cursor()
                         cur.execute(query)
@@ -71,30 +74,38 @@ class UsersChromeWebData(Plugin):
                         of.write("="*10 + " Autofill " + "="*10 + "\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                if row[0] is None:
-                                    of.write("Name          :\r\n")
-                                else:
-                                    of.write("Name          : {0}\r\n".format(row[0]))
-                                if row[1] is None:
-                                    of.write("Value         :\r\n")
-                                else:
-                                    of.write("Value         : {0}\r\n".format(row[1]))
-                                if row[2] is None:
-                                    of.write("Value Lower   :\r\n")
-                                else:
-                                    of.write("Value Lower   : {0}\r\n".format(row[2]))
-                                if row[3] is None:
-                                    of.write("Date Created  :\r\n")
-                                else:
-                                    of.write("Date Created  : {0}\r\n".format(row[3]))
-                                if row[4] is None:
-                                    of.write("Date Last Used:\r\n")
-                                else:
-                                    of.write("Date Last Used: {0}\r\n".format(row[4]))
-                                if row[5] is None:
-                                    of.write("Count         :\r\n")
-                                else:
-                                    of.write("Count         : {0}\r\n".format(row[5]))
+                                date_created = osxripper_time.get_gregorian_micros(row["date_created"])
+                                date_last_used = osxripper_time.get_gregorian_micros(row["date_last_used"])
+                                of.write("Name          : {0}\r\n".format(row["name"]))
+                                of.write("Value         : {0}\r\n".format(row["value"]))
+                                of.write("Value Lower   : {0}\r\n".format(row["value_lower"]))
+                                of.write("Date Created  : {0}\r\n".format(date_created))
+                                of.write("Date Last Used: {0}\r\n".format(date_last_used))
+                                of.write("Count         : {0}\r\n".format(row["count"]))
+                                # if row[0] is None:
+                                #     of.write("Name          :\r\n")
+                                # else:
+                                #     of.write("Name          : {0}\r\n".format(row[0]))
+                                # if row[1] is None:
+                                #     of.write("Value         :\r\n")
+                                # else:
+                                #     of.write("Value         : {0}\r\n".format(row[1]))
+                                # if row[2] is None:
+                                #     of.write("Value Lower   :\r\n")
+                                # else:
+                                #     of.write("Value Lower   : {0}\r\n".format(row[2]))
+                                # if row[3] is None:
+                                #     of.write("Date Created  :\r\n")
+                                # else:
+                                #     of.write("Date Created  : {0}\r\n".format(row[3]))
+                                # if row[4] is None:
+                                #     of.write("Date Last Used:\r\n")
+                                # else:
+                                #     of.write("Date Last Used: {0}\r\n".format(row[4]))
+                                # if row[5] is None:
+                                #     of.write("Count         :\r\n")
+                                # else:
+                                #     of.write("Count         : {0}\r\n".format(row[5]))
                         else:
                             of.write("No data found in Autofill table.\r\n")
                         of.write("\r\n")
@@ -123,26 +134,31 @@ class UsersChromeWebData(Plugin):
                         of.write("="*10 + " Autofill Profile Names " + "="*10 + "\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                if row[0] is None:
-                                    of.write("GUID       :\r\n")
-                                else:
-                                    of.write("GUID       : {0}\r\n".format(row[0]))
-                                if row[1] is None:
-                                    of.write("First Name :\r\n")
-                                else:
-                                    of.write("First Name : {0}\r\n".format(row[1]))
-                                if row[2] is None:
-                                    of.write("Middle Name:\r\n")
-                                else:
-                                    of.write("Middle Name: {0}\r\n".format(row[2]))
-                                if row[3] is None:
-                                    of.write("Last Name  :\r\n")
-                                else:
-                                    of.write("Last Name  : {0}\r\n".format(row[3]))
-                                if row[4] is None:
-                                    of.write("Full Name  :\r\n")
-                                else:
-                                    of.write("Full Name  : {0}\r\n".format(row[4]))
+                                of.write("GUID       : {0}\r\n".format(row["guid"]))
+                                of.write("First Name : {0}\r\n".format(row["first_name"]))
+                                of.write("Middle Name: {0}\r\n".format(row["middle_name"]))
+                                of.write("Last Name  : {0}\r\n".format(row["last_name"]))
+                                of.write("Full Name  : {0}\r\n".format(row["full_name"]))
+                                # if row[0] is None:
+                                #     of.write("GUID       :\r\n")
+                                # else:
+                                #     of.write("GUID       : {0}\r\n".format(row[0]))
+                                # if row[1] is None:
+                                #     of.write("First Name :\r\n")
+                                # else:
+                                #     of.write("First Name : {0}\r\n".format(row[1]))
+                                # if row[2] is None:
+                                #     of.write("Middle Name:\r\n")
+                                # else:
+                                #     of.write("Middle Name: {0}\r\n".format(row[2]))
+                                # if row[3] is None:
+                                #     of.write("Last Name  :\r\n")
+                                # else:
+                                #     of.write("Last Name  : {0}\r\n".format(row[3]))
+                                # if row[4] is None:
+                                #     of.write("Full Name  :\r\n")
+                                # else:
+                                #     of.write("Full Name  : {0}\r\n".format(row[4]))
                         else:
                             of.write("No data found in Autofill Profile Names table.\r\n")
                         of.write("\r\n")
@@ -153,75 +169,94 @@ class UsersChromeWebData(Plugin):
                         of.write("="*10 + " Autofill Profile Phones " + "="*10 + "\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                if row[0] is None:
-                                    of.write("GUID        :\r\n")
-                                else:
-                                    of.write("GUID        : {0}\r\n".format(row[0]))
-                                if row[1] is None:
-                                    of.write("Phone Number:\r\n")
-                                else:
-                                    of.write("Phone Number: {0}\r\n".format(row[1]))
+                                of.write("GUID        : {0}\r\n".format(row["guid"]))
+                                of.write("Phone Number: {0}\r\n".format(row["number"]))
+                                # if row[0] is None:
+                                #     of.write("GUID        :\r\n")
+                                # else:
+                                #     of.write("GUID        : {0}\r\n".format(row[0]))
+                                # if row[1] is None:
+                                #     of.write("Phone Number:\r\n")
+                                # else:
+                                #     of.write("Phone Number: {0}\r\n".format(row[1]))
                         else:
                             of.write("No data found in Autofill Profile Phones table.\r\n")
                         of.write("\r\n")
 
+                        # query = "SELECT guid,company_name,street_address,dependent_locality,city,state,zipcode," \
+                        #         "sorting_code,country_code," \
+                        #         "datetime(date_modified / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+                        #         "origin,language_code FROM autofill_profiles"
                         query = "SELECT guid,company_name,street_address,dependent_locality,city,state,zipcode," \
                                 "sorting_code,country_code," \
-                                "datetime(date_modified / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+                                "date_modified," \
                                 "origin,language_code FROM autofill_profiles"
                         cur.execute(query)
                         rows = cur.fetchall()
                         of.write("="*10 + " Autofill Profiles " + "="*10 + "\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                if row[0] is None:
-                                    of.write("GUID              :\r\n")
-                                else:
-                                    of.write("GUID              : {0}\r\n".format(row[0]))
-                                if row[1] is None:
-                                    of.write("Company Name      :\r\n")
-                                else:
-                                    of.write("Company Name      : {0}\r\n".format(row[1]))
-                                if row[2] is None:
-                                    of.write("Street Address    :\r\n")
-                                else:
-                                    of.write("Street Address    : {0}\r\n".format(row[2]))
-                                if row[3] is None:
-                                    of.write("Dependent Locality:\r\n")
-                                else:
-                                    of.write("Dependent Locality: {0}\r\n".format(row[3]))
-                                if row[4] is None:
-                                    of.write("City              :\r\n")
-                                else:
-                                    of.write("City              : {0}\r\n".format(row[4]))
-                                if row[5] is None:
-                                    of.write("State             :\r\n")
-                                else:
-                                    of.write("State             : {0}\r\n".format(row[5]))
-                                if row[6] is None:
-                                    of.write("Zipcode           :\r\n")
-                                else:
-                                    of.write("Zipcode           : {0}\r\n".format(row[6]))
-                                if row[7] is None:
-                                    of.write("Sorting Code      :\r\n")
-                                else:
-                                    of.write("Sorting Code      : {0}\r\n".format(row[7]))
-                                if row[8] is None:
-                                    of.write("Country Code      :\r\n")
-                                else:
-                                    of.write("Country Code      : {0}\r\n".format(row[8]))
-                                if row[9] is None:
-                                    of.write("Date Modified     :\r\n")
-                                else:
-                                    of.write("Date Modified     : {0}\r\n".format(row[9]))
-                                if row[10] is None:
-                                    of.write("Origin            :\r\n")
-                                else:
-                                    of.write("Origin            : {0}\r\n".format(row[10]))
-                                if row[11] is None:
-                                    of.write("Language Code     :\r\n")
-                                else:
-                                    of.write("Language Code     : {0}\r\n".format(row[11]))
+                                date_modified = osxripper_time.get_gregorian_micros(row["date_modified"])
+                                of.write("GUID              : {0}\r\n".format(row["guid"]))
+                                of.write("Company Name      : {0}\r\n".format(row["company_name"]))
+                                of.write("Street Address    : {0}\r\n".format(row["street_address"]))
+                                of.write("Dependent Locality: {0}\r\n".format(row["dependent_locality"]))
+                                of.write("City              : {0}\r\n".format(row["city"]))
+                                of.write("State             : {0}\r\n".format(row["state"]))
+                                of.write("Zipcode           : {0}\r\n".format(row["zipcode"]))
+                                of.write("Sorting Code      : {0}\r\n".format(row["sorting_code"]))
+                                of.write("Country Code      : {0}\r\n".format(row["country_code"]))
+                                of.write("Date Modified     : {0}\r\n".format(date_modified))
+                                of.write("Origin            : {0}\r\n".format(row["origin"]))
+                                of.write("Language Code     : {0}\r\n".format(row["language_code"]))
+                                # if row[0] is None:
+                                #     of.write("GUID              :\r\n")
+                                # else:
+                                #     of.write("GUID              : {0}\r\n".format(row[0]))
+                                # if row[1] is None:
+                                #     of.write("Company Name      :\r\n")
+                                # else:
+                                #     of.write("Company Name      : {0}\r\n".format(row[1]))
+                                # if row[2] is None:
+                                #     of.write("Street Address    :\r\n")
+                                # else:
+                                #     of.write("Street Address    : {0}\r\n".format(row[2]))
+                                # if row[3] is None:
+                                #     of.write("Dependent Locality:\r\n")
+                                # else:
+                                #     of.write("Dependent Locality: {0}\r\n".format(row[3]))
+                                # if row[4] is None:
+                                #     of.write("City              :\r\n")
+                                # else:
+                                #     of.write("City              : {0}\r\n".format(row[4]))
+                                # if row[5] is None:
+                                #     of.write("State             :\r\n")
+                                # else:
+                                #     of.write("State             : {0}\r\n".format(row[5]))
+                                # if row[6] is None:
+                                #     of.write("Zipcode           :\r\n")
+                                # else:
+                                #     of.write("Zipcode           : {0}\r\n".format(row[6]))
+                                # if row[7] is None:
+                                #     of.write("Sorting Code      :\r\n")
+                                # else:
+                                #     of.write("Sorting Code      : {0}\r\n".format(row[7]))
+                                # if row[8] is None:
+                                #     of.write("Country Code      :\r\n")
+                                # else:
+                                #     of.write("Country Code      : {0}\r\n".format(row[8]))
+                                # if row[9] is None:
+                                #     of.write("Date Modified     :\r\n")
+                                # else:
+                                #     of.write("Date Modified     : {0}\r\n".format(row[9]))
+                                # if row[10] is None:
+                                #     of.write("Origin            :\r\n")
+                                # else:
+                                #     of.write("Origin            : {0}\r\n".format(row[10]))
+                                # if row[11] is None:
+                                #     of.write("Language Code     :\r\n")
+                                # else:
+                                #     of.write("Language Code     : {0}\r\n".format(row[11]))
                         else:
                             of.write("No data found in Autofill Profiles table.\r\n")
                         of.write("\r\n")
@@ -240,15 +275,18 @@ class UsersChromeWebData(Plugin):
                             of.write("No data found in Autofill Profile Trash table.\r\n")
                         of.write("\r\n")
 
-                        query = "SELECT guid, name_on_card, expiration_month, expiration_year," \
-                                "datetime(date_modified / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
-                                "origin FROM credit_cards"
+                        # query = "SELECT guid, name_on_card, expiration_month, expiration_year," \
+                        #         "datetime(date_modified / 1000000 + (strftime('%s', '1601-01-01')), 'unixepoch')," \
+                        #         "origin FROM credit_cards"
+                        query = "SELECT guid, name_on_card, expiration_month, expiration_year,date_modified,origin " \
+                                "FROM credit_cards"
                         cur.execute(query)
                         rows = cur.fetchall()
                         of.write("="*10 + " Credit Cards " + "="*10 + "\r\n")
                         of.write("N.B. Card Number is encrypted. Ommitted by plugin.\r\n\r\n")
                         if len(rows) != 0:
                             for row in rows:
+                                date_modified = osxripper_time.get_gregorian_micros(row["date_modified"])
                                 if row[0] is None:
                                     of.write("GUID            :\r\n")
                                 else:
