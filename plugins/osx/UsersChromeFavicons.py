@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -55,30 +56,23 @@ class UsersChromeFavicons(Plugin):
                          "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, self._data_file)
-            query = "SELECT im.page_url,fi.url,datetime((fb.last_updated / 1000000)-11644473600, 'unixepoch') FROM " \
+            query = "SELECT im.page_url,fi.url,fb.last_updated FROM " \
                     "favicon_bitmaps fb,favicons fi,icon_mapping im WHERE fb.icon_id = fi.id AND im.icon_id = fi.id"
             if os.path.isfile(history_db):
                 of.write("Source File: {0}\r\n\r\n".format(history_db))
                 conn = None
                 try:
                     conn = sqlite3.connect(history_db)
+                    conn.row_factory = sqlite3.Row
                     with conn:    
                         cur = conn.cursor()
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            if row[0] is None:
-                                of.write("Page URL    :\r\n")
-                            else:
-                                of.write("Page URL    : {0}\r\n".format(row[0]))
-                            if row[1] is None:
-                                of.write("Icon URL    :\r\n")
-                            else:
-                                of.write("Icon URL    : {0}\r\n".format(row[1]))
-                            if row[2] is None:
-                                of.write("Last Updated:\r\n")
-                            else:
-                                of.write("Last Updated: {0}\r\n".format(row[2]))
+                            last_updated = osxripper_time.get_gregorian_micros(row["last_updated"])
+                            of.write("Page URL    : {0}\r\n".format(row["page_url"]))
+                            of.write("Icon URL    : {0}\r\n".format(row["url"]))
+                            of.write("Last Updated: {0}\r\n".format(last_updated))
                             of.write("\r\n")
                 except sqlite3.Error as e:
                     logging.error("{0}".format(e.args[0]))
