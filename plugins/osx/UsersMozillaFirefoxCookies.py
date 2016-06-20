@@ -69,11 +69,7 @@ class UsersMozillaFirefoxCookies(Plugin):
                             "lastAccessed," \
                             "expiry," \
                             "isSecure,isHttpOnly FROM moz_cookies ORDER BY creationTime"
-                    # query = "SELECT baseDomain,name,value,host,path," \
-                    #         "datetime(creationTime/1000000, 'unixepoch')," \
-                    #         "datetime(lastAccessed/1000000, 'unixepoch')," \
-                    #         "datetime(expiry/1000000, 'unixepoch')," \
-                    #         "isSecure,isHttpOnly FROM moz_cookies ORDER BY creationTime"
+
                     conn = sqlite3.connect(file)
                     conn.row_factory = sqlite3.Row
                     with conn:
@@ -94,48 +90,6 @@ class UsersMozillaFirefoxCookies(Plugin):
                             of.write("Expiry       : {0}\r\n".format(expiry))
                             of.write("Is Secure    : {0}\r\n".format(row["isSecure"]))
                             of.write("Is HTTP Only : {0}\r\n".format(row["isHttpOnly"]))
-
-                            # if row[0] is None:
-                            #     of.write("Base Domain  :\r\n")
-                            # else:
-                            #     of.write("Base Domain  : {0}\r\n".format(row[0]))
-                            # if row[1] is None:
-                            #     of.write("Name         :\r\n")
-                            # else:
-                            #     of.write("Name         : {0}\r\n".format(row[1]))
-                            # if row[2] is None:
-                            #     of.write("Value        :\r\n")
-                            # else:
-                            #     of.write("Value        : {0}\r\n".format(row[2]))
-                            # if row[3] is None:
-                            #     of.write("Host         :\r\n")
-                            # else:
-                            #     of.write("Host         : {0}\r\n".format(row[3]))
-                            # if row[4] is None:
-                            #     of.write("Path         :\r\n")
-                            # else:
-                            #     of.write("Path         : {0}\r\n".format(row[4]))
-                            # if row[5] is None:
-                            #     of.write("Creation Time:\r\n")
-                            # else:
-                            #     of.write("Creation Time: {0}\r\n".format(row[5]))
-                            # if row[6] is None:
-                            #     of.write("Last Accessed:\r\n")
-                            # else:
-                            #     of.write("Last Accessed: {0}\r\n".format(row[6]))
-                            # if row[7] is None:
-                            #     of.write("Expiry       :\r\n")
-                            # else:
-                            #     of.write("Expiry       : {0}\r\n".format(row[7]))
-                            # if row[8] is None:
-                            #     of.write("Is Secure    :\r\n")
-                            # else:
-                            #     of.write("Is Secure    : {0}\r\n".format(row[8]))
-                            # if row[9] is None:
-                            #     of.write("Is HTTP Only :\r\n")
-                            # else:
-                            #     of.write("Is HTTP Only : {0}\r\n".format(row[9]))
-
                             of.write("\r\n")
 
                 except sqlite3.Error as e:

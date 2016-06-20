@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -63,34 +64,48 @@ class UsersMozillaFirefoxFormHistory(Plugin):
                 of.write("Source File: {0}\r\n\r\n".format(file))
                 conn = None
                 try:
-                    query = "SELECT fieldname,value,timesUsed,datetime(firstUsed / 1000000, 'unixepoch')," \
-                            "datetime(lastUsed / 1000000, 'unixepoch') FROM moz_formhistory ORDER BY firstUsed"
+                    query = "SELECT fieldname,value,timesUsed," \
+                            "firstUsed," \
+                            "lastUsed " \
+                            "FROM moz_formhistory ORDER BY firstUsed"
+                    # query = "SELECT fieldname,value,timesUsed," \
+                    #         "datetime(firstUsed / 1000000, 'unixepoch')," \
+                    #         "datetime(lastUsed / 1000000, 'unixepoch') " \
+                    #         "FROM moz_formhistory ORDER BY firstUsed"
                     conn = sqlite3.connect(file)
+                    conn.row_factory = sqlite3.Row
                     with conn:
                         cur = conn.cursor()
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            if row[0] is None:
-                                of.write("Field Name:\r\n")
-                            else:
-                                of.write("Field Name: {0}\r\n".format(row[0]))
-                            if row[1] is None:
-                                of.write("Value     :\r\n")
-                            else:
-                                of.write("Value     : {0}\r\n".format(row[1]))
-                            if row[2] is None:
-                                of.write("Times Used:\r\n")
-                            else:
-                                of.write("Times Used: {0}\r\n".format(row[2]))
-                            if row[3] is None:
-                                of.write("First Used:\r\n")
-                            else:
-                                of.write("First Used: {0}\r\n".format(row[3]))
-                            if row[4] is None:
-                                of.write("Last Used :\r\n")
-                            else:
-                                of.write("Last Used : {0}\r\n".format(row[4]))
+                            firstUsed = osxripper_time.get_unix_micros(row["firstUsed"])
+                            lastUsed = osxripper_time.get_unix_micros(row["lastUsed"])
+                            of.write("Field Name: {0}\r\n".format(row[0]))
+                            of.write("Value     : {0}\r\n".format(row[1]))
+                            of.write("Times Used: {0}\r\n".format(row[2]))
+                            of.write("First Used: {0}\r\n".format(row[3]))
+                            of.write("Last Used : {0}\r\n".format(row[4]))
+                            # if row[0] is None:
+                            #     of.write("Field Name:\r\n")
+                            # else:
+                            #     of.write("Field Name: {0}\r\n".format(row[0]))
+                            # if row[1] is None:
+                            #     of.write("Value     :\r\n")
+                            # else:
+                            #     of.write("Value     : {0}\r\n".format(row[1]))
+                            # if row[2] is None:
+                            #     of.write("Times Used:\r\n")
+                            # else:
+                            #     of.write("Times Used: {0}\r\n".format(row[2]))
+                            # if row[3] is None:
+                            #     of.write("First Used:\r\n")
+                            # else:
+                            #     of.write("First Used: {0}\r\n".format(row[3]))
+                            # if row[4] is None:
+                            #     of.write("Last Used :\r\n")
+                            # else:
+                            #     of.write("Last Used : {0}\r\n".format(row[4]))
 
                             of.write("\r\n")
 
