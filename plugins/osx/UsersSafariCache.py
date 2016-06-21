@@ -52,29 +52,21 @@ class UsersSafariCache(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion"]:
-                query = "SELECT request_key, time_stamp FROM cfurl_cache_response"
+                query = "SELECT request_key, partition, time_stamp FROM cfurl_cache_response"
                 if os.path.isfile(file):
                     of.write("Source File: {0}\r\n\r\n".format(file))
                     conn = None
                     try:
                         conn = sqlite3.connect(file)
+                        conn.row_factory = sqlite3.Row
                         with conn:    
                             cur = conn.cursor()
                             cur.execute(query)
                             rows = cur.fetchall()
                             for row in rows:
-                                if row[0] is None:
-                                    of.write("Request Key:\r\n")
-                                else:
-                                    of.write("Request Key: {0}\r\n".format(row[0]))
-                                # if row[1] is None:
-                                #     of.write("Partition  :\r\n")
-                                # else:
-                                #     of.write("Partition  : {0}\r\n".format(row[1]))
-                                if row[1] is None:
-                                    of.write("Timestamp  :\r\n")
-                                else:
-                                    of.write("Timestamp  : {0}\r\n".format(row[1]))
+                                of.write("Request Key: {0}\r\n".format(row["request_key"]))
+                                of.write("Partition  : {0}\r\n".format(row["partition"]))
+                                of.write("Timestamp  : {0}\r\n".format(row["time_stamp"]))
                                 of.write("\r\n")
                             
                     except sqlite3.Error as e:
@@ -95,19 +87,14 @@ class UsersSafariCache(Plugin):
                     conn = None
                     try:
                         conn = sqlite3.connect(file)
+                        conn.row_factory = sqlite3.Row
                         with conn:
                             cur = conn.cursor()
                             cur.execute(query)
                             rows = cur.fetchall()
                             for row in rows:
-                                if row[0] is None:
-                                    of.write("Request Key:\r\n")
-                                else:
-                                    of.write("Request Key: {0}\r\n".format(row[0]))
-                                if row[1] is None:
-                                    of.write("Timestamp  :\r\n")
-                                else:
-                                    of.write("Timestamp  : {0}\r\n".format(row[1]))
+                                of.write("Request Key: {0}\r\n".format(row["request_key"]))
+                                of.write("Timestamp  : {0}\r\n".format(row["time_stamp"]))
                                 of.write("\r\n")
 
                     except sqlite3.Error as e:
