@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -38,11 +39,11 @@ class UsersCommercePlist(Plugin):
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist))
-                        print("[WARNING] {} does not exist.".format(plist))
+                        logging.warning("{0} does not exist.".format(plist))
+                        print("[WARNING] {0} does not exist.".format(plist))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_bplist(self, file, username):
         """
@@ -50,44 +51,44 @@ class UsersCommercePlist(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite"]:
                 bplist = open(file, "rb")
                 plist = ccl_bplist.load(bplist)
                 try:
                     if "AllowLegacyConversion" in plist:
-                        of.write("Allow Legacy Conversion     : {}\r\n".format(plist["AllowLegacyConversion"]))
+                        of.write("Allow Legacy Conversion     : {0}\r\n".format(plist["AllowLegacyConversion"]))
                     if "LastAutoUpdateInvocation" in plist:
-                        of.write("Last Auto Update Invocation : {}\r\n".format(plist["LastAutoUpdateInvocation"]))
+                        of.write("Last Auto Update Invocation : {0}\r\n".format(plist["LastAutoUpdateInvocation"]))
                     accounts = plist["KnownAccounts"]
                     of.write("Accounts:\r\n\r\n")
                     for account in accounts:
                         of.write("\tAccount:\r\n")
                         if "identifier" in account:
-                            of.write("\t\tIdentifier: {}\r\n".format(account["identifier"]))
+                            of.write("\t\tIdentifier: {0}\r\n".format(account["identifier"]))
                         if "dsid" in account:
-                            of.write("\t\tDSID: {}\r\n".format(account["dsid"]))
+                            of.write("\t\tDSID: {0}\r\n".format(account["dsid"]))
                         if "signedin" in account:
-                            of.write("\t\tSigned In: {}\r\n".format(account["signedin"]))
+                            of.write("\t\tSigned In: {0}\r\n".format(account["signedin"]))
                         if "credit" in account:
                             if len(account["credit"]) == 0:
                                 of.write("\t\tCredit: No credit.\r\n")
                             else:
-                                of.write("\t\tCredit: {}\r\n".format(account["credit"]))
+                                of.write("\t\tCredit: {0}\r\n".format(account["credit"]))
                         if "kind" in account:
-                            of.write("\t\tAcct. Kind: {}\r\n".format(account["kind"]))
+                            of.write("\t\tAcct. Kind: {0}\r\n".format(account["kind"]))
                         if "storefront" in account:
-                            of.write("\t\tStorefront: {}\r\n".format(account["storefront"]))
+                            of.write("\t\tStorefront: {0}\r\n".format(account["storefront"]))
                         if "bagtype" in account:
-                            of.write("\t\tBag Type: {}\r\n".format(account["bagtype"]))
+                            of.write("\t\tBag Type: {0}\r\n".format(account["bagtype"]))
                         of.write("\r\n")
                         
                     if "PurchasesInflight" in plist:
-                        of.write("Purchases Inflight          : {}\r\n".format(plist["PurchasesInflight"]))
+                        of.write("Purchases Inflight          : {0}\r\n".format(plist["PurchasesInflight"]))
                     if "PrimaryAccountMigrated" in plist:
-                        of.write("Primary Account Migrated    : {}\r\n".format(plist["PrimaryAccountMigrated"]))
+                        of.write("Primary Account Migrated    : {0}\r\n".format(plist["PrimaryAccountMigrated"]))
                     if "NextClientIDPingDate" in plist:
-                        of.write("Next Client ID Ping Date    : {}\r\n".format(plist["NextClientIDPingDate"]))
+                        of.write("Next Client ID Ping Date    : {0}\r\n".format(plist["NextClientIDPingDate"]))
                 except KeyError:
                     pass
                 bplist.close()

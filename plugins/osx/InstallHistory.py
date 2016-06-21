@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import plistlib
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -31,7 +32,7 @@ class InstallHistory(Plugin):
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             plist_file = os.path.join(self._input_dir, "Library", "Receipts", self._data_file)
-            of.write("Source File: {}\r\n\r\n".format(plist_file))
+            of.write("Source File: {0}\r\n\r\n".format(plist_file))
             if self._os_version == "el_capitan":
                 if os.path.isfile(plist_file):
                     try:
@@ -39,24 +40,24 @@ class InstallHistory(Plugin):
                             plist = plistlib.load(pl)
                         for item in plist:
                             if "displayName" in item:
-                                of.write("Display Name       : {}\r\n".format(item["displayName"]))
+                                of.write("Display Name       : {0}\r\n".format(item["displayName"]))
                             if "displayVersion" in item:
-                                of.write("Display Version    : {}\r\n".format(item["displayVersion"]))
+                                of.write("Display Version    : {0}\r\n".format(item["displayVersion"]))
                             if "date" in item:
-                                of.write("Date               : {}\r\n".format(item["date"]))
+                                of.write("Date               : {0}\r\n".format(item["date"]))
                             if "processName" in item:
-                                of.write("Process Name       : {}\r\n".format(item["processName"]))
+                                of.write("Process Name       : {0}\r\n".format(item["processName"]))
                             if "packageIdentifiers" in item:
                                 of.write("Package Identifiers:\r\n")
                                 for packageItem in item["packageIdentifiers"]:
-                                    of.write("\t{}\r\n".format(packageItem))
+                                    of.write("\t{0}\r\n".format(packageItem))
                             of.write("\r\n")
                     except KeyError:
                         pass
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(plist_file))
             elif self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(plist_file):
                     try:
@@ -64,26 +65,26 @@ class InstallHistory(Plugin):
                             plist = plistlib.load(pl)
                         for item in plist:
                             if "contentType" in item:
-                                of.write("Content Type       : {}\r\n".format(item["contentType"]))
+                                of.write("Content Type       : {0}\r\n".format(item["contentType"]))
                             if "displayName" in item:
-                                of.write("Display Name       : {}\r\n".format(item["displayName"]))
+                                of.write("Display Name       : {0}\r\n".format(item["displayName"]))
                             if "displayVersion" in item:
-                                of.write("Display Version    : {}\r\n".format(item["displayVersion"]))
+                                of.write("Display Version    : {0}\r\n".format(item["displayVersion"]))
                             if "date" in item:
-                                of.write("Date               : {}\r\n".format(item["date"]))
+                                of.write("Date               : {0}\r\n".format(item["date"]))
                             if "processName" in item:
-                                of.write("Process Name       : {}\r\n".format(item["processName"]))
-                            if "packageIdentifiers" in item:  # Array
+                                of.write("Process Name       : {0}\r\n".format(item["processName"]))
+                            if "packageIdentifiers" in item:
                                 of.write("Package Identifiers:\r\n")
                                 for packageItem in item["packageIdentifiers"]:
-                                    of.write("\t{}\r\n".format(packageItem))
+                                    of.write("\t{0}\r\n".format(packageItem))
                             of.write("\r\n")
                     except KeyError:
                         pass
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(plist_file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

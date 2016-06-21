@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -37,34 +38,36 @@ class UsersMozillaFirefoxPlist(Plugin):
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist))
-                        print("[WARNING] {} does not exist.".format(plist))
+                        logging.warning("{0} does not exist.".format(plist))
+                        print("[WARNING] {0} does not exist.".format(plist))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_bplist(self, file, username):
         """
         Parse /Users/username/Library/Preferences/org.mozilla.firefox.plist
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Firefox.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if os.path.isfile(file):
                 bplist = open(file, "rb")
                 plist = ccl_bplist.load(bplist)
                 try:
                     if "NSTreatUnknownArgumentsAsOpen" in plist:
-                        of.write("Treat Unknown Arguments As Open: {}\r\n\r\n".format(plist["NSTreatUnknownArgumentsAsOpen"]))
+                        of.write("Treat Unknown Arguments As Open: {0}\r\n\r\n"
+                                 .format(plist["NSTreatUnknownArgumentsAsOpen"]))
                     if "NSNavLastRootDirectory" in plist:
-                        of.write("Nav Last Root Directory        : {}\r\n\r\n".format(plist["NSNavLastRootDirectory"]))
+                        of.write("Nav Last Root Directory        : {0}\r\n\r\n".format(plist["NSNavLastRootDirectory"]))
                     of.write("\r\n")
                 except KeyError:
                     pass
                 bplist.close()
             else:
-                logging.warning("File: {} does not exist or cannot be found.".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             of.write("="*40 + "\r\n\r\n")
         of.close()

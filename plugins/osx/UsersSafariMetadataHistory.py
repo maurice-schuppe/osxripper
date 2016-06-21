@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -10,7 +11,8 @@ __license__ = 'GPLv3'
 
 class UsersSafariMetadataHistory(Plugin):
     """
-    Parse information from /Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist and list the *.webhistory files
+    Parse information from
+    /Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist and list the *.webhistory files
     """
 
     def __init__(self):
@@ -19,7 +21,9 @@ class UsersSafariMetadataHistory(Plugin):
         """
         super().__init__()
         self._name = "User Safari Web Bookmarks"
-        self._description = "Parse information from /Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist and list the *.webhistory files"
+        self._description = "Parse information from " \
+                            "/Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist " \
+                            "and list the *.webhistory files"
         self._data_file = ""  # None as scanning through multiple files
         self._output_file = ""  # this will have to be defined per user account
         self._type = "multi"
@@ -37,19 +41,21 @@ class UsersSafariMetadataHistory(Plugin):
                     if os.path.isdir(plist_dir):
                         self.__parse_bplist(plist_dir, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist_dir))
-                        print("[WARNING] {} does not exist.".format(plist_dir))
+                        logging.warning("{0} does not exist.".format(plist_dir))
+                        print("[WARNING] {0} does not exist.".format(plist_dir))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_bplist(self, file, username):
         """
-        Parse /Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist and list the *.webhistory files
+        Parse /Users/username/Library/Caches/Metadata/Safari/History/.tracked filenames.plist
+        and list the *.webhistory files
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Metadata_History.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Metadata_History.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source Directory: {}\r\n\r\n".format(file))
+            of.write("Source Directory: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion"]:
                 plist_dir_list = os.listdir(file)
                 if ".tracked filenames.plist" in plist_dir_list:
@@ -58,8 +64,8 @@ class UsersSafariMetadataHistory(Plugin):
                     bplist.close()
                     try:
                         for key in plist:
-                            of.write("Tracked URL    : {}\r\n".format(key))
-                            of.write("Web Hitory File: {}\r\n".format(plist[key]))
+                            of.write("Tracked URL    : {0}\r\n".format(key))
+                            of.write("Web Hitory File: {0}\r\n".format(plist[key]))
                     except KeyError:
                         pass
                     of.write("\r\n")
@@ -71,14 +77,14 @@ class UsersSafariMetadataHistory(Plugin):
                 of.write("Web History Files:\r\n\r\n")
                 for wh_file in plist_dir_list:
                     if wh_file.endswith(".webhistory"):
-                        of.write("{}\r\n".format(wh_file))
+                        of.write("{0}\r\n".format(wh_file))
             
             elif self._os_version in ["lion", "snow_leopard"]:
                 plist_dir_list = os.listdir(file)
                 of.write("Web History Files:\r\n\r\n")
                 for wh_file in plist_dir_list:
                     if wh_file.endswith(".webhistory"):
-                        of.write("{}\r\n".format(wh_file))
+                        of.write("{0}\r\n".format(wh_file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

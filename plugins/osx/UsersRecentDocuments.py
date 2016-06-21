@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -36,25 +37,25 @@ class UsersRecentDocuments(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    plist = os.path.join(users_path, username, "Library", "Application Support"
-                                         , "com.apple.sharedfilelist",  self._data_file)
+                    plist = os.path.join(users_path, username, "Library", "Application Support",
+                                         "com.apple.sharedfilelist",  self._data_file)
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist))
-                        print("[WARNING] {} does not exist.".format(plist))
+                        logging.warning("{0} does not exist.".format(plist))
+                        print("[WARNING] {0} does not exist.".format(plist))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_bplist(self, file, username):
         """
         Parse com.apple.LSSharedFileList.RecentDocuments.sfl
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + self._output_file)
-                , "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + self._output_file),
+                         "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version == "el_capitan":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
@@ -64,7 +65,7 @@ class UsersRecentDocuments(Plugin):
                             for item in plist["$objects"]:
                                 if type(item) == str:
                                     if "file://" in item:
-                                        of.write("\t{}\r\n".format(item))
+                                        of.write("\t{0}\r\n".format(item))
                         of.write("\r\n")
                     except KeyError:
                         pass
@@ -75,9 +76,9 @@ class UsersRecentDocuments(Plugin):
                     of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
 
             elif self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
-                logging.warning("File: {} does not exist or cannot be found.".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

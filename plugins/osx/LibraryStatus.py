@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import plistlib
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -31,20 +32,20 @@ class LibraryStatus(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if self._os_version in ["el_capitan", "yosemite"]:
                 plist_file = os.path.join(self._input_dir, ".DocumentRevisions-V100", self._data_file)
-                of.write("Source File: {}\r\n\r\n".format(plist_file))
+                of.write("Source File: {0}\r\n\r\n".format(plist_file))
                 if os.path.isfile(plist_file):
                     with open(plist_file, "rb") as pl:
                         plist = plistlib.load(pl)
                     try:
                         if "databaseStateIsTrustable" in plist:
-                            of.write("Database State Is Trustable: {}\r\n".format(plist["databaseStateIsTrustable"]))
+                            of.write("Database State Is Trustable: {0}\r\n".format(plist["databaseStateIsTrustable"]))
                             
                     except KeyError:
                         pass
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(plist_file))
             elif self._os_version in ["mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")

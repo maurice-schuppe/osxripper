@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+
 __author__ = 'osxripper - mykulh'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -43,10 +44,10 @@ class UsersBashHistory(Plugin):
                     if os.path.isfile(history):
                         self.__parse_history(history, username)
                     else:
-                        logging.warning("{} does not exist.".format(history))
-                        print("[WARNING] {} does not exist.".format(history))
+                        logging.warning("{0} does not exist.".format(history))
+                        print("[WARNING] {0} does not exist.".format(history))
         else:
-            print("[WARNING] {} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
 
     def __parse_bash_sessions(self, username, sessions_dir):
         """
@@ -76,15 +77,15 @@ class UsersBashHistory(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("=" * 10 + " " + self._name + " " + "=" * 10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if os.path.isfile(file):
                 history_file = codecs.open(file, "r", encoding="utf-8")
                 for lines in history_file:
                     of.write(lines.replace("\n", "\r\n"))
                 history_file.close()
             else:
-                logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
             of.write("=" * 40 + "\r\n\r\n")
         of.close()

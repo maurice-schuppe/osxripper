@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -44,22 +45,23 @@ class UsersRecentItemsPlist(Plugin):
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist))
-                        print("[WARNING] {} does not exist.".format(plist))
+                        logging.warning("{0} does not exist.".format(plist))
+                        print("[WARNING] {0} does not exist.".format(plist))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_bplist(self, file, username):
         """
         Parse /Users/username/Library/Preferences/com.apple.recentitems.plist or in El Capitan
-        /Users/<username>/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.RecentHosts.sfl
+        /Users/<username>/Library/Application Support/
+        com.apple.sharedfilelist/com.apple.LSSharedFileList.RecentHosts.sfl
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if self._os_version == "el_capitan":
                 if os.path.isfile(file):
-                    of.write("Source File: {}\r\n\r\n".format(file))
+                    of.write("Source File: {0}\r\n\r\n".format(file))
                     bplist = open(file, "rb")
                     pl = ccl_bplist.load(bplist)
                     try:
@@ -67,22 +69,22 @@ class UsersRecentItemsPlist(Plugin):
                             for objects in pl["$objects"]:
                                 if isinstance(objects, str):
                                     if "smb://" in objects:
-                                        of.write("Name     : {}\r\n".format(objects))
+                                        of.write("Name     : {0}\r\n".format(objects))
                     except KeyError:
                         pass
                     bplist.close()
                 pass
             elif self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(file):
-                    of.write("Source File: {}\r\n\r\n".format(file))
+                    of.write("Source File: {0}\r\n\r\n".format(file))
                     bplist = open(file, "rb")
                     pl = ccl_bplist.load(bplist)
                     try:
                         if "Hosts" in pl:
                             custom_list_items = pl["Hosts"]["CustomListItems"]
                             for custom_list_item in custom_list_items:
-                                of.write("Name     : {}\r\n".format(custom_list_item["Name"]))
-                                of.write("URL      : {}\r\n".format(custom_list_item["URL"]))
+                                of.write("Name     : {0}\r\n".format(custom_list_item["Name"]))
+                                of.write("URL      : {0}\r\n".format(custom_list_item["URL"]))
                                 of.write("\r\n")
                         if "RecentDocuments" in pl:
                             pass
@@ -92,9 +94,9 @@ class UsersRecentItemsPlist(Plugin):
                         pass
                     bplist.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

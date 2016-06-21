@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import logging
 import os
 import plistlib
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -32,9 +33,9 @@ class OSXVersion(Plugin):
                 with open(plist, "rb") as pl:
                     plist_loaded = plistlib.load(pl)
                 if "ProductVersion" in plist_loaded:
-                    return "{}".format(plist_loaded["ProductVersion"])
+                    return "{0}".format(plist_loaded["ProductVersion"])
             except KeyError:
                 pass
         else:
-            logging.warning("{} does not exist".format(self._data_file))
-            return "[WARNING] {} does not exist".format(self._data_file)
+            logging.warning("{0} does not exist".format(self._data_file))
+            return "[WARNING] {0} does not exist".format(self._data_file)

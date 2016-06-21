@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -39,14 +40,14 @@ class Autoruns(Plugin):
                 for doi in collected_directories:
                     if os.path.isdir(doi):
                         of.write("="*10 + " Autoruns: " + doi.replace(self._input_dir, "") + "="*10 + "\r\n")
-                        of.write("Source Directory: {}\r\n\r\n".format(doi))
+                        of.write("Source Directory: {0}\r\n\r\n".format(doi))
                         file_listing = os.listdir(doi)
                         for f in file_listing:
-                            of.write("\t{}\r\n".format(f))
+                            of.write("\t{0}\r\n".format(f))
                     else:
-                        logging.warning("Directory {} does not exist.".format(doi))
-                        of.write("[WARNING] Directory {} does not exist or cannot be found.\r\n".format(doi))
-                        print("[WARNING] Directory {} does not exist.".format(doi))
+                        logging.warning("Directory {0} does not exist.".format(doi))
+                        of.write("[WARNING] Directory {0} does not exist or cannot be found.\r\n".format(doi))
+                        print("[WARNING] Directory {0} does not exist.".format(doi))
             else:
                 logging.warning("[WARNING] Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

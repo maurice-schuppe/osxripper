@@ -2,7 +2,9 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -33,177 +35,102 @@ class CacheEncryptedDatabase(Plugin):
 
             start_folder = os.path.join(self._input_dir, "private", "var", "folders")
             file_list = []
+            for root, subdirs, files in os.walk(start_folder):
+                if self._data_file in files:
+                    file_list.append(os.path.join(root, self._data_file))
+
+            if len(file_list) == 0:
+                logging.warning("File: {0} does not exist or cannot be found.\r\n".format(self._data_file))
+                of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(self._data_file))
+                print("[WARNING] File: {0} does not exist or cannot be found.".format(self._data_file))
+                return
 
             if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
-                for root, subdirs, files in os.walk(start_folder):
-                    if self._data_file in files:
-                        file_list.append(os.path.join(root, self._data_file))
-                if len(file_list) > 0:
-                    for database_file in file_list:
-                        if os.path.isfile(database_file):
-                            of.write("Source Database: {}\r\n\r\n".format(database_file))
-                            conn = None
-                            try:
-                                conn = sqlite3.connect(database_file)
-                                query = "SELECT mac,channel,datetime(timestamp + 978307200, 'unixepoch'),latitude," \
-                                        "longitude,horizontalaccuracy,altitude,verticalaccuracy,speed,course," \
-                                        "confidence,score,reach FROM wifilocation ORDER BY timestamp, mac"
-                                with conn:
-                                    cur = conn.cursor()
-                                    cur.execute(query)
-                                    rows = cur.fetchall()
-                                    if len(rows) > 0:
-                                        for row in rows:
-                                            if row[0] is None:
-                                                of.write("MAC Address        :\r\n")
-                                            else:
-                                                of.write("MAC Address        : {}\r\n".format(row[0]))
-                                            if row[1] is None:
-                                                of.write("Channel            :\r\n")
-                                            else:
-                                                of.write("Channel            : {}\r\n".format(row[1]))
-                                            if row[2] is None:
-                                                of.write("Timestamp          :\r\n")
-                                            else:
-                                                of.write("Timestamp          : {}\r\n".format(row[2]))
-                                            if row[3] is None:
-                                                of.write("Latitude           :\r\n")
-                                            else:
-                                                of.write("Latitude           : {}\r\n".format(row[3]))
-                                            if row[4] is None:
-                                                of.write("Longitude          :\r\n")
-                                            else:
-                                                of.write("Longitude          : {}\r\n".format(row[4]))
-                                            if row[5] is None:
-                                                of.write("Horizontal Accuracy:\r\n")
-                                            else:
-                                                of.write("Horizontal Accuracy: {}\r\n".format(row[5]))
-                                            if row[6] is None:
-                                                of.write("Altitude           :\r\n")
-                                            else:
-                                                of.write("Altitude           : {}\r\n".format(row[6]))
-                                            if row[7] is None:
-                                                of.write("Vertical Accuracy  :\r\n")
-                                            else:
-                                                of.write("Vertical Accuracy  : {}\r\n".format(row[7]))
-                                            if row[8] is None:
-                                                of.write("Speed              :\r\n")
-                                            else:
-                                                of.write("Speed              : {}\r\n".format(row[8]))
-                                            if row[9] is None:
-                                                of.write("Course             :\r\n")
-                                            else:
-                                                of.write("Course             : {}\r\n".format(row[9]))
-                                            if row[10] is None:
-                                                of.write("Confidence         :\r\n")
-                                            else:
-                                                of.write("Confidence         : {}\r\n".format(row[10]))
-                                            if row[11] is None:
-                                                of.write("Score              :\r\n")
-                                            else:
-                                                of.write("Score              : {}\r\n".format(row[11]))
-                                            if row[12] is None:
-                                                of.write("Reach              :\r\n")
-                                            else:
-                                                of.write("Reach              : {}\r\n".format(row[12]))
-                                            of.write("\r\n")
-                                    else:
-                                        of.write("No data in database.\r\n")
-                                of.write("\r\n")
-                            except sqlite3.Error as e:
-                                logging.error("{}".format(e.args[0]))
-                                print("[ERROR] {}".format(e.args[0]))
-                            finally:
-                                if conn:
-                                    conn.close()
-                        of.write("="*50 + "\r\n")
-                else:
-                    logging.warning("File: index.sqlite does not exist or cannot be found.\r\n")
-                    of.write("[WARNING] File: index.sqlite does not exist or cannot be found.\r\n")
-                    print("[WARNING] File: index.sqlite does not exist or cannot be found.")
+                query = "SELECT mac,channel,timestamp,latitude," \
+                        "longitude,horizontalaccuracy,altitude,verticalaccuracy,speed,course," \
+                        "confidence,score,reach FROM wifilocation ORDER BY timestamp, mac"
+                for database_file in file_list:
+                    if os.path.isfile(database_file):
+                        of.write("Source Database: {0}\r\n\r\n".format(database_file))
+                        conn = None
+                        try:
+                            conn = sqlite3.connect(database_file)
+                            conn.row_factory = sqlite3.Row
+                            with conn:
+                                cur = conn.cursor()
+                                cur.execute(query)
+                                rows = cur.fetchall()
+                                if len(rows) > 0:
+                                    for row in rows:
+                                        timestamp = osxripper_time.get_cocoa_seconds(row["timestamp"])
+                                        of.write("MAC Address        : {0}\r\n".format(row["mac"]))
+                                        of.write("Channel            : {0}\r\n".format(row["channel"]))
+                                        of.write("Timestamp          : {0}\r\n".format(timestamp))
+                                        of.write("Latitude           : {0}\r\n".format(row["latitude"]))
+                                        of.write("Longitude          : {0}\r\n".format(row["longitude"]))
+                                        of.write("Horizontal Accuracy: {0}\r\n".format(row["horizontalaccuracy"]))
+                                        of.write("Altitude           : {0}\r\n".format(row["altitude"]))
+                                        of.write("Vertical Accuracy  : {0}\r\n".format(row["verticalaccuracy"]))
+                                        of.write("Speed              : {0}\r\n".format(row["speed"]))
+                                        of.write("Course             : {0}\r\n".format(row["course"]))
+                                        of.write("Confidence         : {0}\r\n".format(row["confidence"]))
+                                        of.write("Score              : {0}\r\n".format(row["score"]))
+                                        of.write("Reach              : {0}\r\n".format(row["reach"]))
+                                        of.write("\r\n")
+                                else:
+                                    of.write("No data in database.\r\n")
+                            of.write("\r\n")
+                        except sqlite3.Error as e:
+                            logging.error("{0}".format(e.args[0]))
+                            print("[ERROR] {0}".format(e.args[0]))
+                        finally:
+                            if conn:
+                                conn.close()
+                    of.write("="*50 + "\r\n")
+
             elif self._os_version == "mountain_lion":
-                for root, subdirs, files in os.walk(start_folder):
-                    if self._data_file in files:
-                        file_list.append(os.path.join(root, self._data_file))
-                if len(file_list) > 0:
-                    for database_file in file_list:
-                        if os.path.isfile(database_file):
-                            of.write("Source Database: {}\r\n\r\n".format(database_file))
-                            conn = None
-                            try:
-                                conn = sqlite3.connect(database_file)
-                                query = "SELECT mac,channel,datetime(timestamp + 978307200, 'unixepoch'),latitude," \
-                                        "longitude,horizontalaccuracy,altitude,verticalaccuracy,speed,course," \
-                                        "confidence,score FROM wifilocation ORDER BY timestamp, mac"
-                                with conn:
-                                    cur = conn.cursor()
-                                    cur.execute(query)
-                                    rows = cur.fetchall()
-                                    if len(rows) > 0:
-                                        for row in rows:
-                                            if row[0] is None:
-                                                of.write("MAC Address        :\r\n")
-                                            else:
-                                                of.write("MAC Address        : {}\r\n".format(row[0]))
-                                            if row[1] is None:
-                                                of.write("Channel            :\r\n")
-                                            else:
-                                                of.write("Channel            : {}\r\n".format(row[1]))
-                                            if row[2] is None:
-                                                of.write("Timestamp          :\r\n")
-                                            else:
-                                                of.write("Timestamp          : {}\r\n".format(row[2]))
-                                            if row[3] is None:
-                                                of.write("Latitude           :\r\n")
-                                            else:
-                                                of.write("Latitude           : {}\r\n".format(row[3]))
-                                            if row[4] is None:
-                                                of.write("Longitude          :\r\n")
-                                            else:
-                                                of.write("Longitude          : {}\r\n".format(row[4]))
-                                            if row[5] is None:
-                                                of.write("Horizontal Accuracy:\r\n")
-                                            else:
-                                                of.write("Horizontal Accuracy: {}\r\n".format(row[5]))
-                                            if row[6] is None:
-                                                of.write("Altitude           :\r\n")
-                                            else:
-                                                of.write("Altitude           : {}\r\n".format(row[6]))
-                                            if row[7] is None:
-                                                of.write("Vertical Accuracy  :\r\n")
-                                            else:
-                                                of.write("Vertical Accuracy  : {}\r\n".format(row[7]))
-                                            if row[8] is None:
-                                                of.write("Speed              :\r\n")
-                                            else:
-                                                of.write("Speed              : {}\r\n".format(row[8]))
-                                            if row[9] is None:
-                                                of.write("Course             :\r\n")
-                                            else:
-                                                of.write("Course             : {}\r\n".format(row[9]))
-                                            if row[10] is None:
-                                                of.write("Confidence         :\r\n")
-                                            else:
-                                                of.write("Confidence         : {}\r\n".format(row[10]))
-                                            if row[11] is None:
-                                                of.write("Score              :\r\n")
-                                            else:
-                                                of.write("Score              : {}\r\n".format(row[11]))
-                                            of.write("\r\n")
-                                    else:
-                                        of.write("No data in database.\r\n")
-                                of.write("\r\n")
-                            except sqlite3.Error as e:
-                                logging.error("{}".format(e.args[0]))
-                                print("[ERROR] {}".format(e.args[0]))
-                            finally:
-                                if conn:
-                                    conn.close()
-                        of.write("="*50 + "\r\n")
-                else:
-                    logging.warning("File: index.sqlite does not exist or cannot be found.\r\n")
-                    of.write("[WARNING] File: index.sqlite does not exist or cannot be found.\r\n")
-                    print("[WARNING] File: index.sqlite does not exist or cannot be found.")
+                query = "SELECT mac,channel,datetime(timestamp + 978307200, 'unixepoch'),latitude," \
+                        "longitude,horizontalaccuracy,altitude,verticalaccuracy,speed,course," \
+                        "confidence,score FROM wifilocation ORDER BY timestamp, mac"
+
+                for database_file in file_list:
+                    if os.path.isfile(database_file):
+                        of.write("Source Database: {0}\r\n\r\n".format(database_file))
+                        conn = None
+                        try:
+                            conn = sqlite3.connect(database_file)
+                            conn.row_factory = sqlite3.Row
+                            with conn:
+                                cur = conn.cursor()
+                                cur.execute(query)
+                                rows = cur.fetchall()
+                                if len(rows) > 0:
+                                    for row in rows:
+                                        timestamp = osxripper_time.get_cocoa_seconds(row["timestamp"])
+                                        of.write("MAC Address        : {0}\r\n".format(row["mac"]))
+                                        of.write("Channel            : {0}\r\n".format(row["channel"]))
+                                        of.write("Timestamp          : {0}\r\n".format(timestamp))
+                                        of.write("Latitude           : {0}\r\n".format(row["latitude"]))
+                                        of.write("Longitude          : {0}\r\n".format(row["longitude"]))
+                                        of.write("Horizontal Accuracy: {0}\r\n".format(row["horizontalaccuracy"]))
+                                        of.write("Altitude           : {0}\r\n".format(row["altitude"]))
+                                        of.write("Vertical Accuracy  : {0}\r\n".format(row["verticalaccuracy"]))
+                                        of.write("Speed              : {0}\r\n".format(row["speed"]))
+                                        of.write("Course             : {0}\r\n".format(row["course"]))
+                                        of.write("Confidence         : {0}\r\n".format(row["confidence"]))
+                                        of.write("Score              : {0}\r\n".format(row["score"]))
+                                        of.write("\r\n")
+                                else:
+                                    of.write("No data in database.\r\n")
+                            of.write("\r\n")
+                        except sqlite3.Error as e:
+                            logging.error("{0}".format(e.args[0]))
+                            print("[ERROR] {0}".format(e.args[0]))
+                        finally:
+                            if conn:
+                                conn.close()
+                    of.write("="*50 + "\r\n")
+
             elif self._os_version in ["lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported this plugin.")
                 print("[INFO] This version of OSX is not supported this plugin.")

@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -27,7 +28,7 @@ class DiagnosticReportingNetworks(Plugin):
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             file = os.path.join(self._input_dir, "Library", "Caches", self._data_file)
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
@@ -35,15 +36,15 @@ class DiagnosticReportingNetworks(Plugin):
                     try:
                         if "ExternalSignatures" in pl:
                             for ext_sig in pl["ExternalSignatures"]:
-                                of.write("Network Data: {}\r\n".format(ext_sig))
-                                of.write("Timestamp: {}\r\n".format(pl["ExternalSignatures"][ext_sig]))
+                                of.write("Network Data: {0}\r\n".format(ext_sig))
+                                of.write("Timestamp: {0}\r\n".format(pl["ExternalSignatures"][ext_sig]))
                     except KeyError:
                         pass
                     bplist.close()
                 else:
-                    logging.warning("[WARNING] File: {} does not exist or cannot be found.")
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                    logging.warning("[WARNING] File: {0} does not exist or cannot be found.")
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             
             elif self._os_version in ["el_capitan", "yosemite"]:
                 logging.info("This version of OSX is not supported this plugin.")

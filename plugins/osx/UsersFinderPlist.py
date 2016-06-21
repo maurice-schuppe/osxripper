@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -38,11 +39,11 @@ class UsersFinderPlist(Plugin):
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist))
-                        print("[WARNING] {} does not exist.".format(plist))
+                        logging.warning("{0} does not exist.".format(plist))
+                        print("[WARNING] {0} does not exist.".format(plist))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
             
     def __parse_bplist(self, file, username):
         """
@@ -50,7 +51,7 @@ class UsersFinderPlist(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
@@ -58,17 +59,17 @@ class UsersFinderPlist(Plugin):
                     try:
                         if "FXDesktopVolumePositions" in pl: 
                             for key in pl["FXDesktopVolumePositions"].keys():
-                                of.write("Volume     : {}\r\n".format(key))
+                                of.write("Volume     : {0}\r\n".format(key))
                         of.write("\r\n")
                         if "FXConnectToLastURL" in pl:
-                            of.write("Connect to Last URL: {}\r\n".format(pl["FXConnectToLastURL"]))
+                            of.write("Connect to Last URL: {0}\r\n".format(pl["FXConnectToLastURL"]))
                     except KeyError:
                         pass
                     bplist.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             
             elif self._os_version in ["lion", "snow_leopard"]:
                 #  This needs double checking, none of the DVD, or DMGs mounted are recorded...
@@ -77,14 +78,14 @@ class UsersFinderPlist(Plugin):
                     pl = ccl_bplist.load(bplist)
                     try:
                         if "FXConnectToLastURL" in pl:
-                            of.write("Connect to Last URL: {}\r\n".format(pl["FXConnectToLastURL"]))
+                            of.write("Connect to Last URL: {0}\r\n".format(pl["FXConnectToLastURL"]))
                     except KeyError:
                         pass
                     bplist.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

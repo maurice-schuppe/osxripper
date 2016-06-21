@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import ccl_bplist
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -37,19 +38,20 @@ class UsersNetAuthAgentPlist(Plugin):
                     if os.path.isfile(plist):
                         self.__parse_bplist(plist, username)
                     else:
-                        logging.warning("{} does not exist.".format(plist))
-                        print("[WARNING] {} does not exist.".format(plist))
+                        logging.warning("{0} does not exist.".format(plist))
+                        print("[WARNING] {0} does not exist.".format(plist))
         else:
-            logging.warning("{} does not exist.".format(users_path))
-            print("[WARNING] {} does not exist.".format(users_path))
+            logging.warning("{0} does not exist.".format(users_path))
+            print("[WARNING] {0} does not exist.".format(users_path))
 
     def __parse_bplist(self, file, username):
         """
         Parse /Users/username/Library/Preferences/com.apple.finder.plist
         """
-        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Shares.txt"), "a", encoding="utf-8") as of:
+        with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Shares.txt"), "a",
+                         encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            of.write("Source File: {}\r\n\r\n".format(file))
+            of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version == "el_capitan":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
@@ -57,23 +59,23 @@ class UsersNetAuthAgentPlist(Plugin):
                     try:
                         if "PreviouslySelectedShares" in plist:
                             for key in plist["PreviouslySelectedShares"].keys():
-                                of.write("Host: {}\r\n".format(key))
+                                of.write("Host: {0}\r\n".format(key))
                                 for directory in plist["PreviouslySelectedShares"][key]:
-                                    of.write("\tShared Directory: {}\r\n".format(directory))
+                                    of.write("\tShared Directory: {0}\r\n".format(directory))
                                 of.write("\r\n")
                         of.write("\r\n")
                     except KeyError:
                         pass
                     bplist.close()
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.".format(file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(file))
+                    logging.warning("File: {0} does not exist or cannot be found.".format(file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(file))
 
             elif self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
-                    logging.warning("File: {} does not exist on this version of OSX.".format(file))
-                    of.write("[WARNING] File: {} does not exist on this version of OSX.\r\n".format(file))
-                    print("[WARNING] File: {} does not exist on this version of OSX.".format(file))
+                    logging.warning("File: {0} does not exist on this version of OSX.".format(file))
+                    of.write("[WARNING] File: {0} does not exist on this version of OSX.\r\n".format(file))
+                    print("[WARNING] File: {0} does not exist on this version of OSX.".format(file))
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

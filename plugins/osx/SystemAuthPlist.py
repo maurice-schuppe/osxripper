@@ -3,6 +3,7 @@ import codecs
 import logging
 import os
 import plistlib
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -30,7 +31,7 @@ class SystemAuthPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             plist_file = os.path.join(self._input_dir, "private", "etc", self._data_file)
-            of.write("Source File: {}\r\n\r\n".format(plist_file))
+            of.write("Source File: {0}\r\n\r\n".format(plist_file))
             if self._os_version in ["mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(plist_file):
                     try:
@@ -39,38 +40,49 @@ class SystemAuthPlist(Plugin):
                         if "rights" in plist:
                             of.write("Rights\r\n")
                             for right_item in plist["rights"]:
-                                of.write("\tRight: {}\r\n".format(right_item))
+                                of.write("\tRight: {0}\r\n".format(right_item))
                                 if "class" in plist["rights"][right_item]:
-                                    of.write("\t\tClass            : {}\r\n".format(plist["rights"][right_item]["class"]))
+                                    of.write("\t\tClass            : {0}\r\n"
+                                             .format(plist["rights"][right_item]["class"]))
                                 if "comment" in plist["rights"][right_item]:
-                                    of.write("\t\tComment          : {}\r\n".format(plist["rights"][right_item]["comment"]))
+                                    of.write("\t\tComment          : {0}\r\n"
+                                             .format(plist["rights"][right_item]["comment"]))
                                 if "k-of-n" in plist["rights"][right_item]:
-                                    of.write("\t\tK-of-N           : {}\r\n".format(plist["rights"][right_item]["k-of-n"]))
+                                    of.write("\t\tK-of-N           : {0}\r\n"
+                                             .format(plist["rights"][right_item]["k-of-n"]))
                                 if "rule" in plist["rights"][right_item]:
-                                    of.write("\t\tRule             : {}\r\n".format(plist["rights"][right_item]["rule"]))
+                                    of.write("\t\tRule             : {0}\r\n"
+                                             .format(plist["rights"][right_item]["rule"]))
                                 if "timeout" in plist["rights"][right_item]:
-                                    of.write("\t\tTimeout          : {}\r\n".format(plist["rights"][right_item]["timeout"]))
+                                    of.write("\t\tTimeout          : {0}\r\n"
+                                             .format(plist["rights"][right_item]["timeout"]))
                                 if "allow-root" in plist["rights"][right_item]:
-                                    of.write("\t\tAllow Root       : {}\r\n".format(plist["rights"][right_item]["allow-root"]))
+                                    of.write("\t\tAllow Root       : {0}\r\n"
+                                             .format(plist["rights"][right_item]["allow-root"]))
                                 if "shared" in plist["rights"][right_item]:
-                                    of.write("\t\tShared           : {}\r\n".format(plist["rights"][right_item]["shared"]))
+                                    of.write("\t\tShared           : {0}\r\n"
+                                             .format(plist["rights"][right_item]["shared"]))
                                 if "tries" in plist["rights"][right_item]:
-                                    of.write("\t\tTries            : {}\r\n".format(plist["rights"][right_item]["tries"]))
+                                    of.write("\t\tTries            : {0}\r\n"
+                                             .format(plist["rights"][right_item]["tries"]))
                                 if "session-owner" in plist["rights"][right_item]:
-                                    of.write("\t\tSession Owner    : {}\r\n".format(plist["rights"][right_item]["session-owner"]))
+                                    of.write("\t\tSession Owner    : {0}\r\n"
+                                             .format(plist["rights"][right_item]["session-owner"]))
                                 if "authenticate-user" in plist["rights"][right_item]:
-                                    of.write("\t\tAuthenticate User: {}\r\n".format(plist["rights"][right_item]["authenticate-user"]))
+                                    of.write("\t\tAuthenticate User: {0}\r\n"
+                                             .format(plist["rights"][right_item]["authenticate-user"]))
                                 if "group" in plist["rights"][right_item]:
-                                    of.write("\t\tGroup            : {}\r\n".format(plist["rights"][right_item]["group"]))
+                                    of.write("\t\tGroup            : {0}\r\n"
+                                             .format(plist["rights"][right_item]["group"]))
                                 of.write("\r\n")
                     except KeyError:
                         pass
                 else:
-                    logging.warning("File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    of.write("[WARNING] File: {} does not exist or cannot be found.\r\n".format(plist_file))
-                    print("[WARNING] File: {} does not exist or cannot be found.".format(plist_file))
+                    logging.warning("File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(plist_file))
+                    print("[WARNING] File: {0} does not exist or cannot be found.".format(plist_file))
 
-            elif self._os_version in ["yosemite", "mavericks"]:
+            elif self._os_version in ["el_capitan", "yosemite", "mavericks"]:
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")
