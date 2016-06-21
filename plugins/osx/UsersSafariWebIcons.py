@@ -2,6 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
+import osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -52,30 +53,23 @@ class UsersSafariWebIcons(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
-                query = "SELECT pu.url,ii.url,datetime(ii.stamp, 'unixepoch') FROM IconInfo ii,PageURL pu " \
+                query = "SELECT pu.url AS p_url,ii.url AS i_url,ii.stamp FROM IconInfo ii,PageURL pu " \
                         "WHERE pu.iconID = ii.iconID"
                 if os.path.isfile(file):
                     of.write("Source File: {0}\r\n\r\n".format(file))
                     conn = None
                     try:
                         conn = sqlite3.connect(file)
+                        conn.row_factory = sqlite3.Row
                         with conn:    
                             cur = conn.cursor()
                             cur.execute(query)
                             rows = cur.fetchall()
                             for row in rows:
-                                if row[0] is None:
-                                    of.write("Page URL      :\r\n")
-                                else:
-                                    of.write("Page URL      : {0}\r\n".format(row[0]))
-                                if row[1] is None:
-                                    of.write("Icon URL      :\r\n")
-                                else:
-                                    of.write("Icon URL      : {0}\r\n".format(row[1]))
-                                if row[2] is None:
-                                    of.write("Timestamp     :\r\n")
-                                else:
-                                    of.write("Timestamp     : {0}\r\n".format(row[2]))
+                                stamp = osxripper_time.get_unix_seconds(row["stamp"])
+                                of.write("Page URL      : {0}\r\n".format(row["p_url"]))
+                                of.write("Icon URL      : {0}\r\n".format(row["i_url"]))
+                                of.write("Timestamp     : {0}\r\n".format(stamp))
                                 of.write("\r\n")
                             
                     except sqlite3.Error as e:
