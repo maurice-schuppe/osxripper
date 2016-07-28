@@ -19,6 +19,7 @@ MOUNTAIN_LION = "mountain_lion"
 LION = "lion"
 SNOW_LEOPARD = "snow_leopard"
 EL_CAPITAN = "el_capitan"
+SIERRA = "sierra"
 LOG_FILE = ""
 
 
@@ -53,6 +54,8 @@ def __get_osx_version():
     osx_version.set_input_directory(args.input)
     global use_version
     use_version = osx_version.parse()
+    if "10.12" in use_version:
+        use_version = SIERRA
     if "10.11" in use_version:
         use_version = EL_CAPITAN
     if "10.10" in use_version:
@@ -89,19 +92,19 @@ def __load_plugins():
         if osx_plugin_source.endswith(".py") and "__init__" not in osx_plugin_source:
             plugin_class = __load_from_file(os.path.splitext(osx_plugin_source)[0])
             if plugin_class is None:
-                print("[ERROR] Unable to instantiate {1} from {2}".format(osx_plugin_source, osx_plugins_path))
-                logging.error("[ERROR] Unable to instantiate {1} from {2}".format(osx_plugin_source, osx_plugins_path))
+                print("[ERROR] Unable to instantiate {0} from {1}".format(osx_plugin_source, osx_plugins_path))
+                logging.error("[ERROR] Unable to instantiate {0} from {1}".format(osx_plugin_source, osx_plugins_path))
             else:
                 active_plugin = plugin_class()
                 active_plugin_list.append(active_plugin)
         
     plugin_count = len(active_plugin_list)
     if plugin_count == 0 or plugin_count > 1:
-        print("[INFO] Loaded {} plugins.".format(plugin_count))
-        logging.info("Loaded {} plugins.".format(plugin_count))
+        print("[INFO] Loaded {0} plugins.".format(plugin_count))
+        logging.info("Loaded {0} plugins.".format(plugin_count))
     else:
-        print("[INFO] Loaded {} plugins.".format(plugin_count))
-        logging.info("Loaded {} plugins.".format(plugin_count))
+        print("[INFO] Loaded {0} plugins.".format(plugin_count))
+        logging.info("Loaded {0} plugins.".format(plugin_count))
 
 
 def __run_plugins():
