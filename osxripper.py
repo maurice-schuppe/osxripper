@@ -68,8 +68,8 @@ def __get_osx_version():
         use_version = LION
     if "10.6" in use_version:
         use_version = SNOW_LEOPARD
-    print("[INFO] OSXVersion: {}".format(use_version))
-    logging.info("OSXVersion: {}".format(use_version))
+    print("[INFO] OSXVersion: {0}".format(use_version))
+    logging.info("OSXVersion: {0}".format(use_version))
 
 
 def __load_from_file(osx_class_name):
@@ -112,8 +112,8 @@ def __run_plugins():
     Run the plugins from the active plugin list
     """
     for active_plugin in active_plugin_list:
-        print("[INFO] Running: {}".format(active_plugin.get_name))
-        logging.info("Running: {}".format(active_plugin.get_name))
+        print("[INFO] Running: {0}".format(active_plugin.get_name))
+        logging.info("Running: {0}".format(active_plugin.get_name))
         active_plugin.set_os_version(use_version)
         active_plugin.set_input_directory(args.input)
         active_plugin.set_output_directory(args.output)
@@ -126,30 +126,30 @@ def main():
     """
     date_timestamp = datetime.now()
     global LOG_FILE
-    LOG_FILE = os.path.join(args.output, "_osxripper.{}.txt".format(date_timestamp.strftime("%Y%m%d.%H%M%S")))
+    LOG_FILE = os.path.join(args.output, "_osxripper.{0}.txt".format(date_timestamp.strftime("%Y%m%d.%H%M%S")))
     logging.basicConfig(filename=LOG_FILE, level=logging.INFO)
     
     print("="*60)
     logging.info("="*60)
     print("[INFO] Starting osxripper...")
     logging.info("Starting osxripper...")
-    print("[INFO] Start: {}".format(date_timestamp.strftime("%Y-%m-%d %H:%M:%S.%f")))
-    logging.info("Start: {}".format(date_timestamp.strftime("%Y-%m-%d %H:%M:%S.%f")))
+    print("[INFO] Start: {0}".format(date_timestamp.strftime("%Y-%m-%d %H:%M:%S.%f")))
+    logging.info("Start: {0}".format(date_timestamp.strftime("%Y-%m-%d %H:%M:%S.%f")))
     __set_sys_path()
     __get_osx_version()
     if args.summary:
-        print("[INFO] Loading summary for {}.".format(use_version))
-        logging.info("Loading summary for {}.".format(use_version))
+        print("[INFO] Loading summary for {0}.".format(use_version))
+        logging.info("Loading summary for {0}.".format(use_version))
         __run_summary()
     else:
-        print("[INFO] Loading plugins for {}.".format(use_version))
-        logging.info("Loading plugins for {}.".format(use_version))
+        print("[INFO] Loading plugins for {0}.".format(use_version))
+        logging.info("Loading plugins for {0}.".format(use_version))
         __load_plugins()
         __run_plugins()
-    print("[INFO] Output files written to {}.".format(args.output))
-    logging.info("Output files written to {}.".format(args.output))
-    print("[INFO] Finish: {}".format(datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")))
-    logging.info("Finish: {}".format(datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")))
+    print("[INFO] Output files written to {0}.".format(args.output))
+    logging.info("Output files written to {0}.".format(args.output))
+    print("[INFO] Finish: {0}".format(datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")))
+    logging.info("Finish: {0}".format(datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")))
     print("[INFO] Finished.")
     logging.info("Finished.")
     print("="*60)
