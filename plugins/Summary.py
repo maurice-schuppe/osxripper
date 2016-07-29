@@ -6,6 +6,8 @@ import os
 import plistlib
 import riplib.ccl_bplist
 
+import osx.AirportPreferences
+
 __author__ = 'osxripper'
 __version__ = '0.1'
 __license__ = 'GPLv3'
@@ -26,15 +28,24 @@ class Summary(Plugin):
         self._output_file = "OSXRipper_Summary.txt"
         self._type = "multiple"
 
+
+
     def parse(self):
-        self.__hostname()
-        self.__ip_mac()
-        self.__timezone()
-        self.__user_accounts()
-        self.__playlists()
-        self.__time_machine()
-        self.__bluetooth_pairing()
-        self.__install_history()
+        # self.__hostname()
+        # self.__ip_mac()
+        # self.__timezone()
+        # self.__user_accounts()
+        # self.__playlists()
+        # self.__time_machine()
+        # self.__bluetooth_pairing()
+        # self.__install_history()
+        airport_prefs = osx.AirportPreferences()
+        airport_prefs._output_file = self._output_file
+        airport_prefs.set_os_version(self._os_version)
+        airport_prefs.set_input_directory(self._input_dir)
+        airport_prefs.set_output_directory(self._output_dir)
+        airport_prefs.parse()
+
 
     def __hostname(self):
         """
