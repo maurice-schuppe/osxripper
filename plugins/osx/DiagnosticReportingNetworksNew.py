@@ -28,6 +28,7 @@ class DiagnosticReportingNetworksNew(Plugin):
     def parse(self):
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
+            # Not in Sierra Beta?
             if self._os_version in ["el_capitan", "yosemite"]:
                 file = os.path.join(self._input_dir, "Library", "Caches", self._data_file)
                 of.write("Source File: {0}\r\n\r\n".format(file))
@@ -46,7 +47,7 @@ class DiagnosticReportingNetworksNew(Plugin):
                     logging.warning("File: {0} does not exist or cannot be found.\r\n".format(file))
                     of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
                     print("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(file))
-            elif self._os_version in ["mavericks", "mountain_lion", "lion", "snow_leopard"]:
+            elif self._os_version in ["sierra", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported this plugin.")
                 print("[INFO] This version of OSX is not supported this plugin.")
                 of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
