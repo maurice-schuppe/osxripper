@@ -33,7 +33,8 @@ class LoginWindowPlist(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             file = os.path.join(self._input_dir, "Library", "Preferences", self._data_file)
             of.write("Source File: {0}\r\n\r\n".format(file))
-            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
+            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks",
+                                    "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(file):
                     try:
                         bplist = open(file, "rb")

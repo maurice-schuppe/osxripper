@@ -21,7 +21,7 @@ class LocationdClientsPlist(Plugin):
         """
         super().__init__()
         self._name = "Location Clients"
-        self._description = "Parse data from /Library/Preferences/com.apple.loginwindow.plist"
+        self._description = "Parse data from /private/var/db/locationd/clients.plist"
         self._data_file = "clients.plist"
         self._output_file = "Location.txt"
         self._type = "bplist"
@@ -36,7 +36,7 @@ class LocationdClientsPlist(Plugin):
             file = os.path.join(self._input_dir, "private", "var", "db", "locationd", self._data_file)
             of.write("Source File: {0}\r\n\r\n".format(file))
             if os.path.isfile(file):
-                if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
+                if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks"]:
                     try:
                         bplist = open(file, "rb")
                         plist = ccl_bplist.load(bplist)
