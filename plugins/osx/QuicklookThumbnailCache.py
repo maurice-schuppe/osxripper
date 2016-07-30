@@ -37,7 +37,8 @@ class QuicklookThumbnailCache(Plugin):
             start_folder = os.path.join(self._input_dir, "private", "var", "folders")
             file_list = []
 
-            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
+            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks",
+                                    "mountain_lion", "lion", "snow_leopard"]:
                 query = "SELECT f.folder,f.file_name,tb.hit_count,tb.last_hit_date FROM files f,thumbnails tb" \
                         " WHERE f.rowid = tb.file_id ORDER BY f.folder, tb.last_hit_date"
                 # search for index.sqlite

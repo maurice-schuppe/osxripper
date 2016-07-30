@@ -30,7 +30,7 @@ class Playlists(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
+            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
                 working_dir = os.path.join(self._input_dir, "private", "var", "db", "BootCaches")
                 of.write("Source Directory: {0}\r\n\r\n".format(working_dir))
                 if os.path.isdir(working_dir):
