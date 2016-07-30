@@ -11,7 +11,7 @@ __author__ = 'osxripper'
 __version__ = '0.3'
 __license__ = 'GPLv3'
 
-use_version = "yosemite"  # Default
+use_version = "el_capitan"  # Default
 active_plugin_list = []
 YOSEMITE = "yosemite"
 MAVERICKS = "mavericks"
