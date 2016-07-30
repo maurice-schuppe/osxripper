@@ -25,7 +25,7 @@ class SystemTime(Plugin):
         """
         super().__init__()
         self._name = "System Time"
-        self._description = "List files in /private/var/db/BootCaches"
+        self._description = "Get system time and timezone settings"
         self._data_file = ""  # multiple files being accessed
         self._output_file = "SystemTime.txt"
         self._type = "mixed"
