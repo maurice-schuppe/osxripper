@@ -31,7 +31,8 @@ class BootFlags(Plugin):
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
+            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks",
+                                    "mountain_lion", "lion", "snow_leopard"]:
                 plist_file = os.path.join(self._input_dir, "Library", "Preferences", "SystemConfiguration",
                                           self._data_file)
                 of.write("Source File: {0}\r\n\r\n".format(plist_file))
