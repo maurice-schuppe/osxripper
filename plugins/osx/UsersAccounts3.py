@@ -68,6 +68,7 @@ class UsersAccounts3(Plugin):
                         if len(rows) != 0:
                             for row in rows:
                                 zdate = osxripper_time.get_cocoa_seconds(row["zdate"])
+                                of.write("Account            : {0}\r\n".format(row["zaccounttypedescription"]))
                                 of.write("Username           : {0}\r\n".format(row["zusername"]))
                                 of.write("Active             : {0}\r\n".format(row["zactive"]))
                                 of.write("Authenticated      : {0}\r\n".format(row["zauthenticated"]))
