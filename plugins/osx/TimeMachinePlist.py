@@ -93,7 +93,7 @@ class TimeMachinePlist(Plugin):
                         bplist.close()
                     except KeyError:
                         pass
-            if self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
+            elif self._os_version in ["yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(file):
                     try:
                         bplist = open(file, "rb")
