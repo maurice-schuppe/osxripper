@@ -40,15 +40,9 @@ class UsersSafariHistory(Plugin):
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
                     history_path = os.path.join(users_path, username, "Library", "Safari")
                     if os.path.isdir(history_path):
-                        if self._os_version == "el_capitan" or self._os_version == "yosemite":
+                        if self._os_version in ["sierra", "el_capitan", "yosemite"]:
                             self.__parse_sqlite_db(history_path, username)
-                        elif self._os_version == "mavericks":
-                            self.__parse_history_plist(history_path, username)
-                        elif self._os_version == "mountain_lion":
-                            self.__parse_history_plist(history_path, username)
-                        elif self._os_version == "lion":
-                            self.__parse_history_plist(history_path, username)
-                        elif self._os_version == "snow_leopard":
+                        elif self._os_version in ["mavericks", "mountain_lion", "lion", "snow_leopard"]:
                             self.__parse_history_plist(history_path, username)
                         else:
                             logging.warning("Not a known OSX version.")

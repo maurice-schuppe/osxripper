@@ -54,7 +54,8 @@ class UsersSafariWebBookmarks(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {0}\r\n\r\n".format(file))
-            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
+            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks",
+                                    "mountain_lion", "lion", "snow_leopard"]:
                 plist_dir_list = os.listdir(file)
                 for wb_file in plist_dir_list:
                     wb_plist = os.path.join(file, wb_file)
