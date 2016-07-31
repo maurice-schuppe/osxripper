@@ -34,7 +34,8 @@ class SystemNetUsage(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             file = os.path.join(self._input_dir, "private", "var", "networkd", self._data_file)
             of.write("Source File: {0}\r\n\r\n".format(file))
-            if self._os_version == "el_capitan":
+            # if self._os_version == "el_capitan":
+            if self._os_version in ["sierra", "el_capitan"]:
                 if os.path.isfile(file):
                     pass
                     conn = None
