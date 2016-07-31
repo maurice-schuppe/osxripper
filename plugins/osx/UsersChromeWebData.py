@@ -70,8 +70,8 @@ class UsersChromeWebData(Plugin):
                         of.write("="*10 + " Autofill " + "="*10 + "\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                date_created = osxripper_time.get_gregorian_micros(row["date_created"])
-                                date_last_used = osxripper_time.get_gregorian_micros(row["date_last_used"])
+                                date_created = osxripper_time.get_unix_seconds(row["date_created"])
+                                date_last_used = osxripper_time.get_unix_seconds(row["date_last_used"])
                                 of.write("Name          : {0}\r\n".format(row["name"]))
                                 of.write("Value         : {0}\r\n".format(row["value"]))
                                 of.write("Value Lower   : {0}\r\n".format(row["value_lower"]))
@@ -130,7 +130,7 @@ class UsersChromeWebData(Plugin):
                         of.write("="*10 + " Autofill Profiles " + "="*10 + "\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                date_modified = osxripper_time.get_gregorian_micros(row["date_modified"])
+                                date_modified = osxripper_time.get_unix_seconds(row["date_modified"])
                                 of.write("GUID              : {0}\r\n".format(row["guid"]))
                                 of.write("Company Name      : {0}\r\n".format(row["company_name"]))
                                 of.write("Street Address    : {0}\r\n".format(row["street_address"]))
@@ -169,7 +169,7 @@ class UsersChromeWebData(Plugin):
                         of.write("N.B. Card Number is encrypted. Ommitted by plugin.\r\n\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                date_modified = osxripper_time.get_gregorian_micros(row["date_modified"])
+                                date_modified = osxripper_time.get_unix_seconds(row["date_modified"])
                                 of.write("GUID            : {0}\r\n".format(row["guid"]))
                                 of.write("Name on Card    : {0}\r\n".format(row["name_on_card"]))
                                 of.write("Expiration Month: {0}\r\n".format(row["expiration_month"]))
@@ -191,6 +191,8 @@ class UsersChromeWebData(Plugin):
                         of.write("="*10 + " Keywords " + "="*10 + "\r\n")
                         if len(rows) != 0:
                             for row in rows:
+                                kw_created = osxripper_time.get_unix_seconds(row["date_created"])
+                                kw_modified = osxripper_time.get_unix_seconds(row["last_modified"])
                                 of.write("ID                          : {0}\r\n".format(row["id"]))
                                 of.write("Short Name                  : {0}\r\n".format(row["short_name"]))
                                 of.write("Keyword                     : {0}\r\n".format(row["keyword"]))
@@ -198,7 +200,7 @@ class UsersChromeWebData(Plugin):
                                 of.write("URL                         : {0}\r\n".format(row["url"]))
                                 of.write("Safe for Autoreplace        : {0}\r\n".format(row["safe_for_autoreplace"]))
                                 of.write("Originating URL             : {0}\r\n".format(row["originating_url"]))
-                                of.write("Date Created                : {0}\r\n".format(row["date_created"]))
+                                of.write("Date Created                : {0}\r\n".format(kw_created))
                                 of.write("Usage Count                 : {0}\r\n".format(row["usage_count"]))
                                 of.write("Input Encodings             : {0}\r\n".format(row["input_encodings"]))
                                 of.write("Show in Default List        : {0}\r\n".format(row["show_in_default_list"]))
@@ -206,7 +208,7 @@ class UsersChromeWebData(Plugin):
                                 of.write("Prepoulate ID               : {0}\r\n".format(row["prepopulate_id"]))
                                 of.write("Created by Policy           : {0}\r\n".format(row["created_by_policy"]))
                                 of.write("Instant URL                 : {0}\r\n".format(row["instant_url"]))
-                                of.write("Last Modified               : {0}\r\n".format(row["last_modified"]))
+                                of.write("Last Modified               : {0}\r\n".format(kw_modified))
                                 of.write("Sync GUID                   : {0}\r\n".format(row["sync_guid"]))
                                 of.write("Alternate URLs              : {0}\r\n".format(row["alternate_urls"]))
                                 of.write("Search Terms Replacement Key: {0}\r\n".
