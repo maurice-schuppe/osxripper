@@ -56,10 +56,14 @@ class UsersChromeLoginData(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             history_db = os.path.join(file, self._data_file)
+            # query = "SELECT username_value,display_name,origin_url,action_url," \
+            #         "date_created,date_synced," \
+            #         "signon_realm,ssl_valid,preferred,times_used,blacklisted_by_user," \
+            #         "scheme,password_type,avatar_url,federation_url FROM logins ORDER BY username_value"
             query = "SELECT username_value,display_name,origin_url,action_url," \
                     "date_created,date_synced," \
                     "signon_realm,ssl_valid,preferred,times_used,blacklisted_by_user," \
-                    "scheme,password_type,avatar_url,federation_url FROM logins ORDER BY username_value"
+                    "scheme,password_type,federation_url FROM logins ORDER BY username_value"
             if os.path.isfile(history_db):
                 of.write("Source File: {0}\r\n\r\n".format(history_db))
                 of.write("N.B. Creds are stored as BLOBS, not retrieved by this plugin\r\n\r\n")
@@ -90,7 +94,7 @@ class UsersChromeLoginData(Plugin):
                                 of.write("Blacklisted by User: {0}\r\n".format(row["blacklisted_by_user"]))
                                 of.write("Scheme             : {0}\r\n".format(row["scheme"]))
                                 of.write("Password Type      : {0}\r\n".format(row["password_type"]))
-                                of.write("Avatar URL         : {0}\r\n".format(row["avatar_url"]))
+                                # of.write("Avatar URL         : {0}\r\n".format(row["avatar_url"]))
                                 of.write("Federation URL     : {0}\r\n".format(row["federation_url"]))
                                 of.write("\r\n")
                 except sqlite3.Error as e:
