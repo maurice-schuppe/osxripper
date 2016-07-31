@@ -17,6 +17,8 @@ class SystemTime(Plugin):
     /private/etc/localtime,
     /private/etc/ntp.conf
     /Library/Preferences/com.apple.timezone.auto.plist
+    N.B. In Sierra the .GlobalPreferences.plist com.apple.preferences.timezone.selected_city key points to an
+    AppleMapID
     """
     
     def __init__(self):
@@ -38,7 +40,36 @@ class SystemTime(Plugin):
         /private/etc/ntp.conf
         /Library/Preferences/com.apple.timezone.auto.plist
         """
-        if self._os_version in ["el_capitan", "yosemite", "mavericks"]:
+        if self._os_version in ["sierra"]:
+            # global_plist = os.path.join(self._input_dir, "Library", "Preferences", ".GlobalPreferences.plist")
+            auto_tz_plist = os.path.join(self._input_dir, "Library", "Caches", "com.apple.AutoTimeZone.plist")
+            tz_auto_plist = os.path.join(self._input_dir, "Library", "Preferences", "com.apple.timezone.auto.plist")
+            ntp_conf = os.path.join(self._input_dir, "private", "etc", "ntp.conf")
+            # if os.path.isfile(global_plist):
+            #     self.__parse_sierra_global_plist(global_plist)
+            # else:
+            #     logging.warning("File {0} does not exist.".format(global_plist))
+            #     print("[WARNING] File {0} does not exist.".format(global_plist))
+
+            if os.path.isfile(auto_tz_plist):
+                self.__parse_auto_timezone_plist(auto_tz_plist)
+            else:
+                logging.warning("File {0} does not exist.".format(auto_tz_plist))
+                print("[WARNING] File {0} does not exist.".format(auto_tz_plist))
+
+            if os.path.isfile(tz_auto_plist):
+                self.__parse_timezone_auto_plist(tz_auto_plist)
+            else:
+                logging.warning("File {0} does not exist.".format(tz_auto_plist))
+                print("[WARNING] File {0} does not exist.".format(tz_auto_plist))
+
+            if os.path.isfile(ntp_conf):
+                self.__read_ntp(ntp_conf)
+            else:
+                logging.warning("File {0} does not exist.".format(ntp_conf))
+                print("[WARNING] File {0} does not exist.".format(ntp_conf))
+
+        elif self._os_version in ["el_capitan", "yosemite", "mavericks"]:
             global_plist = os.path.join(self._input_dir, "Library", "Preferences", ".GlobalPreferences.plist")
             auto_tz_plist = os.path.join(self._input_dir, "Library", "Caches", "com.apple.AutoTimeZone.plist")
             tz_auto_plist = os.path.join(self._input_dir, "Library", "Preferences", "com.apple.timezone.auto.plist")
@@ -110,6 +141,30 @@ class SystemTime(Plugin):
                          .format(xml["com.apple.preferences.timezone.selected_city"]["Longitude"]))
             of.write("=" * 40 + "\r\n\r\n")
         of.close()
+
+    # def __parse_sierra_global_plist(self, file):
+    #     """
+    #     Parse a Binary Plist file
+    #     """
+    #     with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
+    #         of.write("=" * 10 + " Local Time Zone " + "=" * 10 + "\r\n")
+    #         of.write("Source File: {0}\r\n\r\n".format(file))
+    #         bplist = open(file, "rb")
+    #         xml = ccl_bplist.load(bplist)
+    #         bplist.close()
+    #         if "com.apple.preferences.timezone.selected_city" in xml:
+    #             # of.write("Country       : {0}\r\n"
+    #             #          .format(xml["com.apple.preferences.timezone.selected_city"]["CountryCode"]))
+    #             of.write("Time Zone     : {0}\r\n"
+    #                      .format(xml["com.apple.preferences.timezone.selected_city"]["TimeZoneName"]))
+    #             of.write("Selected City : {0}\r\n"
+    #                      .format(xml["com.apple.preferences.timezone.selected_city"]["Name"]))
+    #             of.write("Latitude      : {0}\r\n"
+    #                      .format(xml["com.apple.preferences.timezone.selected_city"]["Latitude"]))
+    #             of.write("Longitude     : {0}\r\n"
+    #                      .format(xml["com.apple.preferences.timezone.selected_city"]["Longitude"]))
+    #         of.write("=" * 40 + "\r\n\r\n")
+    #     of.close()
 
     def __read_ntp(self, file):
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
