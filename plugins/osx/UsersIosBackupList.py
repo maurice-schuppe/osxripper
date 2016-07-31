@@ -52,7 +52,8 @@ class UsersIosBackupList(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {0}\r\n\r\n".format(file))
-            if self._os_version in ["el_capitan", "yosemite", "mavericks", "mountain_lion", "lion", "snow_leopard"]:
+            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks",
+                                    "mountain_lion", "lion", "snow_leopard"]:
                 dir_listing = os.listdir(file)
                 for file_item in dir_listing:
                     of.write("iOS Backup: {0}\r\n".format(file_item))
