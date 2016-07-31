@@ -32,7 +32,7 @@ class UsersBashHistory(Plugin):
         if os.path.isdir(users_path):
             user_list = os.listdir(users_path)
             for username in user_list:
-                if self._os_version == "el_capitan":
+                if self._os_version in ["sierra", "el_capitan"]:
                     if os.path.isdir(users_path):
                         # user_list = os.listdir(users_path)
                         if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":

@@ -20,7 +20,7 @@ class UsersAccounts3(Plugin):
         Initialise the class.
         """
         super().__init__()
-        self._name = "Users Accounts"
+        self._name = "Users Accounts3"
         self._description = "Parse information from /Users/<username>/Library/Accounts/Accounts3.sqlite"
         self._data_file = "Accounts3.sqlite"
         self._output_file = ""  # this will have to be defined per user account
