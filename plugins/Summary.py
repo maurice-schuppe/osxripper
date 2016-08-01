@@ -1,13 +1,13 @@
 from riplib.Plugin import Plugin
 
-import osx.SmbServer as SmbServer
-import osx.DhcpLeasesPlist as DhcpLeasesPlist
-import osx.SystemTime as SystemTime
-import osx.UserAccountsPlist as UserAccountsPlist
-import osx.Playlists as PlayLists
-import osx.TimeMachinePlist as TimeMachinePlist
-import osx.BluetoothPlist as BluetoothPlist
-import osx.InstallHistory as InstallHistory
+import plugins.osx.SmbServer as SmbServer
+import plugins.osx.DhcpLeasesPlist as DhcpLeasesPlist
+import plugins.osx.SystemTime as SystemTime
+import plugins.osx.UserAccountsPlist as UserAccountsPlist
+import plugins.osx.Playlists as PlayLists
+import plugins.osx.TimeMachinePlist as TimeMachinePlist
+import plugins.osx.BluetoothPlist as BluetoothPlist
+import plugins.osx.InstallHistory as InstallHistory
 
 __author__ = 'osxripper'
 __version__ = '0.1'
