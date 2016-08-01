@@ -3,7 +3,7 @@ import codecs
 import datetime
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -75,7 +75,7 @@ class UsersQuarantineEventsV2(Plugin):
                             cur.execute(query)
                             rows = cur.fetchall()
                             for row in rows:
-                                timestamp = osxripper_time.get_cocoa_seconds(row["LSQuarantineTimeStamp"])
+                                timestamp = riplib.osxripper_time.get_cocoa_seconds(row["LSQuarantineTimeStamp"])
                                 of.write("Event Identifier      : {0}\r\n".format(row["LSQuarantineEventIdentifier"]))
                                 of.write("Timestamp             : {0}\r\n".format(timestamp))
                                 of.write("AgentBundle Identifier: {0}\r\n"
@@ -116,7 +116,7 @@ class UsersQuarantineEventsV2(Plugin):
                             cur.execute(query)
                             rows = cur.fetchall()
                             for row in rows:
-                                timestamp = osxripper_time.get_cocoa_seconds(row["LSQuarantineTimeStamp"])
+                                timestamp = riplib.osxripper_time.get_cocoa_seconds(row["LSQuarantineTimeStamp"])
                                 of.write("Event Identifier      : {0}\r\n".format(row["LSQuarantineEventIdentifier"]))
                                 of.write("Timestamp             : {0}\r\n".format(timestamp))
                                 of.write("AgentBundle Identifier: {0}\r\n"

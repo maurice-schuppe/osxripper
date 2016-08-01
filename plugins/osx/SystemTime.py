@@ -3,7 +3,7 @@ import codecs
 import logging
 import os
 import plistlib
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -126,7 +126,7 @@ class SystemTime(Plugin):
             of.write("=" * 10 + " Local Time Zone " + "=" * 10 + "\r\n")
             of.write("Source File: {0}\r\n\r\n".format(file))
             bplist = open(file, "rb")
-            xml = ccl_bplist.load(bplist)
+            xml = riplib.ccl_bplist.load(bplist)
             bplist.close()
             if "com.apple.preferences.timezone.selected_city" in xml:
                 of.write("Country       : {0}\r\n"

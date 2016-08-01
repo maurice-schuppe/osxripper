@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -67,7 +67,7 @@ class UsersSafariWebIcons(Plugin):
                             cur.execute(query)
                             rows = cur.fetchall()
                             for row in rows:
-                                stamp = osxripper_time.get_unix_seconds(row["stamp"])
+                                stamp = riplib.osxripper_time.get_unix_seconds(row["stamp"])
                                 of.write("Page URL      : {0}\r\n".format(row["p_url"]))
                                 of.write("Icon URL      : {0}\r\n".format(row["i_url"]))
                                 of.write("Timestamp     : {0}\r\n".format(stamp))

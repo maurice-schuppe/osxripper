@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -36,7 +36,7 @@ class SystemGlobalPreferences(Plugin):
             if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
                 if os.path.isfile(global_plist):
                     bplist = open(global_plist, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     if "MultipleSessionEnabled" in plist:
                         of.write("Multiple Session Enabled       : {0}\r\n".format(plist["MultipleSessionEnabled"]))
@@ -61,7 +61,7 @@ class SystemGlobalPreferences(Plugin):
             elif self._os_version == "snow_leopard":
                 if os.path.isfile(global_plist):
                     bplist = open(global_plist, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     if "com.apple.AppleModemSettingTool.LastCountryCode" in plist:
                         of.write("Last Country Code: {0}\r\n"

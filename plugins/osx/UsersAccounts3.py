@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -67,7 +67,7 @@ class UsersAccounts3(Plugin):
                         rows = cur.fetchall()
                         if len(rows) != 0:
                             for row in rows:
-                                zdate = osxripper_time.get_cocoa_seconds(row["zdate"])
+                                zdate = riplib.osxripper_time.get_cocoa_seconds(row["zdate"])
                                 of.write("Account            : {0}\r\n".format(row["zaccounttypedescription"]))
                                 of.write("Username           : {0}\r\n".format(row["zusername"]))
                                 of.write("Active             : {0}\r\n".format(row["zactive"]))
@@ -98,12 +98,12 @@ class UsersAccounts3(Plugin):
                         rows = cur.fetchall()
                         if len(rows) != 0:
                             for row in rows:
-                                zdate = osxripper_time.get_cocoa_seconds(row["zdate"])
+                                zdate = riplib.osxripper_time.get_cocoa_seconds(row["zdate"])
                                 of.write("Username           : {0}\r\n".format(row["zusername"]))
                                 of.write("Active             : {0}\r\n".format(row["zactive"]))
                                 of.write("Authenticated      : {0}\r\n".format(row["zauthenticated"]))
                                 of.write("Date               : {0}\r\n".format(zdate))
-                                of.write("Account Description: {0}\r\n".format("zaccountdescription"))
+                                of.write("Account Description: {0}\r\n".format(row["zaccountdescription"]))
                                 of.write("Owning Bundle ID   : {0}\r\n".format(row["zowningbundleid"]))
                                 of.write("\r\n")
                         else:

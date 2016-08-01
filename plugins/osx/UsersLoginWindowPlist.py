@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -54,7 +54,7 @@ class UsersLoginWindowPlist(Plugin):
             if self._os_version in ["sierra", "el_capitan"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    pl = ccl_bplist.load(bplist)
+                    pl = riplib.ccl_bplist.load(bplist)
                     try:
                         if "TALLogoutReason" in pl:
                             of.write("Logout Reason     : {0}\r\n".format(pl["TALLogoutReason"]))
@@ -68,7 +68,7 @@ class UsersLoginWindowPlist(Plugin):
             elif self._os_version in ["yosemite", "mavericks", "mountain_lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    pl = ccl_bplist.load(bplist)
+                    pl = riplib.ccl_bplist.load(bplist)
                     try:
                         if "TALLogoutReason" in pl:
                             of.write("Logout Reason     : {0}\r\n".format(pl["TALLogoutReason"]))
@@ -84,7 +84,7 @@ class UsersLoginWindowPlist(Plugin):
             elif self._os_version == "lion":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    pl = ccl_bplist.load(bplist)
+                    pl = riplib.ccl_bplist.load(bplist)
                     try:
                         if "TALLogoutReason" in pl:
                             of.write("Logout Reason        : {0}\r\n".format(pl["TALLogoutReason"]))

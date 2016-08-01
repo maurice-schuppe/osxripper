@@ -1,5 +1,5 @@
 from riplib.Plugin import Plugin
-import ccl_bplist
+import riplib.ccl_bplist
 import codecs
 import logging
 import os
@@ -54,7 +54,7 @@ class UsersTunnelBear(Plugin):
             of.write("Source File: {0}\r\n\r\n".format(file))
             if os.path.isfile(file):
                 bplist = open(file, "rb")
-                pl = ccl_bplist.load(bplist)
+                pl = riplib.ccl_bplist.load(bplist)
                 bplist.close()
                 try:
                     if "username" in pl:

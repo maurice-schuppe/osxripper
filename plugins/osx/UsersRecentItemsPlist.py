@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -63,7 +63,7 @@ class UsersRecentItemsPlist(Plugin):
                 if os.path.isfile(file):
                     of.write("Source File: {0}\r\n\r\n".format(file))
                     bplist = open(file, "rb")
-                    pl = ccl_bplist.load(bplist)
+                    pl = riplib.ccl_bplist.load(bplist)
                     try:
                         if "$objects" in pl:
                             for objects in pl["$objects"]:
@@ -78,7 +78,7 @@ class UsersRecentItemsPlist(Plugin):
                 if os.path.isfile(file):
                     of.write("Source File: {0}\r\n\r\n".format(file))
                     bplist = open(file, "rb")
-                    pl = ccl_bplist.load(bplist)
+                    pl = riplib.ccl_bplist.load(bplist)
                     try:
                         if "Hosts" in pl:
                             custom_list_items = pl["Hosts"]["CustomListItems"]

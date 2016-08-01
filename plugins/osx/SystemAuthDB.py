@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -47,8 +47,8 @@ class SystemAuthDB(Plugin):
                             cur.execute(query)
                             rows = cur.fetchall()
                             for row in rows:
-                                created = osxripper_time.get_cocoa_seconds(row["created"])
-                                modified = osxripper_time.get_cocoa_seconds(row["modified"])
+                                created = riplib.osxripper_time.get_cocoa_seconds(row["created"])
+                                modified = riplib.osxripper_time.get_cocoa_seconds(row["modified"])
                                 of.write("Name      : {0}\r\n".format(row["name"]))
                                 of.write("Group     : {0}\r\n".format(row["group"]))
                                 of.write("Type      : {0}\r\n".format(row["type"]))

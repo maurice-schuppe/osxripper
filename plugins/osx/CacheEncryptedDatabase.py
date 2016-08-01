@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -62,7 +62,7 @@ class CacheEncryptedDatabase(Plugin):
                                 rows = cur.fetchall()
                                 if len(rows) > 0:
                                     for row in rows:
-                                        timestamp = osxripper_time.get_cocoa_seconds(row["timestamp"])
+                                        timestamp = riplib.osxripper_time.get_cocoa_seconds(row["timestamp"])
                                         of.write("MAC Address        : {0}\r\n".format(row["mac"]))
                                         of.write("Channel            : {0}\r\n".format(row["channel"]))
                                         of.write("Timestamp          : {0}\r\n".format(timestamp))
@@ -106,7 +106,7 @@ class CacheEncryptedDatabase(Plugin):
                                 rows = cur.fetchall()
                                 if len(rows) > 0:
                                     for row in rows:
-                                        timestamp = osxripper_time.get_cocoa_seconds(row["timestamp"])
+                                        timestamp = riplib.osxripper_time.get_cocoa_seconds(row["timestamp"])
                                         of.write("MAC Address        : {0}\r\n".format(row["mac"]))
                                         of.write("Channel            : {0}\r\n".format(row["channel"]))
                                         of.write("Timestamp          : {0}\r\n".format(timestamp))

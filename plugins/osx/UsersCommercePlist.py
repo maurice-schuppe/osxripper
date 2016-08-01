@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -54,7 +54,7 @@ class UsersCommercePlist(Plugin):
             of.write("Source File: {0}\r\n\r\n".format(file))
             if self._os_version in ["sierra", "el_capitan", "yosemite"]:
                 bplist = open(file, "rb")
-                plist = ccl_bplist.load(bplist)
+                plist = riplib.ccl_bplist.load(bplist)
                 try:
                     if "AllowLegacyConversion" in plist:
                         of.write("Allow Legacy Conversion     : {0}\r\n".format(plist["AllowLegacyConversion"]))

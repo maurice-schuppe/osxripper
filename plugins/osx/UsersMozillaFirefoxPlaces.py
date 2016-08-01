@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -73,7 +73,7 @@ class UsersMozillaFirefoxPlaces(Plugin):
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            last_visit_date = osxripper_time.get_unix_micros(row["last_visit_date"])
+                            last_visit_date = riplib.osxripper_time.get_unix_micros(row["last_visit_date"])
                             of.write("URL            : {0}\r\n".format(row["url"]))
                             of.write("Title          : {0}\r\n".format(row["title"]))
                             of.write("Rev. Host      : {0}\r\n".format(row["rev_host"]))
@@ -92,8 +92,8 @@ class UsersMozillaFirefoxPlaces(Plugin):
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            date_added = osxripper_time.get_unix_micros(row["dateAdded"])
-                            last_modified = osxripper_time.get_unix_micros(row["lastModified"])
+                            date_added = riplib.osxripper_time.get_unix_micros(row["dateAdded"])
+                            last_modified = riplib.osxripper_time.get_unix_micros(row["lastModified"])
                             of.write("URL               : {0}\r\n".format(row["url"]))
                             of.write("Content           : {0}\r\n".format(row["content"]))
                             of.write("Name              : {0}\r\n".format(row["name"]))

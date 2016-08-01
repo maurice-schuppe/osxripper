@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -38,7 +38,7 @@ class LoginWindowPlist(Plugin):
                 if os.path.isfile(file):
                     try:
                         bplist = open(file, "rb")
-                        pl = ccl_bplist.load(bplist)
+                        pl = riplib.ccl_bplist.load(bplist)
                         if "lastUserName" in pl:
                             of.write("Last User       : {0}\r\n".format(pl["lastUserName"]))
                         if "lastUser" in pl:

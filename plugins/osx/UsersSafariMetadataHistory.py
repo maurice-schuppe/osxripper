@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -60,7 +60,7 @@ class UsersSafariMetadataHistory(Plugin):
                 plist_dir_list = os.listdir(file)
                 if ".tracked filenames.plist" in plist_dir_list:
                     bplist = open(os.path.join(file, ".tracked filenames.plist"), "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
                         for key in plist:

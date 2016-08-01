@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -77,9 +77,9 @@ class UsersMozillaFirefoxCookies(Plugin):
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            creation_time = osxripper_time.get_unix_micros(row["creationTime"])
-                            last_accessed = osxripper_time.get_unix_micros(row["lastAccessed"])
-                            expiry = osxripper_time.get_unix_micros(row["expiry"])
+                            creation_time = riplib.osxripper_time.get_unix_micros(row["creationTime"])
+                            last_accessed = riplib.osxripper_time.get_unix_micros(row["lastAccessed"])
+                            expiry = riplib.osxripper_time.get_unix_micros(row["expiry"])
                             of.write("Base Domain  : {0}\r\n".format(row["baseDomain"]))
                             of.write("Name         : {0}\r\n".format(row["name"]))
                             of.write("Value        : {0}\r\n".format(row["value"]))

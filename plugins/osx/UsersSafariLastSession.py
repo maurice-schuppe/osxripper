@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -55,7 +55,7 @@ class UsersSafariLastSession(Plugin):
             if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "SessionWindows" in plist:
                             for session_window in plist["SessionWindows"]:
@@ -77,7 +77,7 @@ class UsersSafariLastSession(Plugin):
             elif self._os_version == "snow_leopard":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "SessionWindows" in plist:
                             for session_window in plist["SessionWindows"]:

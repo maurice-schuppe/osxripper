@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -69,7 +69,7 @@ class UsersChromeDownloads(Plugin):
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            start_time = osxripper_time.get_gregorian_micros(row["start_time"])
+                            start_time = riplib.osxripper_time.get_gregorian_micros(row["start_time"])
                             of.write("ID          : {0}\r\n".format(row["id"]))
                             of.write("Current Path: {0}\r\n".format(row["current_path"]))
                             of.write("Target Path : {0}\r\n".format(row["target_path"]))

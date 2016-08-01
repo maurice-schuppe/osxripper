@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -47,7 +47,7 @@ class SystemSnapshots(Plugin):
                             cur.execute(query)
                             rows = cur.fetchall()
                             for row in rows:
-                                snap_time = osxripper_time.get_unix_micros(row["time"])
+                                snap_time = riplib.osxripper_time.get_unix_micros(row["time"])
                                 of.write("Comm     : {0}\r\n".format(row["comm"]))
                                 of.write("Time     : {0}\r\n".format(snap_time))
                                 of.write("PID      : {0}\r\n".format(row["pid"]))

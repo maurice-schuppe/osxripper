@@ -3,7 +3,7 @@ import binascii
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -36,7 +36,7 @@ class BluetoothPlist(Plugin):
             if self._os_version in ["sierra", "el_capitan", "yosemite"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
                         if "BluetoothVersionNumber" in plist:
@@ -155,7 +155,7 @@ class BluetoothPlist(Plugin):
             elif self._os_version == "mavericks":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
                         if "PairedDevices" in plist:
@@ -232,7 +232,7 @@ class BluetoothPlist(Plugin):
             elif self._os_version == "mountain_lion":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
                         if "PairedDevices" in plist:
@@ -322,7 +322,7 @@ class BluetoothPlist(Plugin):
             elif self._os_version == "lion":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
                         if "DaemonControllersConfigurationKey" in plist:
@@ -410,7 +410,7 @@ class BluetoothPlist(Plugin):
             elif self._os_version == "snow_leopard":
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
                         if "BluetoothAutoSeekHIDDevices" in plist:

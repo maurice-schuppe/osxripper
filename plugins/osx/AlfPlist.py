@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -32,7 +32,7 @@ class AlfPlist(Plugin):
             if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "allowsignedenabled" in plist:
                             of.write("Allow Signed: {0}\r\n".format(plist["allowsignedenabled"]))
@@ -81,7 +81,7 @@ class AlfPlist(Plugin):
             elif self._os_version in ["mountain_lion", "lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "allowsignedenabled" in plist:
                             of.write("Allow Signed: {0}\r\n".format(plist["allowsignedenabled"]))
@@ -131,7 +131,7 @@ class AlfPlist(Plugin):
             elif self._os_version == "snow_leopard":
                 if os.path.isfile(file) and os.path.getsize(file) != 0:
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "allowsignedenabled" in plist:
                             of.write("Allow Signed: {0}\r\n".format(plist["allowsignedenabled"]))

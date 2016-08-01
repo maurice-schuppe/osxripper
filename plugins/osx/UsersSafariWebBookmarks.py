@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -62,7 +62,7 @@ class UsersSafariWebBookmarks(Plugin):
                     of.write("Bookmark Plist: {0}\r\n".format(wb_plist))
                     if os.path.isfile(wb_plist):
                         bplist = open(wb_plist, "rb")
-                        plist = ccl_bplist.load(bplist)
+                        plist = riplib.ccl_bplist.load(bplist)
                         bplist.close()
                         try:
                             if "Name" in plist:

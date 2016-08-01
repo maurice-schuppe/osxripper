@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -34,7 +34,7 @@ class DiagnosticReportingNetworksNew(Plugin):
                 of.write("Source File: {0}\r\n\r\n".format(file))
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    pl = ccl_bplist.load(bplist)
+                    pl = riplib.ccl_bplist.load(bplist)
                     try:
                         if "ExternalSignatures" in pl:
                             for ext_sig in pl["ExternalSignatures"]:

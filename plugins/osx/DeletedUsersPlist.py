@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -37,7 +37,7 @@ class DeletedUsersPlist(Plugin):
                                     "mountain_lion", "lion","snow_leopard"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    pl = ccl_bplist.load(bplist)
+                    pl = riplib.ccl_bplist.load(bplist)
                     try:
                         if "deletedUsers" in pl:
                             user_array = pl["deletedUsers"]

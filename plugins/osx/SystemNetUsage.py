@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -79,8 +79,8 @@ def run_process_query(sqlite_connection, output_file):
         cur.execute(query)
         rows = cur.fetchall()
         for row in rows:
-            first_timestamp = osxripper_time.get_cocoa_seconds(row["zfirsttimestamp"])
-            timestamp = osxripper_time.get_cocoa_seconds(row["ztimestamp"])
+            first_timestamp = riplib.osxripper_time.get_cocoa_seconds(row["zfirsttimestamp"])
+            timestamp = riplib.osxripper_time.get_cocoa_seconds(row["ztimestamp"])
             output_file.write("Name           : {0}\r\n".format(row["z_name"]))
             output_file.write("Process        : {0}\r\n".format(row["zprocname"]))
             output_file.write("First Timestamp: {0}\r\n".format(first_timestamp))
@@ -97,7 +97,7 @@ def run_live_usage_query(sqlite_connection, output_file):
         cur.execute(query)
         rows = cur.fetchall()
         for row in rows:
-            ztimestamp = osxripper_time.get_cocoa_seconds(row["ztimestamp"])
+            ztimestamp = riplib.osxripper_time.get_cocoa_seconds(row["ztimestamp"])
             output_file.write("Name     : {0}\r\n".format(row["z_name"]))
             output_file.write("Process  : {0}\r\n".format(row["zprocname"]))
             output_file.write("Timestamp: {0}\r\n".format(ztimestamp))
@@ -119,8 +119,8 @@ def run_network_attachment_query(sqlite_connection, output_file):
             cur.execute(query)
             rows = cur.fetchall()
             for row in rows:
-                zfirsttimestamp = osxripper_time.get_cocoa_seconds(row["zfirsttimestamp"])
-                ztimestamp = osxripper_time.get_cocoa_seconds(row["ztimestamp"])
+                zfirsttimestamp = riplib.osxripper_time.get_cocoa_seconds(row["zfirsttimestamp"])
+                ztimestamp = riplib.osxripper_time.get_cocoa_seconds(row["ztimestamp"])
                 output_file.write("Name           : {0}\r\n".format(row[0]))
                 if row["zidentifier"] is None:
                     output_file.write("Network        : None\r\n")

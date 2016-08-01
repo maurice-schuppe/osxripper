@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -68,7 +68,7 @@ class UsersChromeHistory(Plugin):
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            last_visit_time = osxripper_time.get_gregorian_micros(row["last_visit_time"])
+                            last_visit_time = riplib.osxripper_time.get_gregorian_micros(row["last_visit_time"])
                             of.write("ID         : {0}\r\n".format(row["id"]))
                             of.write("URL        : {0}\r\n".format(row["url"]))
                             of.write("Title      : {0}\r\n".format(row["term"]))

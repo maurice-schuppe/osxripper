@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -38,7 +38,7 @@ class TimeMachinePlist(Plugin):
                 if os.path.isfile(file):
                     try:
                         bplist = open(file, "rb")
-                        pl = ccl_bplist.load(bplist)
+                        pl = riplib.ccl_bplist.load(bplist)
                         if "LastDestinationID" in pl:
                             of.write("Last Destination ID             : {0}\r\n".format(pl["LastDestinationID"]))
                         if "LocalizedDiskImageVolumeName" in pl:
@@ -97,7 +97,7 @@ class TimeMachinePlist(Plugin):
                 if os.path.isfile(file):
                     try:
                         bplist = open(file, "rb")
-                        pl = ccl_bplist.load(bplist)
+                        pl = riplib.ccl_bplist.load(bplist)
                         if "MobileBackups" in pl:
                             of.write("MobileBackups                      : {0}\r\n".format(pl["MobileBackups"]))
                         if "SkipSystemFiles" in pl:

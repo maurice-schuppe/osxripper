@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -70,8 +70,8 @@ class UsersChromeWebData(Plugin):
                         of.write("="*10 + " Autofill " + "="*10 + "\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                date_created = osxripper_time.get_unix_seconds(row["date_created"])
-                                date_last_used = osxripper_time.get_unix_seconds(row["date_last_used"])
+                                date_created = riplib.osxripper_time.get_unix_seconds(row["date_created"])
+                                date_last_used = riplib.osxripper_time.get_unix_seconds(row["date_last_used"])
                                 of.write("Name          : {0}\r\n".format(row["name"]))
                                 of.write("Value         : {0}\r\n".format(row["value"]))
                                 of.write("Value Lower   : {0}\r\n".format(row["value_lower"]))
@@ -130,7 +130,7 @@ class UsersChromeWebData(Plugin):
                         of.write("="*10 + " Autofill Profiles " + "="*10 + "\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                date_modified = osxripper_time.get_unix_seconds(row["date_modified"])
+                                date_modified = riplib.osxripper_time.get_unix_seconds(row["date_modified"])
                                 of.write("GUID              : {0}\r\n".format(row["guid"]))
                                 of.write("Company Name      : {0}\r\n".format(row["company_name"]))
                                 of.write("Street Address    : {0}\r\n".format(row["street_address"]))
@@ -169,7 +169,7 @@ class UsersChromeWebData(Plugin):
                         of.write("N.B. Card Number is encrypted. Ommitted by plugin.\r\n\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                date_modified = osxripper_time.get_unix_seconds(row["date_modified"])
+                                date_modified = riplib.osxripper_time.get_unix_seconds(row["date_modified"])
                                 of.write("GUID            : {0}\r\n".format(row["guid"]))
                                 of.write("Name on Card    : {0}\r\n".format(row["name_on_card"]))
                                 of.write("Expiration Month: {0}\r\n".format(row["expiration_month"]))
@@ -191,8 +191,8 @@ class UsersChromeWebData(Plugin):
                         of.write("="*10 + " Keywords " + "="*10 + "\r\n")
                         if len(rows) != 0:
                             for row in rows:
-                                kw_created = osxripper_time.get_unix_seconds(row["date_created"])
-                                kw_modified = osxripper_time.get_unix_seconds(row["last_modified"])
+                                kw_created = riplib.osxripper_time.get_unix_seconds(row["date_created"])
+                                kw_modified = riplib.osxripper_time.get_unix_seconds(row["last_modified"])
                                 of.write("ID                          : {0}\r\n".format(row["id"]))
                                 of.write("Short Name                  : {0}\r\n".format(row["short_name"]))
                                 of.write("Keyword                     : {0}\r\n".format(row["keyword"]))

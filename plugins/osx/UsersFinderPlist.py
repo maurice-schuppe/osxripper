@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -55,7 +55,7 @@ class UsersFinderPlist(Plugin):
             if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    pl = ccl_bplist.load(bplist)
+                    pl = riplib.ccl_bplist.load(bplist)
                     try:
                         if "FXDesktopVolumePositions" in pl: 
                             for key in pl["FXDesktopVolumePositions"].keys():
@@ -75,7 +75,7 @@ class UsersFinderPlist(Plugin):
                 #  This needs double checking, none of the DVD, or DMGs mounted are recorded...
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    pl = ccl_bplist.load(bplist)
+                    pl = riplib.ccl_bplist.load(bplist)
                     try:
                         if "FXConnectToLastURL" in pl:
                             of.write("Connect to Last URL: {0}\r\n".format(pl["FXConnectToLastURL"]))

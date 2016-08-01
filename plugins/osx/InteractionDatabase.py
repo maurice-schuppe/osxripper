@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -64,19 +64,19 @@ class InteractionDatabase(Plugin):
                             else:
                                 for row in rows:
                                     creationdate = \
-                                        osxripper_time.get_cocoa_seconds(row["zcreationdate"])
+                                        riplib.osxripper_time.get_cocoa_seconds(row["zcreationdate"])
                                     firstinrecipdate = \
-                                        osxripper_time.get_cocoa_seconds(row["zfirstincomingrecipientdate"])
+                                        riplib.osxripper_time.get_cocoa_seconds(row["zfirstincomingrecipientdate"])
                                     firstinsenderdate = \
-                                        osxripper_time.get_cocoa_seconds(row["zfirstincomingsenderdate"])
+                                        riplib.osxripper_time.get_cocoa_seconds(row["zfirstincomingsenderdate"])
                                     firstoutrecipdate = \
-                                        osxripper_time.get_cocoa_seconds(row["zfirstoutgoingrecipientdate"])
+                                        riplib.osxripper_time.get_cocoa_seconds(row["zfirstoutgoingrecipientdate"])
                                     lastinrecipdate = \
-                                        osxripper_time.get_cocoa_seconds(row["zlastincomingrecipientdate"])
+                                        riplib.osxripper_time.get_cocoa_seconds(row["zlastincomingrecipientdate"])
                                     lastinsenderdate = \
-                                        osxripper_time.get_cocoa_seconds(row["zlastincomingsenderdate"])
+                                        riplib.osxripper_time.get_cocoa_seconds(row["zlastincomingsenderdate"])
                                     lastoutrecipdate = \
-                                        osxripper_time.get_cocoa_seconds(row["zlastincomingsenderdate"])
+                                        riplib.osxripper_time.get_cocoa_seconds(row["zlastincomingsenderdate"])
 
                                     of.write("Name                         : {0}\r\n".format(row["z_name"]))
                                     of.write("Display Name                 : {0}\r\n".format(row["zdisplayname"]))

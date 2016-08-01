@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -47,7 +47,7 @@ class DocumentRevisions(Plugin):
                             cur.execute(query)
                             rows = cur.fetchall()
                             for row in rows:
-                                file_last_seen = osxripper_time.get_unix_seconds(row["file_last_seen"])
+                                file_last_seen = riplib.osxripper_time.get_unix_seconds(row["file_last_seen"])
                                 of.write("Row ID         : {0}\r\n".format(row["file_row_id"]))
                                 of.write("File Name      : {0}\r\n".format(row["file_name"]))
                                 of.write("Parent ID      : {0}\r\n".format(row["file_parent_id"]))

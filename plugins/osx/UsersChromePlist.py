@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -56,7 +56,7 @@ class UsersChromePlist(Plugin):
                                     "mavericks", "mountain_lion", "lion", "snow_leopard"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "LastRunAppBundlePath" in plist:
                             of.write("Last Run App Bundle Path: {0}\r\n\r\n".format(plist["LastRunAppBundlePath"]))

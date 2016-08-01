@@ -3,7 +3,7 @@ import codecs
 import datetime
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -39,7 +39,7 @@ class LocationdClientsPlist(Plugin):
                 if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks"]:
                     try:
                         bplist = open(file, "rb")
-                        plist = ccl_bplist.load(bplist)
+                        plist = riplib.ccl_bplist.load(bplist)
                         bplist.close()
                         for client_dict in plist:
                             of.write("{0}\r\n".format(client_dict))
@@ -71,7 +71,7 @@ class LocationdClientsPlist(Plugin):
                 elif self._os_version == "mountain_lion":
                     try:
                         bplist = open(file, "rb")
-                        plist = ccl_bplist.load(bplist)
+                        plist = riplib.ccl_bplist.load(bplist)
                         bplist.close()
                         for client_dict in plist:
                             of.write("{0}\r\n".format(client_dict))

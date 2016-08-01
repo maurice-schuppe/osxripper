@@ -3,7 +3,7 @@ import codecs
 import logging
 import os
 import plistlib
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -50,7 +50,7 @@ class SystemAccountsPlist(Plugin):
             if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    pl = ccl_bplist.load(bplist)
+                    pl = riplib.ccl_bplist.load(bplist)
                     bplist.close()
                     try:
                         if "home" in pl and "/var" in pl["home"][0]:  # Only /var based system accounts

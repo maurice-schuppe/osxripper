@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -71,9 +71,9 @@ class UsersChromeCookies(Plugin):
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            creation_utc = osxripper_time.get_gregorian_micros(row["creation_utc"])
-                            last_access_utc = osxripper_time.get_gregorian_micros(row["last_access_utc"])
-                            expires_utc = osxripper_time.get_gregorian_micros(row["expires_utc"])
+                            creation_utc = riplib.osxripper_time.get_gregorian_micros(row["creation_utc"])
+                            last_access_utc = riplib.osxripper_time.get_gregorian_micros(row["last_access_utc"])
+                            expires_utc = riplib.osxripper_time.get_gregorian_micros(row["expires_utc"])
 
                             of.write("Host Key       : {0}\r\n".format(row["host_key"]))
                             of.write("Name           : {0}\r\n".format(row["name"]))

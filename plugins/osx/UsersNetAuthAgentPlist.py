@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -55,7 +55,7 @@ class UsersNetAuthAgentPlist(Plugin):
             if self._os_version in ["sierra", "el_capitan"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "PreviouslySelectedShares" in plist:
                             for key in plist["PreviouslySelectedShares"].keys():

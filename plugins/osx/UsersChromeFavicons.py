@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -69,7 +69,7 @@ class UsersChromeFavicons(Plugin):
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            last_updated = osxripper_time.get_gregorian_micros(row["last_updated"])
+                            last_updated = riplib.osxripper_time.get_gregorian_micros(row["last_updated"])
                             of.write("Page URL    : {0}\r\n".format(row["page_url"]))
                             of.write("Icon URL    : {0}\r\n".format(row["url"]))
                             of.write("Last Updated: {0}\r\n".format(last_updated))

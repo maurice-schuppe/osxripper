@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -79,8 +79,8 @@ class UsersChromeLoginData(Plugin):
                             of.write("No data found in this database.\r\n\r\n")
                         else:
                             for row in rows:
-                                date_created = osxripper_time.get_gregorian_micros(row["date_created"])
-                                date_synced = osxripper_time.get_gregorian_micros(row["date_synced"])
+                                date_created = riplib.osxripper_time.get_gregorian_micros(row["date_created"])
+                                date_synced = riplib.osxripper_time.get_gregorian_micros(row["date_synced"])
                                 of.write("Username           : {0}\r\n".format(row["username_value"]))
                                 of.write("Display Name       : {0}\r\n".format(row["display_name"]))
                                 of.write("Origin URL         : {0}\r\n".format(row["origin_url"]))

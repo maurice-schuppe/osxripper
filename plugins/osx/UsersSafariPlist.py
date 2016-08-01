@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -55,7 +55,7 @@ class UsersSafariPlist(Plugin):
             if self._os_version in ["sierra", "el_capitan", "yosemite"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "RecentWebSearches" in plist:
                             of.write("Recent Web Searches:\r\n")
@@ -82,7 +82,7 @@ class UsersSafariPlist(Plugin):
             elif self._os_version in ["mavericks", "mountain_lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "RecentSearchStrings" in plist:
                             of.write("Recent Search Strings:\r\n")
@@ -108,7 +108,7 @@ class UsersSafariPlist(Plugin):
             elif self._os_version in ["lion", "snow_leopard"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "RecentSearchStrings" in plist:
                             of.write("Recent Search Strings:\r\n")

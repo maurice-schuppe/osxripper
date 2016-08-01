@@ -3,9 +3,9 @@ import codecs
 import datetime
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -77,7 +77,7 @@ class UsersSafariHistory(Plugin):
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            visit_time = osxripper_time.get_cocoa_seconds(row["visit_time"])
+                            visit_time = riplib.osxripper_time.get_cocoa_seconds(row["visit_time"])
                             of.write("ID               : {0}\r\n".format(row["id"]))
                             of.write("URL              : {0}\r\n".format(row["url"]))
                             of.write("Visit Count      : {0}\r\n".format(row["visit_count"]))
@@ -111,7 +111,7 @@ class UsersSafariHistory(Plugin):
             if os.path.isfile(history_plist):
                 of.write("Source File: {0}\r\n\r\n".format(history_plist))
                 bplist = open(history_plist, "rb")
-                plist = ccl_bplist.load(bplist)
+                plist = riplib.ccl_bplist.load(bplist)
                 try:
                     if "WebHistoryFileVersion" in plist:
                         of.write("Web History File Version: {0}\r\n".format(plist["WebHistoryFileVersion"]))

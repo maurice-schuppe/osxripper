@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -76,8 +76,8 @@ class UsersMozillaFirefoxFormHistory(Plugin):
                         cur.execute(query)
                         rows = cur.fetchall()
                         for row in rows:
-                            first_used = osxripper_time.get_unix_micros(row["firstUsed"])
-                            last_used = osxripper_time.get_unix_micros(row["lastUsed"])
+                            first_used = riplib.osxripper_time.get_unix_micros(row["firstUsed"])
+                            last_used = riplib.osxripper_time.get_unix_micros(row["lastUsed"])
                             of.write("Field Name: {0}\r\n".format(row["fieldname"]))
                             of.write("Value     : {0}\r\n".format(row["value"]))
                             of.write("Times Used: {0}\r\n".format(row["timesUsed"]))

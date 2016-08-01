@@ -2,7 +2,7 @@ from riplib.Plugin import Plugin
 import codecs
 import logging
 import os
-import osxripper_time
+import riplib.osxripper_time
 import sqlite3
 
 __author__ = 'osxripper'
@@ -60,7 +60,8 @@ class QuicklookThumbnailCache(Plugin):
                                     rows = cur.fetchall()
                                     if len(rows) > 0:
                                         for row in rows:
-                                            last_hit_date = osxripper_time.get_cocoa_seconds(row["last_hit_date"])
+                                            last_hit_date = \
+                                                riplib.osxripper_time.get_cocoa_seconds(row["last_hit_date"])
                                             of.write("Folder        : {0}\r\n".format(row["folder"]))
                                             of.write("File Name     : {0}\r\n".format(row["file_name"]))
                                             of.write("Hit Count     : {0}\r\n".format(row["hit_count"]))

@@ -3,7 +3,7 @@ import codecs
 import logging
 import os
 import plistlib
-import ccl_bplist
+import riplib.ccl_bplist
 
 __author__ = 'osxripper'
 __version__ = '0.1'
@@ -56,7 +56,7 @@ class UsersSafariDownloadPlist(Plugin):
             if self._os_version in ["sierra", "el_capitan", "yosemite"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "DownloadHistory" in plist:
                             of.write("Download History:\r\n")
@@ -89,7 +89,7 @@ class UsersSafariDownloadPlist(Plugin):
             elif self._os_version in ["mavericks", "mountain_lion", "lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
-                    plist = ccl_bplist.load(bplist)
+                    plist = riplib.ccl_bplist.load(bplist)
                     try:
                         if "DownloadHistory" in plist:
                             of.write("Download History:\r\n")
