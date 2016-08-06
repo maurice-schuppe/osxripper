@@ -5,7 +5,7 @@ import plugins.osx.DhcpLeasesPlist as DhcpLeasesPlist
 import plugins.osx.SystemTime as SystemTime
 import plugins.osx.UserAccountsPlist as UserAccountsPlist
 import plugins.osx.Playlists as PlayLists
-from plugins.osx.TimeMachinePlist import TimeMachinePlist
+import plugins.osx.TimeMachinePlist as TimeMachinePlist
 import plugins.osx.BluetoothPlist as BluetoothPlist
 import plugins.osx.InstallHistory as InstallHistory
 
@@ -66,7 +66,7 @@ class Summary(Plugin):
         playlists.set_output_directory(self._output_dir)
         playlists.parse()
 
-        time_machine = TimeMachinePlist()
+        time_machine = TimeMachinePlist.TimeMachinePlist()
         time_machine._output_file = self._output_file
         time_machine.set_os_version(self._os_version)
         time_machine.set_input_directory(self._input_dir)
