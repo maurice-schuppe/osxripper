@@ -167,26 +167,26 @@ def print_usage():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input", help="input mountpoint or directory")
-    parser.add_argument("-o", "--output", help="output or directory")
+    parser.add_argument("-i", "--input", help="input mountpoint or directory", required=True)
+    parser.add_argument("-o", "--output", help="output or directory", required=True)
     parser.add_argument("-s", "--summary", action="store_true", help="only run the summary plugin")
     args = parser.parse_args()
-    if not args.input and not args.output:
-        print("[ERROR] no input or output options set.")
-        print_usage()
-    elif args.input and not args.output:
-        print("[ERROR] no output option set.")
-        print_usage()
-    elif args.output and not args.input:
-        print("[ERROR] no input options set.")
-        print_usage()
-    else:
-        if not os.path.isdir(args.input):
-            print("[ERROR] Input directory does not exist. \
-             Ensure the input directory/mountpoint exists and is accessible.")
-            sys.exit(1)
-        if not os.path.isdir(args.output):
-            print("[ERROR] Output directory does not exist. \
-             Ensure the output directory/mountpoint exists and is accessible.")
-            sys.exit(1)
-        main()
+    # if not args.input and not args.output:
+    #     print("[ERROR] no input or output options set.")
+    #     print_usage()
+    # elif args.input and not args.output:
+    #     print("[ERROR] no output option set.")
+    #     print_usage()
+    # elif args.output and not args.input:
+    #     print("[ERROR] no input options set.")
+    #     print_usage()
+    # else:
+    if not os.path.isdir(args.input):
+        print("[ERROR] Input directory does not exist. \
+         Ensure the input directory/mountpoint exists and is accessible.")
+        sys.exit(1)
+    if not os.path.isdir(args.output):
+        print("[ERROR] Output directory does not exist. \
+         Ensure the output directory/mountpoint exists and is accessible.")
+        sys.exit(1)
+    main()
