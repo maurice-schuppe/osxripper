@@ -3,6 +3,9 @@ OSXRipper is a tool to gather system and user information from OSX file systems.
 
 ####Alternatives to OSXRipper
 
+MAC APT
+- https://github.com/ydkhatri/mac_apt<br />
+
 OSX Auditor
 - https://github.com/jipegit/OSXAuditor<br />
 
