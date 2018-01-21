@@ -1,5 +1,5 @@
 # OSXRipper
-OSXRipper is a tool to gather system and user information from OSX file systems. Currently it is supporting OSX versions 10.6 - 10.12 (Snow Leopard to Sierra Beta).
+OSXRipper is a tool to gather system and user information from OSX file systems. Currently it is supporting OSX versions 10.6 - 10.13 (Snow Leopard to High Sierra).
 
 ####Alternatives to OSXRipper
 
