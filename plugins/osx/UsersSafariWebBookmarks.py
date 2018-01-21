@@ -54,7 +54,11 @@ class UsersSafariWebBookmarks(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {0}\r\n\r\n".format(file))
-            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks",
+            if self.set_os_version in ["high_sierra"]:
+                logging.warning("File: Bookmarks files not in this version.")
+                of.write("[INFO] File: Bookmarks files not in this version.\r\n")
+                print("[INFO] File: Bookmarks files not in this version.")
+            elif self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks",
                                     "mountain_lion", "lion", "snow_leopard"]:
                 plist_dir_list = os.listdir(file)
                 for wb_file in plist_dir_list:

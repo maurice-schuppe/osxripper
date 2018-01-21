@@ -56,7 +56,11 @@ class UsersSafariMetadataHistory(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {0}\r\n\r\n".format(file))
-            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion"]:
+            if self.set_os_version in ["high_sierra"]:
+                logging.warning("File: .tracked files not in this version.")
+                of.write("[INFO] File: .tracked files not in this version.\r\n")
+                print("[INFO] File: .tracked files not in this version.")
+            elif  self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion"]:
                 plist_dir_list = os.listdir(file)
                 if ".tracked filenames.plist" in plist_dir_list:
                     bplist = open(os.path.join(file, ".tracked filenames.plist"), "rb")

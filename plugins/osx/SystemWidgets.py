@@ -44,6 +44,10 @@ class SystemWidgets(Plugin):
                     logging.warning("Directory: {0} does not exist or cannot be found.\r\n".format(working_dir))
                     of.write("[WARNING] Directory: {0} does not exist or cannot be found.\r\n".format(working_dir))
                     print("[WARNING] Directory: {0} does not exist or cannot be found.\r\n".format(working_dir))
+            elif self._os_version in ["high_sierra"]:
+                logging.info("This version of OSX is not supported this plugin.")
+                print("[INFO] This version of OSX is not supported this plugin.")
+                of.write("[INFO] This version of OSX is not supported this plugin.\r\n")
             else:
                 logging.warning("Not a known OSX version.")
                 print("[WARNING] Not a known OSX version.")

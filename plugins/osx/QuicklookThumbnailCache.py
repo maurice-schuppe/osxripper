@@ -37,7 +37,7 @@ class QuicklookThumbnailCache(Plugin):
             start_folder = os.path.join(self._input_dir, "private", "var", "folders")
             file_list = []
 
-            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks",
+            if self._os_version in ["high_sierra", "sierra", "el_capitan", "yosemite", "mavericks",
                                     "mountain_lion", "lion", "snow_leopard"]:
                 query = "SELECT f.folder,f.file_name,tb.hit_count,tb.last_hit_date FROM files f,thumbnails tb" \
                         " WHERE f.rowid = tb.file_id ORDER BY f.folder, tb.last_hit_date"
@@ -68,7 +68,7 @@ class QuicklookThumbnailCache(Plugin):
                                             of.write("Last Hit Date : {0}\r\n".format(last_hit_date))
                                             of.write("\r\n")
                                     else:
-                                        of.write("No data in dtabase.\r\n")
+                                        of.write("No data in database.\r\n")
                                 of.write("\r\n")
                             except sqlite3.Error as e:
                                 logging.error("{0}".format(e.args[0]))

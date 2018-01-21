@@ -20,6 +20,7 @@ LION = "lion"
 SNOW_LEOPARD = "snow_leopard"
 EL_CAPITAN = "el_capitan"
 SIERRA = "sierra"
+HIGH_SIERRA = "high_sierra"
 LOG_FILE = ""
 
 
@@ -54,6 +55,8 @@ def __get_osx_version():
     osx_version.set_input_directory(args.input)
     global use_version
     use_version = osx_version.parse()
+    if "10.13" in use_version:
+        use_version = HIGH_SIERRA
     if "10.12" in use_version:
         use_version = SIERRA
     if "10.11" in use_version:

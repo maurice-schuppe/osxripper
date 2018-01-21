@@ -44,7 +44,7 @@ class InteractionDatabase(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             database_file = os.path.join(self._input_dir, "private", "var", "db", "CoreDuet", "People", self._data_file)
             # if self._os_version == "el_capitan":
-            if self._os_version in ["sierra", "el_capitan"]:
+            if self._os_version in ["high_sierra", "sierra", "el_capitan"]:
                 if not os.path.isfile(database_file):
                     logging.warning("File: {0} does not exist or cannot be found.\r\n".format(self._data_file))
                     of.write("[WARNING] File: {0} does not exist or cannot be found.\r\n".format(self._data_file))

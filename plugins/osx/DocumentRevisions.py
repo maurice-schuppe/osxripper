@@ -34,7 +34,7 @@ class DocumentRevisions(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             file = os.path.join(self._input_dir, ".DocumentRevisions-V100", "db-V1", self._data_file)
             of.write("Source File: {0}\r\n\r\n".format(file))
-            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
+            if self._os_version in ["high_sierra", "sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
                 query = "SELECT file_row_id,file_name,file_parent_id,file_path,file_inode,file_last_seen," \
                         "file_status, file_storage_id FROM files"
                 if os.path.isfile(file):

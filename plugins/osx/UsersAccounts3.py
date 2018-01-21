@@ -114,7 +114,7 @@ class UsersAccounts3(Plugin):
                 finally:
                     if conn:
                         conn.close()
-            elif self._os_version in ["sierra", "lion", "snow_leopard"]:
+            elif self._os_version in ["high_sierra", "sierra", "lion", "snow_leopard"]:
                 logging.info("This version of OSX is not supported by this plugin.")
                 print("[INFO] This version of OSX is not supported by this plugin.")
                 of.write("[INFO] This version of OSX is not supported by this plugin.\r\n")

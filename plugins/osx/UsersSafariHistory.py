@@ -24,7 +24,7 @@ class UsersSafariHistory(Plugin):
         super().__init__()
         self._name = "User Safari History"
         self._description = "Parse information from " \
-                            "/Users/<username>/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2"
+                            "/Users/<username>/Library/Safari"
         self._data_file = ""  # multiple files, Yosemite is a SQLite DB and others are Plists
         self._output_file = ""  # this will have to be defined per user account
         self._type = "multi"
@@ -40,7 +40,7 @@ class UsersSafariHistory(Plugin):
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
                     history_path = os.path.join(users_path, username, "Library", "Safari")
                     if os.path.isdir(history_path):
-                        if self._os_version in ["sierra", "el_capitan", "yosemite"]:
+                        if self._os_version in ["high_sierra", "sierra", "el_capitan", "yosemite"]:
                             self.__parse_sqlite_db(history_path, username)
                         elif self._os_version in ["mavericks", "mountain_lion", "lion", "snow_leopard"]:
                             self.__parse_history_plist(history_path, username)

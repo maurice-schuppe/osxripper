@@ -47,7 +47,8 @@ class SystemAccountsPlist(Plugin):
         Parse a User Account Binary Plist files
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
-            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion", "lion"]:
+            if self._os_version in ["high_sierra", "sierra", "el_capitan", "yosemite",
+                                    "mavericks", "mountain_lion", "lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     pl = riplib.ccl_bplist.load(bplist)

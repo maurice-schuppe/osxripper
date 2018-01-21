@@ -52,7 +52,7 @@ class UsersFinderPlist(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + ".txt"), "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {0}\r\n\r\n".format(file))
-            if self._os_version in ["sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion"]:
+            if self._os_version in ["high_sierra", "sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     pl = riplib.ccl_bplist.load(bplist)
