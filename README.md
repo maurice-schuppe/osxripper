@@ -1,7 +1,7 @@
 # OSXRipper
 OSXRipper is a tool to gather system and user information from OSX file systems. Currently it is supporting OSX versions 10.6 - 10.13 (Snow Leopard to High Sierra).
 
-####Alternatives to OSXRipper
+#### Alternatives to OSXRipper
 
 MAC APT
 - https://github.com/ydkhatri/mac_apt<br />
@@ -18,13 +18,13 @@ Mac Plist Ripper
 
 If anyone knows of alternatives I would be more than happy to add them here.
 
-####Uses the CCL Forensics BPlist parser
+#### Uses the CCL Forensics BPlist parser
 https://github.com/cclgroupltd/ccl-bplist
 
 __Prereqs__<br />
 Assumes at least Python 3.4.3 is installed
 
-####Usage
+#### Usage
 
 python3 osxripper.py --help
 
@@ -48,5 +48,5 @@ N.B. if kpartx used to mount the image the input path may be /media/...<br />
 __On Windows:__<br />
 <em>python.exe osxripper.py -i X:\extracted_files_root -o C:\Users\username\Desktop\my_analysis</em><br />
 
-####Plugin Development Guide
+#### Plugin Development Guide
 Check the Wiki page for getting started with plugin development or make use of existing plugins under __plugins/osx__
