@@ -91,6 +91,7 @@ def __load_plugins():
     """
     osx_plugins_path = os.path.join('.', 'plugins', "osx")
     osx_plugins_list = os.listdir(osx_plugins_path)
+    osx_plugins_list.sort()
     for osx_plugin_source in osx_plugins_list:
         if osx_plugin_source.endswith(".py") and "__init__" not in osx_plugin_source:
             plugin_class = __load_from_file(os.path.splitext(osx_plugin_source)[0])
@@ -121,6 +122,15 @@ def __run_plugins():
         active_plugin.set_input_directory(args.input)
         active_plugin.set_output_directory(args.output)
         active_plugin.parse()
+
+
+def __list_plugins():
+    """
+    List the available plugins
+    """
+    __load_plugins()
+    for active_plugin in active_plugin_list:
+        print("{0} - {1}".format(active_plugin.get_name, active_plugin.get_description))
 
 
 def main():
@@ -170,8 +180,9 @@ def print_usage():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input", help="input mountpoint or directory", required=True)
-    parser.add_argument("-o", "--output", help="output or directory", required=True)
+    parser.add_argument("-i", "--input", help="input mountpoint or directory")
+    parser.add_argument("-o", "--output", help="output or directory")
+    parser.add_argument("-l", "--list", action="store_true", help="list the available plugins")
     parser.add_argument("-s", "--summary", action="store_true", help="only run the summary plugin")
     args = parser.parse_args()
     # if not args.input and not args.output:
@@ -184,6 +195,11 @@ if __name__ == "__main__":
     #     print("[ERROR] no input options set.")
     #     print_usage()
     # else:
+
+    if args.list:
+        __list_plugins()
+        sys.exit(0)
+
     if not os.path.isdir(args.input):
         print("[ERROR] Input directory does not exist. \
          Ensure the input directory/mountpoint exists and is accessible.")
