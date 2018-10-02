@@ -32,6 +32,7 @@ __Options__<br />
 -h, --help                       Show help message and exit<br />
 -i DIRECTORY, --input=DIRECTORY  input directory<br />
 -o DIRECTORY, --output=DIRECTORY output directory<br />
+-l, --list List the available plugins
 -s, --summary                    Run Summary plugin only<br />
 
 __Notes__<br />
