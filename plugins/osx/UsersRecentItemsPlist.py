@@ -34,7 +34,10 @@ class UsersRecentItemsPlist(Plugin):
             user_list = os.listdir(users_path)
             for username in user_list:
                 if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
-                    if self._os_version == "el_capitan":
+                    if self._os_version in ["mojave", "high_sierra"]:
+                        # File does not exist in these versions
+                        return
+                    elif self._os_version in ["sierra", "el_capitan"]:
                         self._data_file = os.path.join(users_path, username, "Library", "Application Support",
                                                        "com.apple.sharedfilelist",
                                                        "com.apple.LSSharedFileList.RecentHosts.sfl")

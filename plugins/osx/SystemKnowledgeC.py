@@ -57,7 +57,7 @@ class SystemKnowledgeC(Plugin):
             of.write("=" * 10 + " " + self._name + " " + "=" * 10 + "\r\n")
             file = os.path.join(self._input_dir, "private", "var", "db", "CoreDuet", "Knowledge", self._data_file)
             of.write("Source File: {0}\r\n\r\n".format(file))
-            if self._os_version in ["high_sierra"]:
+            if self._os_version in ["mojave", "high_sierra"]:
                 if os.path.isfile(file):
                     pass
                     conn = None

@@ -34,7 +34,7 @@ class TimeMachinePlist(Plugin):
             file = os.path.join(self._input_dir, "Library", "Preferences", self._data_file)
             of.write("Source File: {0}\r\n\r\n".format(file))
             # if self._os_version == "el_capitan":
-            if self._os_version in ["high_sierra", "sierra", "el_capitan"]:
+            if self._os_version in ["mojave", "high_sierra", "sierra", "el_capitan"]:
                 if os.path.isfile(file):
                     try:
                         bplist = open(file, "rb")

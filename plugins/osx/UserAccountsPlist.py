@@ -31,19 +31,22 @@ class UserAccountsPlist(Plugin):
         Public function called to parse the data file set in __init__
         """
         working_dir = os.path.join(self._input_dir, "private", "var", "db", "dslocal", "nodes", "Default", "users")
-        file_listing = os.listdir(working_dir)
-        for f in file_listing:
-            stat_info = os.stat(working_dir + os.path.sep + f)
-            if f.endswith(".plist") and stat_info.st_size > 0:
-                test_plist = os.path.join(working_dir, f)
-                self.__parse_bplist(test_plist)
+        if os.path.exists(working_dir):
+            file_listing = os.listdir(working_dir)
+            for f in file_listing:
+                stat_info = os.stat(working_dir + os.path.sep + f)
+                if f.endswith(".plist") and stat_info.st_size > 0:
+                    test_plist = os.path.join(working_dir, f)
+                    self.__parse_bplist(test_plist)
+        else:
+            print("Warning /private/var/db/dslocal/nodes/Default/users does not exist.")
 
     def __parse_bplist(self, file):
         """
         Parse a User Account Binary Plist files
         """
         with codecs.open(os.path.join(self._output_dir, self._output_file), "a", encoding="utf-8") as of:
-            if self._os_version in ["high_sierra", "sierra", "el_capitan", "yosemite",
+            if self._os_version in ["mojave", "high_sierra", "sierra", "el_capitan", "yosemite",
                                     "mavericks", "mountain_lion", "lion"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")

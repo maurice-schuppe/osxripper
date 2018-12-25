@@ -21,6 +21,7 @@ SNOW_LEOPARD = "snow_leopard"
 EL_CAPITAN = "el_capitan"
 SIERRA = "sierra"
 HIGH_SIERRA = "high_sierra"
+MOJAVE = "mojave"
 LOG_FILE = ""
 
 
@@ -55,6 +56,8 @@ def __get_osx_version():
     osx_version.set_input_directory(args.input)
     global use_version
     use_version = osx_version.parse()
+    if "10.14" in use_version:
+        use_version = MOJAVE
     if "10.13" in use_version:
         use_version = HIGH_SIERRA
     if "10.12" in use_version:
@@ -177,6 +180,7 @@ def print_usage():
     print("python3 osxripper.py -i /root_directory_for_OSX_mount -o /some_directory_to_write_to\n")
     print("For help:")
     print("python3 osxripper.py -h or python3 osxripper.py --help")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

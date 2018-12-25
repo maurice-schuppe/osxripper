@@ -51,7 +51,11 @@ class UsersSafariCache(Plugin):
         with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_Safari_Cache.txt"), "a",
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
-            if self._os_version in ["high_sierra", "sierra", "el_capitan", "yosemite", "mavericks", "mountain_lion"]:
+            if self._os_version == "mojave":
+                # Does not exist in Mojave
+                pass
+            if self._os_version in ["high_sierra", "sierra", "el_capitan", "yosemite", "mavericks",
+                                    "mountain_lion"]:
                 query = "SELECT request_key, partition, time_stamp FROM cfurl_cache_response"
                 if os.path.isfile(file):
                     of.write("Source File: {0}\r\n\r\n".format(file))

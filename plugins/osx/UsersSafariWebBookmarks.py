@@ -54,7 +54,10 @@ class UsersSafariWebBookmarks(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {0}\r\n\r\n".format(file))
-            if self.set_os_version in ["high_sierra"]:
+            if self.set_os_version in ["mojave"]:
+                # Does not exist in Mojave
+                return
+            elif self.set_os_version in ["high_sierra"]:
                 logging.warning("File: Bookmarks files not in this version.")
                 of.write("[INFO] File: Bookmarks files not in this version.\r\n")
                 print("[INFO] File: Bookmarks files not in this version.")

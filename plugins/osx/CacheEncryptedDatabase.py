@@ -45,7 +45,7 @@ class CacheEncryptedDatabase(Plugin):
                 print("[WARNING] File: {0} does not exist or cannot be found.".format(self._data_file))
                 return
 
-            if self._os_version in ["high_sierra", "sierra", "el_capitan", "yosemite", "mavericks"]:
+            if self._os_version in ["mojave", "high_sierra", "sierra", "el_capitan", "yosemite", "mavericks"]:
                 query = "SELECT mac,channel,timestamp,latitude," \
                         "longitude,horizontalaccuracy,altitude,verticalaccuracy,speed,course," \
                         "confidence,score,reach FROM wifilocation ORDER BY timestamp, mac"

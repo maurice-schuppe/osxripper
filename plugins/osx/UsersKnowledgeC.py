@@ -36,7 +36,7 @@ class UsersKnowledgeC(Plugin):
             for username in user_list:
                 with codecs.open(os.path.join(self._output_dir, "Users_" + username + "_KnowledgeC.txt"), "a",
                                  encoding="utf-8") as of:
-                    if self._os_version in ["high_sierra"]:
+                    if self._os_version in ["mojave", "high_sierra"]:
                         if os.path.isdir(os.path.join(users_path, username)) and not username == "Shared":
                             knowledgec_path = os.path.join(users_path, username, "Library", "Application Support",
                                                            "Knowledge")

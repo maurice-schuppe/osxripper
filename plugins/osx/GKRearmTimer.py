@@ -33,7 +33,7 @@ class GKRearmTimer(Plugin):
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             plist_file = os.path.join(self._input_dir, "private", "var", "db", self._data_file)
             of.write("Source File: {0}\r\n\r\n".format(plist_file))
-            if self._os_version in ["high_sierra", "sierra", "el_capitan", "yosemite"]:
+            if self._os_version in ["mojave", "high_sierra", "sierra", "el_capitan", "yosemite"]:
                 if os.path.isfile(plist_file):
                     try:
                         with open(plist_file, "rb") as pl:

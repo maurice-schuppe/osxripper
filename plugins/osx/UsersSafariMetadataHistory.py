@@ -56,7 +56,7 @@ class UsersSafariMetadataHistory(Plugin):
                          encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source Directory: {0}\r\n\r\n".format(file))
-            if self.set_os_version in ["high_sierra"]:
+            if self.set_os_version in ["mojave", "high_sierra"]:
                 logging.warning("File: .tracked files not in this version.")
                 of.write("[INFO] File: .tracked files not in this version.\r\n")
                 print("[INFO] File: .tracked files not in this version.")

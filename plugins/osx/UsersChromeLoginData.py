@@ -62,7 +62,7 @@ class UsersChromeLoginData(Plugin):
             #         "scheme,password_type,avatar_url,federation_url FROM logins ORDER BY username_value"
             query = "SELECT username_value,display_name,origin_url,action_url," \
                     "date_created,date_synced," \
-                    "signon_realm,ssl_valid,preferred,times_used,blacklisted_by_user," \
+                    "signon_realm,preferred,times_used,blacklisted_by_user," \
                     "scheme,password_type,federation_url FROM logins ORDER BY username_value"
             if os.path.isfile(history_db):
                 of.write("Source File: {0}\r\n\r\n".format(history_db))

@@ -55,7 +55,10 @@ class UsersRecentHosts(Plugin):
                          "a", encoding="utf-8") as of:
             of.write("="*10 + " " + self._name + " " + "="*10 + "\r\n")
             of.write("Source File: {0}\r\n\r\n".format(file))
-            if self._os_version in ["high_sierra", "sierra", "el_capitan"]:
+            if self._os_version in ["mojave", "high_sierra"]:
+                # High Sierra and Mojave uses .sfl2 files
+                pass
+            elif self._os_version in ["sierra", "el_capitan"]:
                 if os.path.isfile(file):
                     bplist = open(file, "rb")
                     plist = riplib.ccl_bplist.load(bplist)
